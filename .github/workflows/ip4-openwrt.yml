@@ -1,13 +1,10 @@
 name: openwrt-ip4
 
 on:
-  repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
+      manual:
+        description: '手动触发一次编译'
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
@@ -26,7 +23,7 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@main
 
-    - name: 初始化环境
+    - name: 初始化编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -42,6 +39,7 @@ jobs:
     - name: 拉取openwrt源码
       working-directory: /workdir
       run: |
+        df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
