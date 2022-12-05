@@ -68,4 +68,4 @@ rm -rf feeds/packages/utils/coremark
 #svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
 
 ##添加filetransert
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
+#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
