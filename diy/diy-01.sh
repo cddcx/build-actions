@@ -14,17 +14,10 @@
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # 添加源
-echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-
-# luci-app-vssr及依赖
-git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
-git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-
-# 软件中心istore
-svn co https://github.com/linkease/istore/trunk/luci/luci-app-store package/luci-app-store
-rm -rf package/luci-app-store/.svn
-sed -i 's/("iStore"), 31/("应用"), 61/g' package/luci-app-store/luasrc/controller/store.lua
+echo "src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages" >>  feeds.conf.default
+#echo 'src-git store https://github.com/linkease/istore.git;main' >>feeds.conf.default
+#echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+#echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default
 
 # luci-theme-opentopd主题
 git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
