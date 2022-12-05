@@ -1,4 +1,4 @@
-name: openwrt
+name: master
 
 on:
   workflow_dispatch:
