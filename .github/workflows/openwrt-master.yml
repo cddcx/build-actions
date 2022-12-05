@@ -1,4 +1,4 @@
-name: openwrt-ip4
+name: openwrt
 
 on:
   workflow_dispatch:
