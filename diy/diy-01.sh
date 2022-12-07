@@ -18,7 +18,8 @@ echo "src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-pac
 #echo 'src-git store https://github.com/linkease/istore.git;main' >>feeds.conf.default
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default
+svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean #添加lean 
 
 # luci-theme-opentopd主题
-#git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
-#rm -rf package/luci-theme-opentopd/README* package/luci-theme-opentopd/doc/
+git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
+rm -rf package/luci-theme-opentopd/README* package/luci-theme-opentopd/doc/
