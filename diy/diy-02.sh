@@ -44,14 +44,22 @@ ln -s ../../../feeds/luci/libs/luci-lib-fs package/feeds/xiangfeidexiaohuo/luci-
 sed -i "53iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
 sed -i "54iLUCI_LANG.zh-tw=\$(LUCI_LANG.zh_Hant)" feeds/luci/luci.mk
 
+##添加adbybyplus插件
+#svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-adbyby-plus ./package/luci-app-adbyby-plus #无adbyby包
+svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
+
+##添加filetransert
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
+
 ##
 rm -rf package/feeds/luci/luci-app-dockerman
 ln -s ../../../feeds/xiangfeidexiaohuo/lisaac/luci-app-dockerman package/feeds/luci/luci-app-dockerman
 
 rm -rf feeds/xiangfeidexiaohuo/patch/autocore 
 rm -rf feeds/packages/utils/coremark  
-rm -rf feeds/luci/theme/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-serverchan
-rm -rf feeds/packages/net/adguardhome
-rm -rf feeds/packages/net/smartdns
-#rm -rf feeds/packages/net/mosdns
+#rm -rf feeds/luci/theme/luci-theme-argon
+#rm -rf feeds/luci/applications/luci-app-serverchan
+#rm -rf feeds/packages/net/adguardhome
+#rm -rf feeds/packages/net/smartdns
+##rm -rf feeds/packages/net/mosdns
