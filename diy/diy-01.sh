@@ -20,5 +20,5 @@ echo "src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-pac
 #echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default
 
 # luci-theme-opentopd主题
-git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
-rm -rf package/luci-theme-opentopd/README* package/luci-theme-opentopd/doc/
+#git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
+#rm -rf package/luci-theme-opentopd/README* package/luci-theme-opentopd/doc/
