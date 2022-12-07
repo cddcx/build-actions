@@ -21,7 +21,7 @@
 
 # 添加源
 echo "src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages" >>  feeds.conf.default
-svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean #添加lean
+svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean #添加Lienol的lean
 #echo 'src-git store https://github.com/linkease/istore.git;main' >>feeds.conf.default
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default 
