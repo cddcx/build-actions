@@ -67,7 +67,7 @@ rm -rf feeds/packages/utils/coremark
 
 ##添加adbybyplus插件
 #svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-adbyby-plus ./package/luci-app-adbyby-plus #无adbyby包
-svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
+#svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
 svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
 
 ##添加filetransert
