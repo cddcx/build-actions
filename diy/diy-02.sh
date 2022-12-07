@@ -39,7 +39,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-opentopd/g' feeds/luci/collections/luc
 
 ##加入作者信息
 #sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='$(date +%Y%m%d) by HiJwm'/g" package/base-files/files/etc/openwrt_release #默认为openwrt版本号，无个人信息
-sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d) by HiJwm'/g"  package/base-files/files/etc/openwrt_release #编译文件中添加，这个就无效了
+#sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d) by HiJwm'/g"  package/base-files/files/etc/openwrt_release #编译文件中添加，这个就无效了
 
 ##
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs feeds/luci/libs/luci-lib-fs
@@ -64,8 +64,8 @@ rm -rf feeds/packages/utils/coremark
 
 ##添加adbybyplus插件
 #svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-adbyby-plus ./package/luci-app-adbyby-plus #无adbyby包
-#svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
+svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
 
 ##添加filetransert
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
