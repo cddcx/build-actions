@@ -32,10 +32,8 @@ wget -O ./feeds/xiangfeidexiaohuo/jerrykuku/luci-theme-argon/htdocs/luci-static/
 svn co https://github.com/xylz0928/luci-mod/trunk/feeds/luci/modules/luci-base/htdocs/luci-static/resources/icons ./package/lucimod
 mv package/lucimod/* feeds/luci/modules/luci-base/htdocs/luci-static/resources/icons/
 
-
 ##更改主机名
-#sed -i "s/hostname='.*'/hostname='OpenWrt'/g" package/base-files/files/bin/config_generate
-
+sed -i "s/hostname='.*'/hostname='OpenWrt'/g" package/base-files/files/bin/config_generate
 
 ##加入作者信息
 #sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='$(date +%Y%m%d) by HiJwm'/g" package/base-files/files/etc/openwrt_release #默认为openwrt版本号，无个人信息
@@ -61,10 +59,3 @@ rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 
 rm -rf feeds/packages/utils/coremark 
 #svn export https://github.com/coolsnowwolf/packages/trunk/utils/coremark feeds/packages/utils/coremark 
-
-##添加adbybyplus插件
-#svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-adbyby-plus ./package/luci-app-adbyby-plus #无adbyby包
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
-
-##添加filetransert
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
