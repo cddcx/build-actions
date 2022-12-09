@@ -12,3 +12,8 @@ openwrt-19.07..............4.14
 openwrt-21.02..............5.4
 
 openwrt-22.03..............5.10
+
+## 致敬源码作者：
+
+- [Lienol's OpenWrt]( https://github.com/Lienol/openwrt)
+- [xiangfeidexiaohuo](https://github.com/xiangfeidexiaohuo/OpenWrt_Build)
