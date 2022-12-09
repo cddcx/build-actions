@@ -65,11 +65,9 @@ rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 rm -rf feeds/packages/utils/coremark 
 #svn export https://github.com/coolsnowwolf/packages/trunk/utils/coremark feeds/packages/utils/coremark 
 
-##添加adbybyplus插件
-#svn export https://github.com/Lienol/openwrt-package/branches/other/lean/luci-app-adbyby-plus ./package/luci-app-adbyby-plus #无adbyby包
-#svn co https://github.com/Lienol/openwrt-package/branches/other/lean ./package/lean 
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-adbyby-plus ./package/luci-app-adbyby-plus 
+rm -rf feeds/packages/net/adguardhome
+rm -rf feeds/packages/net/smartdns 
 
 ##添加filetransert
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
+#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
 
