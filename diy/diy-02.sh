@@ -8,8 +8,6 @@
 uci set system.@system[0].timezone=CST-8
 uci set system.@system[0].zonename=Asia/Shanghai
 
-
-
 # Docker v20.10.15
 rm -rf feeds/packages/utils/docker
 rm -rf feeds/packages/utils/dockerd
@@ -35,10 +33,8 @@ wget -O ./feeds/xiangfeidexiaohuo/jerrykuku/luci-theme-argon/htdocs/luci-static/
 svn co https://github.com/xylz0928/luci-mod/trunk/feeds/luci/modules/luci-base/htdocs/luci-static/resources/icons ./package/lucimod
 mv package/lucimod/* feeds/luci/modules/luci-base/htdocs/luci-static/resources/icons/
 
-
 ##更改主机名
 #sed -i "s/hostname='.*'/hostname='OpenWrt'/g" package/base-files/files/bin/config_generate
-
 
 ##加入作者信息
 #sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='$(date +%Y%m%d) by HiJwm'/g" package/base-files/files/etc/openwrt_release #默认为openwrt版本号，无个人信息
@@ -49,7 +45,6 @@ svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs feeds/luc
 ln -s ../../../feeds/luci/libs/luci-lib-fs package/feeds/xiangfeidexiaohuo/luci-lib-fs
 #svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
 #ln -s ../../../feeds/luci/applications/luci-app-filetransfer package/feeds/xiangfeidexiaohuo/luci-app-filetransfer
-
 
 ##
 sed -i "53iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
@@ -68,5 +63,17 @@ rm -rf feeds/packages/utils/coremark
 rm -rf feeds/packages/net/adguardhome
 rm -rf feeds/packages/net/smartdns 
 
-##添加filetransert
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
+##修改openwrt的include/target.mk文件
+sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+sed -i 's/kmod-ipt-offload/block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun dkmod-ipt-offload/g' include/target.mk
+sed -i 's/ip6tables/iptables-mod-tproxy iptables-mod-extra ipset ip-full default-settings luci luci-newapi/g' include/target.mk
+sed -i 's/odhcp6c/ddns-scripts_aliyun ddns-scripts_dnspod/g' include/target.mk
+sed -i 's/odhcpd-ipv6only/curl ca-certificates luci-app-upnp/g' include/target.mk
+
+##修改openwrt/target/linux/x86的Makefile文件
+sed -i 's/kmod-button-hotplug/kmod-alx kmod-e1000e kmod-igb kmod-igc kmod-igbvf kmod-iavf kmod-bnx2x kmod-pcnet32 kmod-tulip kmod-via-velocity kmod-vmxnet3 kmod-i40e kmod-i40evf kmod-r8125 kmod-8139cp kmod-8139too kmod-tg3 htop lm-sensors iperf3 ca-bundle kmod-sound-hda-core kmod-sound-hda-codec-realtek kmod-sound-hda-codec-via kmod-sound-via82xx kmod-sound-hda-intel kmod-sound-hda-codec-hdmi kmod-sound-i8x0 kmod-usb-audio kmod-usb-net kmod-usb-net-asix-ax88179 kmod-usb-net-rtl8150 kmod-usb-net-rtl8152-vendor kmod-usb-net-aqc111 kmod-mlx4-core kmod-mlx5-core kmod-drm-i915 kmod-drm-amdgpu/g' target/linux/x86/Makefile
+
+##应用fullconenat
+#rm -rf package/network/config/firewall
+#svn export https://github.com/coolsnowwolf/lede/trunk/package/network/config/firewall package/network/config/
