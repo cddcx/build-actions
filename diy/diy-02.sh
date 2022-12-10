@@ -16,19 +16,19 @@ rm -rf feeds/packages/utils/dockerd
 rm -rf feeds/packages/utils/containerd
 rm -rf feeds/packages/utils/runc
 rm -rf feeds/packages/utils/libnetwork
-#svn export https://github.com/coolsnowwolf/packages/trunk/utils/docker feeds/packages/utils/docker
-#svn export https://github.com/coolsnowwolf/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
-#svn export https://github.com/coolsnowwolf/packages/trunk/utils/containerd feeds/packages/utils/containerd
-#svn export https://github.com/coolsnowwolf/packages/trunk/utils/runc feeds/packages/utils/runc
-#svn export https://github.com/coolsnowwolf/packages/trunk/utils/libnetwork feeds/packages/utils/libnetwork
+svn export https://github.com/coolsnowwolf/packages/trunk/utils/docker feeds/packages/utils/docker
+svn export https://github.com/coolsnowwolf/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
+svn export https://github.com/coolsnowwolf/packages/trunk/utils/containerd feeds/packages/utils/containerd
+svn export https://github.com/coolsnowwolf/packages/trunk/utils/runc feeds/packages/utils/runc
+svn export https://github.com/coolsnowwolf/packages/trunk/utils/libnetwork feeds/packages/utils/libnetwork
 
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
 
 ##取消bootstrap为默认主题
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile
+sed -i 's/luci-theme-bootstrap/luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
+sed -i 's/luci-theme-bootstrap/luci-theme-opentopd/g' feeds/luci/collections/luci-nginx/Makefile
 
 ##替换theme icons
 wget -O ./feeds/xiangfeidexiaohuo/jerrykuku/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg https://github.com/HiJwm/MySettings/raw/main/BackGround/2.jpg
