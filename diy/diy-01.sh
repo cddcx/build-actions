@@ -20,12 +20,14 @@
 #sed -i 's/root::0:0:99999:7:::/root:$1$SOP5eWTA$fJV8ty3QohO0chErhlxCm1:18775:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 # 添加源
-echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages' >> feeds.conf.default
+#echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages;master' >> feeds.conf.default
+echo 'src-git custom https://github.com/VergilGao/openwrt-packages;openwrt-21.02' >> feeds.conf.default
 #echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
 #echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
-#echo 'src-git store https://github.com/linkease/istore.git;main' >>feeds.conf.default
-#echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-#echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default 
+
+ luci-app-openclash
+svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+rm -rf package/luci-app-openclash/.svn
 
 # luci-theme-opentopd主题
 git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
