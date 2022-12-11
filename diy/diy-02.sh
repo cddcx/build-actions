@@ -10,6 +10,7 @@ uci set system.@system[0].zonename=Asia/Shanghai
 
 # Docker v20.10.15
 rm -rf feeds/packages/utils/docker
+#rm -rf feeds/packages/utils/docker-compose
 rm -rf feeds/packages/utils/dockerd
 rm -rf feeds/packages/utils/containerd
 rm -rf feeds/packages/utils/runc
