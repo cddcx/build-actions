@@ -89,25 +89,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: 组织配置文件
-      if: github.event.inputs.output == 'config' && !cancelled()
-      id: organize_config
-      run: |
-        cd openwrt
-        rm -f .config.old
-        make defconfig
-        mkdir -p /tmp/upload/config
-        ./scripts/diffconfig.sh > /tmp/upload/config/seed.config
-        echo "status=success" >> $GITHUB_OUTPUT
-        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-
-    - name: 上传配置文件
-      if: steps.organize_config.outputs.status == 'success' && !cancelled()
-      uses: actions/upload-artifact@main
-      with:
-        name: openwrt-config-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}
-        path: /tmp/upload
-
     - name: 编译固件
       if: github.event.inputs.output != 'config' && !cancelled()
       run: |
