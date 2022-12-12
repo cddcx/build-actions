@@ -26,7 +26,7 @@ echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-pac
 #echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
 
 ##添加文件传输(filetransert)
-svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs ./package/add/luci-lib-fs
-svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/add/luci-app-filetransfer
-sed -i "s/\.\.\/\.\./\$\(TOPDIR\)\/feeds\/luci/g" ./package/add/luci-app-filetransfer/Makefile
-cp -af ./package/add/luci-app-filetransfer/po/zh-cn  ./package/add/luci-app-filetransfer/po/zh_Hans
+svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs package/add/luci-lib-fs
+svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer package/add/luci-app-filetransfer
+sed -i "s/\.\.\/\.\./\$\(TOPDIR\)\/feeds\/luci/g" package/add/luci-app-filetransfer/Makefile
+cp -af package/add/luci-app-filetransfer/po/zh-cn  package/add/luci-app-filetransfer/po/zh_Hans
