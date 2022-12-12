@@ -25,10 +25,5 @@ echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-pac
 #echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
 #echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
 
-#luci-app-openclash
-#svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-#rm -rf package/luci-app-openclash/.svn
-
-# luci-theme-opentopd主题
-#git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
-#rm -rf package/luci-theme-opentopd/README* package/luci-theme-opentopd/doc/
+##添加文件传输(filetransert)
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer ./package/luci-app-filetransert
