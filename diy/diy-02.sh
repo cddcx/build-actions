@@ -44,11 +44,8 @@ mv package/lucimod/* feeds/luci/modules/luci-base/htdocs/luci-static/resources/i
 #sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='$(date +%Y%m%d) by HiJwm'/g" package/base-files/files/etc/openwrt_release #默认为openwrt版本号，无个人信息
 #sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt-$(date +%Y%m%d) by HiJwm'/g"  package/base-files/files/etc/openwrt_release #编译文件中添加，这个就无效了
 
-##
-#svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs feeds/luci/libs/luci-lib-fs
-#ln -s ../../../feeds/luci/libs/luci-lib-fs package/feeds/xiangfeidexiaohuo/luci-lib-fs
-#svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
-#ln -s ../../../feeds/luci/applications/luci-app-filetransfer package/feeds/xiangfeidexiaohuo/luci-app-filetransfer 
+##把nas-packages-luci的zh-cn替换成zh_Hans 
+cp -af feeds/xiangfeidexiaohuo/linkease/nas-packages-luci/luci-app-quickstart/po/zh-cn feeds/xiangfeidexiaohuo/linkease/nas-packages-luci/luci-app-quickstart/po/zh_Hans 
  
 ##修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
