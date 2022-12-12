@@ -48,10 +48,10 @@ ln -s ../../../feeds/luci/libs/luci-lib-fs package/feeds/xiangfeidexiaohuo/luci-
 #ln -s ../../../feeds/luci/applications/luci-app-filetransfer package/feeds/xiangfeidexiaohuo/luci-app-filetransfer
 
 ##
-sed -i 's/LUCI_LANG.zh_Hans/LUCI_LANG.zh-cn/g' feeds/luci/luci.mk
-sed -i 's/LUCI_LANG.zh_Hant/LUCI_LANG.zh-tw/g' feeds/luci/luci.mk
-#sed -i "54iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
-#sed -i "55iLUCI_LANG.zh-tw=\$(LUCI_LANG.zh_Hant)" feeds/luci/luci.mk
+#sed -i 's/LUCI_LANG.zh_Hans/LUCI_LANG.zh-cn/g' feeds/luci/luci.mk
+#sed -i 's/LUCI_LANG.zh_Hant/LUCI_LANG.zh-tw/g' feeds/luci/luci.mk
+sed -i "53iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
+sed -i "54iLUCI_LANG.zh-tw=\$(LUCI_LANG.zh_Hant)" feeds/luci/luci.mk
 
 ##
 rm -rf package/feeds/luci/luci-app-dockerman
