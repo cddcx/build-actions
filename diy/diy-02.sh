@@ -5,8 +5,8 @@
 #=================================================             
 
 #设置默认时区
-uci set system.@system[0].timezone=CST-8
-uci set system.@system[0].zonename=Asia/Shanghai
+#uci set system.@system[0].timezone=CST-8
+#uci set system.@system[0].zonename=Asia/Shanghai
 
 # Docker v20.10.15
 rm -rf feeds/packages/utils/docker
