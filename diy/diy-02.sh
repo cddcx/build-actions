@@ -53,8 +53,8 @@ ln -s ../../../feeds/luci/libs/luci-lib-fs package/feeds/xiangfeidexiaohuo/luci-
 ##
 #sed -i 's/LUCI_LANG.zh_Hans/LUCI_LANG.zh-cn/g' feeds/luci/luci.mk
 #sed -i 's/LUCI_LANG.zh_Hant/LUCI_LANG.zh-tw/g' feeds/luci/luci.mk
-sed -i "53iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
-sed -i "54iLUCI_LANG.zh-tw=\$(LUCI_LANG.zh_Hant)" feeds/luci/luci.mk 
+#sed -i "53iLUCI_LANG.zh-cn=\$(LUCI_LANG.zh_Hans)" feeds/luci/luci.mk
+#sed -i "54iLUCI_LANG.zh-tw=\$(LUCI_LANG.zh_Hant)" feeds/luci/luci.mk 
  
 ##修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
