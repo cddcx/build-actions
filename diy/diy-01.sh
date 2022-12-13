@@ -25,8 +25,8 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease pack
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 
 ##添加终端(luci-app-ttyd)
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ttyd package/luci-app-ttyd
-cp -af package/luci-app-ttyd/po/zh-cn package/luci-app-ttyd/po/zh_Hans
+#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ttyd package/luci-app-ttyd
+#cp -af package/luci-app-ttyd/po/zh-cn package/luci-app-ttyd/po/zh_Hans
 
 ##添加文件传输(filetransert)
 svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs package/add/luci-lib-fs
