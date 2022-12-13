@@ -20,9 +20,9 @@ rm -rf package/feeds/luci/luci-app-dockerman
 rm -rf package/feeds/luci/luci-lib-docker
 rm -rf package/feeds/packages/docker-compose
 rm -rf package/feeds/packages/dockerd
-rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 rm -rf feeds/packages/net/adguardhome
 rm -rf feeds/packages/net/smartdns
+rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
