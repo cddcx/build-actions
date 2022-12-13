@@ -21,11 +21,11 @@ sed -i 's/root::0:0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:
 
 # 添加源
 #echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages;master' >> feeds.conf.default
-git clone https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
-git clone https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
+svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
+svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 
 ##添加终端(luci-app-ttyd)
-git clone https://github.com/coolsnowwolf/luci/tree/master/applications/luci-app-ttyd package/luci-app-ttyd
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ttyd package/luci-app-ttyd
 cp -af package/luci-app-ttyd/po/zh-cn package/luci-app-ttyd/po/zh_Hans
 
 ##添加文件传输(filetransert)
