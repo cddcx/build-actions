@@ -5,8 +5,7 @@
 #=================================================             
 
 #设置默认时区
-#uci set system.@system[0].timezone=CST-8
-#uci set system.@system[0].zonename=Asia/Shanghai
+sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
