@@ -9,21 +9,21 @@
 #uci set system.@system[0].zonename=Asia/Shanghai
 
 # Docker v20.10.15
-rm -rf feeds/luci/applications/luci-app-adguardhome
-rm -rf feeds/luci/applications/luci-app-disk*
+#rm -rf feeds/luci/applications/luci-app-adguardhome
+#rm -rf feeds/luci/applications/luci-app-disk*
 rm -rf feeds/luci/applications/luci-app-docker*
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/packages/utils/docker*
-rm -rf feeds/packages/utils/containerd
-rm -rf feeds/packages/utils/coremark
-rm -rf feeds/packages/utils/runc
-rm -rf feeds/packages/utils/libnetwork
+#rm -rf feeds/packages/utils/containerd
+#rm -rf feeds/packages/utils/coremark
+#rm -rf feeds/packages/utils/runc
+#rm -rf feeds/packages/utils/libnetwork
 rm -rf package/feeds/luci/luci-app-docker*
 rm -rf package/feeds/luci/luci-lib-docker
 rm -rf package/feeds/packages/docker*
-rm -rf feeds/packages/net/adguardhome
+r#m -rf feeds/packages/net/adguardhome
 rm -rf feeds/packages/net/smartdns
-rm -rf feeds/xiangfeidexiaohuo/patch/autocore
+#rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
