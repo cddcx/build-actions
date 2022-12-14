@@ -4,7 +4,7 @@
 # jsjson@163.com 
 #=================================================             
 
-#设置默认时区
+#设置默认中文
 sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 ## 删除软件
