@@ -5,7 +5,7 @@
 #=================================================             
 
 #设置默认中文
-sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
+#sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
