@@ -9,6 +9,7 @@
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
+#rm -rf package/feeds/luci/luci-app-disk*
 rm -rf feeds/luci/applications/luci-app-docker*
 rm -rf package/feeds/luci/luci-app-docker*
 rm -rf package/feeds/luci/luci-lib-docker
