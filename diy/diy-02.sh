@@ -21,7 +21,7 @@ rm -rf feeds/packages/net/smartdns
 #rm -rf feeds/packages/utils/runc
 #rm -rf feeds/packages/utils/libnetwork
 #rm -rf feeds/luci/applications/luci-app-adguardhome
-r#m -rf feeds/packages/net/adguardhome
+#rm -rf feeds/packages/net/adguardhome
 
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
