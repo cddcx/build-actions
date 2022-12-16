@@ -8,8 +8,10 @@
 #sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
 
 ##默认X86
-#rm -rf target/linux/Makefile
-#svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/Makefile target/linux/Makefile
+rm -rf target/Makefile
+rm -rf target/linux/Makefile
+svn export https://github.com/coolsnowwolf/lede/trunk/target/Makefile target/Makefile
+svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/Makefile target/linux/Makefile
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
