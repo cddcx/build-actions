@@ -9,7 +9,7 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: master
-  CONFIG_FILE: .config
+  CONFIG_FILE: diy.config
   DIY_P1_SH: diy/master.sh
   DIY_P2_SH: diy/diy2.sh
   UPLOAD_FIRMWARE: true
