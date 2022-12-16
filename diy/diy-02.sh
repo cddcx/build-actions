@@ -16,6 +16,7 @@ svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/Makefile targ
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
 #rm -rf package/feeds/luci/luci-app-disk*
+rm -rf feeds/luci/applications/luci-app-attendedsysupgrade
 rm -rf feeds/luci/applications/luci-app-docker*
 rm -rf package/feeds/luci/luci-app-docker*
 rm -rf package/feeds/luci/luci-lib-docker
