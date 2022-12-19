@@ -26,8 +26,8 @@ rm -rf feeds/packages/utils/docker*
 rm -rf package/feeds/packages/docker*
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/packages/net/smartdns
-#rm -rf feeds/packages/utils/containerd
-#rm -rf feeds/packages/utils/coremark
+rm -rf package/feeds/packages/auc
+rm -rf package/feeds/packages/attendedsysupgrade-common
 #rm -rf feeds/packages/utils/runc
 #rm -rf feeds/packages/utils/libnetwork
 #rm -rf feeds/luci/applications/luci-app-adguardhome
