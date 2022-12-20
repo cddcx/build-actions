@@ -10,7 +10,7 @@ svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/l
 rm -rf package/luci-app-openclash/.svn
 
 ##修改openwrt的include/target.mk文件
-sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
+#sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 ##
 #sed -i 's/dnsmasq/dnsmasq-full luci luci-newapi/g' include/target.mk
