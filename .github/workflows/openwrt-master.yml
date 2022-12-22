@@ -11,7 +11,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: .config
   DIY_P1_SH: diy/master.sh
-  DIY_P2_SH: diy/diy2.sh
+  DIY_P2_SH: diy/master2.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
