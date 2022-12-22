@@ -6,8 +6,8 @@ sed -i 's/root:::0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:9
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 # luci-app-openclash
-#svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-#rm -rf package/luci-app-openclash/.svn
+svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+rm -rf package/luci-app-openclash/.svn
 
 ## 修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
