@@ -28,8 +28,8 @@ svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/l
 rm -rf package/luci-app-openclash/.svn
 
 ##修改openwrt的include/target.mk文件
-#sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
-#sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
+sed -i 's/nftables/iptables ip6tables/g' include/target.mk
 sed -i 's/dnsmasq/dnsmasq-full block-mount coremark kmod-nf-nathelper kmod-nf-nathelper-extra kmod-ipt-raw kmod-tun iptables-mod-tproxy iptables-mod-extra ipset ip-full default-settings luci curl ca-certificates/g' include/target.mk
 
 ##修改openwrt/target/linux/x86的Makefile文件
