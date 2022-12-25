@@ -10,7 +10,7 @@ cd files/etc/openclash/core
 wget https://raw.githubusercontent.com/vernesong/OpenClash/master/core-lateset/dev/clash-linux-amd64.tar.gz
 tar -zxvf clash-linux-amd64.tar.gz
 rm -rf clash-linux-amd64.tar.gz
-cd && cd openwrt
+cd && cd $GITHUB_WORKSPACE
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
