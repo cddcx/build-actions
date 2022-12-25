@@ -4,14 +4,12 @@
 # jsjson@163.com 
 #=================================================             
 
-#设置默认中文
-#sed -i 's/auto/zh_Hans/g' feeds/luci/modules/luci-base/root/etc/config/luci
-
-##默认X86
-#rm -rf target/Makefile
-#rm -rf target/linux/Makefile
-#svn export https://github.com/coolsnowwolf/lede/trunk/target/Makefile target/Makefile
-#svn export https://github.com/coolsnowwolf/lede/trunk/target/linux/Makefile target/linux/Makefile
+## 添加OpenClash的master核心
+mkdir -p files/etc/openclash/core
+cd files/etc/openclash/core
+wget https://raw.githubusercontent.com/vernesong/OpenClash/master/core-lateset/dev/clash-linux-amd64.tar.gz
+tar -zxvf clash-linux-amd64.tar.gz
+rm -rf clash-linux-amd64.tar.gz
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
