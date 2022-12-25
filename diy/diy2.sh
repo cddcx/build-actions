@@ -5,12 +5,12 @@
 #=================================================             
 
 ## 添加OpenClash的master核心
-mkdir -p files/etc/openclash/core
-cd files/etc/openclash/core
-wget https://raw.githubusercontent.com/vernesong/OpenClash/master/core-lateset/dev/clash-linux-amd64.tar.gz
-tar -zxvf clash-linux-amd64.tar.gz
-rm -rf clash-linux-amd64.tar.gz
-cd && cd $GITHUB_WORKSPACE
+#mkdir -p files/etc/openclash/core
+#cd files/etc/openclash/core
+#wget https://raw.githubusercontent.com/vernesong/OpenClash/master/core-lateset/dev/clash-linux-amd64.tar.gz
+#tar -zxvf clash-linux-amd64.tar.gz
+#rm -rf clash-linux-amd64.tar.gz
+#cd && cd $GITHUB_WORKSPACE
 
 ## 删除软件
 #rm -rf feeds/luci/applications/luci-app-disk*
