@@ -32,7 +32,7 @@ svn co https://github.com/yichya/openwrt-xray package/xray
 
 ##修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+#sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i 's/kmod-ipt-offload/block-mount coremark kmod-nf-nathelper kmod-nft-tproxy kmod-nf-nathelper-extra kmod-ipt-raw kmod-ipt-offload/g' include/target.mk
 sed -i 's/ip6tables/ip6tables kmod-inet-diag default-settings luci luci-newapi/g' include/target.mk
 #sed -i 's/odhcp6c/odhcp6c ddns-scripts_aliyun ddns-scripts_dnspod/g' include/target.mk
