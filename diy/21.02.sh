@@ -26,13 +26,9 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luc
 # luci-app-openclash
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 rm -rf package/luci-app-openclash/.svn
-## 添加终端(luci-app-ttyd)
-#svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ttyd package/luci-app-ttyd
-#cp -af package/luci-app-ttyd/po/zh-cn package/luci-app-ttyd/po/zh_Hans
-##添加文件传输(filetransert)
-#svn export https://github.com/coolsnowwolf/luci/trunk/libs/luci-lib-fs package/add/luci-lib-fs
-#svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-filetransfer package/add/luci-app-filetransfer
-#sed -i "s/\.\.\/\.\./\$\(TOPDIR\)\/feeds\/luci/g" package/add/luci-app-filetransfer/Makefile
+## 添加luci-app-xray
+svn co https://github.com/yichya/luci-app-xray package/luci-app-xray
+svn co https://github.com/yichya/openwrt-xray package/xray
 
 ##修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
