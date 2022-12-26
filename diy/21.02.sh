@@ -27,8 +27,8 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luc
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 rm -rf package/luci-app-openclash/.svn
 ## 添加luci-app-xray
-svn co https://github.com/yichya/luci-app-xray package/luci-app-xray
-svn co https://github.com/yichya/openwrt-xray package/xray
+#svn co https://github.com/yichya/luci-app-xray package/luci-app-xray
+#svn co https://github.com/yichya/openwrt-xray package/xray
 
 ##修改openwrt的include/target.mk文件
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
