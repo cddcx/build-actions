@@ -25,6 +25,7 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease pack
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 # luci-app-openclash
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+cp -af package/luci-app-openclash/po/zh-cn  package/luci-app-openclash/po/zh_Hans
 rm -rf package/luci-app-openclash/.svn
 ## luci-app-xray
 #svn co https://github.com/yichya/luci-app-xray package/luci-app-xray
