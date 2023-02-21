@@ -155,6 +155,7 @@ jobs:
         cd openwrt
         make download -j$(($(nproc)+1)) &
         sleep 5
+
     - name: Cache
       uses: stupidloud/cachewrtbuild@main
       with:
@@ -174,16 +175,7 @@ jobs:
         shopt -s extglob
         cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
-        make -j$(($(nproc)+1)) || make -j1 V=s || (curl -k --data chat_id="${{ env.TELEGRAM_CHAT_ID }}" --data "text=❌ OpenWrt ${{ env.VERSION }} ${{matrix.target}} 编译失败 😂" "https://api.telegram.org/bot${{ env.TELEGRAM_TOKEN }}/sendMessage";exit 1)
-        sed -i "s/# CONFIG_IB is not set/CONFIG_IB=y/" .config
-        rm -rf staging_dir/toolchain-*/bin/*openwrt-linux-musl-lto-dump
-        rm -rf staging_dir/toolchain-*/initial
-
-    - name: 编译固件
-      working-directory: ./openwrt
-      run: |
-        echo -e "$(nproc) thread build."
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j$(($(nproc)+1)) || make -j1 V=s
         sed -i "s/# CONFIG_IB is not set/CONFIG_IB=y/" .config
         rm -rf staging_dir/toolchain-*/bin/*openwrt-linux-musl-lto-dump
         rm -rf staging_dir/toolchain-*/initial
