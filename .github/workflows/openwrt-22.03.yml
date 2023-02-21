@@ -19,6 +19,17 @@ jobs:
     steps:
     - name: 准备结束
       uses: actions/checkout@main
+      
+        - name: Load Settings.ini
+      run: |
+        echo ${{matrix.target}}
+        source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
+        if [ -f "devices/${{matrix.target}}/settings.ini" ]; then
+          source "${GITHUB_WORKSPACE}/devices/${{matrix.target}}/settings.ini"
+        fi
+        echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
+        echo "DIY_SH=${DIY_SH}" >> $GITHUB_ENV
+      
 
     - name: Initialization environment
       env:
