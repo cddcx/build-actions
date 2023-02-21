@@ -6,6 +6,9 @@ on:
       manual:
         description: '手动触发一次编译'
 
+env:
+  TZ: Asia/Shanghai
+
 jobs:
   build:
     runs-on: Ubuntu-22.04
