@@ -20,7 +20,7 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@main
       
-        - name: Load Settings.ini
+    - name: Load Settings.ini
       run: |
         echo ${{matrix.target}}
         source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
