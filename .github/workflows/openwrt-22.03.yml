@@ -22,10 +22,10 @@ jobs:
       
     - name: Load Settings.ini
       run: |
-        echo ${{matrix.target}}
+        echo x86_64
         source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
-        if [ -f "devices/${{matrix.target}}/settings.ini" ]; then
-          source "${GITHUB_WORKSPACE}/devices/${{matrix.target}}/settings.ini"
+        if [ -f "devices/x86_64/settings.ini" ]; then
+          source "${GITHUB_WORKSPACE}/devices/x86_64/settings.ini"
         fi
         echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
         echo "DIY_SH=${DIY_SH}" >> $GITHUB_ENV
