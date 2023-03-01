@@ -53,9 +53,9 @@ jobs:
     - name: 下载kiddin9的自定义设置
       working-directory: /workdir
       run: |
-        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/common common
-        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/x86_64 x86_64
-        rm -rf settings.ini
+        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/common devices/common
+        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/x86_64 devices/x86_64
+        rm -rf devices/common/settings.ini
         
     - name: 加载自定义设置
       run: |
