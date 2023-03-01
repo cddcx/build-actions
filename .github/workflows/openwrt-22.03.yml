@@ -49,6 +49,13 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+    
+    - name: 下载kiddin9的自定义设置
+      working-directory: /workdir
+      run: |
+        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/common common
+        svn co https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1/trunk/devices/x86_64 x86_64
+        rm -rf settings.ini
         
     - name: 加载自定义设置
       run: |
