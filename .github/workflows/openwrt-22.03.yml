@@ -74,26 +74,14 @@ jobs:
         CONFIG_CRYPTO_CHACHA20POLY1305=y \
         CONFIG_FAT_DEFAULT_IOCHARSET="utf8" \
         ' `find target/linux -path "target/linux/*/config-*"`
-        
-    - name: Defconfig
+
+    - name: 下载依赖
+      working-directory: ./openwrt
       run: |
-        cd openwrt
         make defconfig
-        
-    - name: Download package
-      id: package
-      run: |
-        cd openwrt
-        make download -j$(($(nproc)+1))
+        make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \; &
-        sleep 5
-        
-    - name: Check space usage
-      run: |
-        shopt -s extglob
-        rm -rf openwrt/staging_dir/!(*${{ env.MTARGET }}*|host|hostpkg) openwrt/build_dir/!(*${{ env.MTARGET }}*|host|hostpkg)
-        df -hT
+        find dl -size -1024c -exec rm -f {} \;
 
     - name: 编译固件
       working-directory: ./openwrt
