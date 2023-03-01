@@ -9,6 +9,8 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
+  CONFIG_FILE: ${CONFIG_FILE}
+  DIY_SH: ${DIY_SH}
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -20,11 +22,11 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@main
       
-    - name: 加载 Settings.ini
-      run: |
-        source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
-        echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
-        echo "DIY_SH=${DIY_SH}" >> $GITHUB_ENV
+    #- name: 加载 Settings.ini
+      #run: |
+        #source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
+        #echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
+        #echo "DIY_SH=${DIY_SH}" >> $GITHUB_ENV
       
     - name: 初始化编译环境
       env:
