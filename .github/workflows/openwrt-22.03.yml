@@ -56,12 +56,12 @@ jobs:
         cp -rf devices/x86_64/. openwrt/
         cp -rf devices openwrt/
         cd openwrt
-        chmod +x devices/common/$DIY_SH
-        /bin/bash "devices/common/$DIY_SH"
-        chmod +x devices/x86_64/$DIY_SH
-        /bin/bash "devices/x86_64/$DIY_SH"
-        cp -f devices/common/$CONFIG_FILE .config
-        cp -f devices/x86_64/$CONFIG_FILE .config
+        chmod +x devices/common/diy.sh
+        /bin/bash "devices/common/diy.sh"
+        chmod +x devices/x86_64/diy.sh
+        /bin/bash "devices/x86_64/diy.sh"
+        cp -f devices/common/.config .config
+        cp -f devices/x86_64/.config .config
 
     - name: 应用补丁
       run: |
