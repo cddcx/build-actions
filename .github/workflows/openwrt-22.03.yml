@@ -1,4 +1,4 @@
-name: Build OpenWrt
+name: 22.03
 
 on:
   workflow_dispatch:
@@ -23,7 +23,6 @@ jobs:
     - name: 加载 Settings.ini
       run: |
         source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
-        source "${GITHUB_WORKSPACE}/devices/x86_64/settings.ini"
         echo "CONFIG_FILE=${CONFIG_FILE}" >> $GITHUB_ENV
         echo "DIY_SH=${DIY_SH}" >> $GITHUB_ENV
       
