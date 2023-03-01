@@ -14,7 +14,7 @@ sed -i '/	refresh_config();/d' scripts/feeds
 ./scripts/feeds install -a -p kiddin9 -f
 ./scripts/feeds install -a
 
-echo "$(date +"%s")" >version.date
+#echo "$(date +"%s")" >version.date
 sed -i '/$(curdir)\/compile:/c\$(curdir)/compile: package/opkg/host/compile' package/Makefile
 sed -i 's/$(TARGET_DIR)) install/$(TARGET_DIR)) install --force-overwrite --force-depends/' package/Makefile
 sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-istorex luci-app-opkg luci-app-openclash luci-app-upnp \
@@ -45,8 +45,8 @@ sed -i 's/max_requests 3/max_requests 20/g' package/network/services/uhttpd/file
 #rm -rf ./feeds/packages/lang/{golang,node}
 sed -i "s/tty\(0\|1\)::askfirst/tty\1::respawn/g" target/linux/*/base-files/etc/inittab
 
-date=`date +%m.%d.%Y`
-sed -i -e "/\(# \)\?REVISION:=/c\REVISION:=$date" -e '/VERSION_CODE:=/c\VERSION_CODE:=$(REVISION)' include/version.mk
+#date=`date +%m.%d.%Y`
+#sed -i -e "/\(# \)\?REVISION:=/c\REVISION:=$date" -e '/VERSION_CODE:=/c\VERSION_CODE:=$(REVISION)' include/version.mk
 
 sed -i \
 	-e "s/+\(luci\|luci-ssl\|uhttpd\)\( \|$\)/\2/" \
@@ -54,20 +54,3 @@ sed -i \
 	-e 's/+python\( \|$\)/+python3/' \
 	-e 's?../../lang?$(TOPDIR)/feeds/packages/lang?' \
 	package/feeds/kiddin9/*/Makefile
-
-(
-if [ -f sdk.tar.xz ]; then
-	sed -i 's,$(STAGING_DIR_HOST)/bin/upx,upx,' package/feeds/kiddin9/*/Makefile
-	mkdir sdk
-	tar -xJf sdk.tar.xz -C sdk
-	cp -rf sdk/*/staging_dir/* ./staging_dir/
-	rm -rf sdk.tar.xz sdk
-	sed -i '/\(tools\|toolchain\)\/Makefile/d' Makefile
-	if [ -f /usr/bin/python ]; then
-		ln -sf /usr/bin/python staging_dir/host/bin/python
-	else
-		ln -sf /usr/bin/python3 staging_dir/host/bin/python
-	fi
-	ln -sf /usr/bin/python3 staging_dir/host/bin/python3
-fi
-) &
