@@ -1,8 +1,8 @@
 ## 删除软件
-rm -rf feeds/luci/theme/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-serverchan
-rm -rf feeds/packages/net/adguardhome
-rm -rf feeds/packages/net/smartdns
+#rm -rf feeds/luci/theme/luci-theme-argon
+#rm -rf feeds/luci/applications/luci-app-serverchan
+#rm -rf feeds/packages/net/adguardhome
+#rm -rf feeds/packages/net/smartdns
 
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
