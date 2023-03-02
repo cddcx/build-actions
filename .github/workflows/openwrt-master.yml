@@ -12,7 +12,6 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy/master.sh
   DIY_P2_SH: diy/master2.sh
-  FILES_FILE: master/files
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -59,7 +58,7 @@ jobs:
         
     - name: 加载files和.config
       run: |        
-        [ -e $FILES_FILE ] && mv $FILES_FILE openwrt/files
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         
     - name: DIY2（一般用于ip和样式等）
