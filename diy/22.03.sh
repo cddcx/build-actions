@@ -12,6 +12,7 @@
 
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+sed -i 's@.*src-git packages*@#&@g' feeds.conf.default
 
 #1. 默认ip
 #sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
@@ -20,13 +21,14 @@
 sed -i 's/root:::0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 ## 添加源和软件
+echo 'src-git packages https://github.com/kiddin9/openwrt-packages.git;master' >> feeds.conf.default
 #echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages;master' >> feeds.conf.default
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
+#svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
+#svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 # luci-app-openclash
-svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-cp -af package/luci-app-openclash/po/zh-cn  package/luci-app-openclash/po/zh_Hans
-rm -rf package/luci-app-openclash/.svn
+#svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+#cp -af package/luci-app-openclash/po/zh-cn  package/luci-app-openclash/po/zh_Hans
+#rm -rf package/luci-app-openclash/.svn
 ## luci-app-xray
 #svn co https://github.com/yichya/luci-app-xray package/luci-app-xray
 
