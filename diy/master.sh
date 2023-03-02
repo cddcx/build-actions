@@ -2,8 +2,8 @@
 sed -i 's/root:::0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:99999:7:::/g' package/base-files/files/etc/shadow
 
 ## 添加源和软件
-sed -i 's@.*src-git packages*@#&@g' feeds.conf.default
-echo 'src-git packages https://github.com/kiddin9/openwrt-packages.git;master' >> feeds.conf.default
+sed -i 's@.*src-git-full packages*@#&@g' feeds.conf.default
+echo 'src-git-full packages https://github.com/kiddin9/openwrt-packages.git;master' >> feeds.conf.default
 #echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages;master' >> feeds.conf.default
 #svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
 #svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
