@@ -34,7 +34,6 @@ rm -rf package/luci-app-openclash/.svn
 sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg \
 luci-app-wizard luci-base luci-compat luci-lib-ipkg luci-lib-fs \
 coremark wget-ssl curl htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash openssh-sftp-server block-mount resolveip ds-lite swconfig /" include/target.mk
-sed -i "s/procd-ujail//" include/target.mk
 
 ##修改openwrt/target/linux/x86的Makefile文件
 sed -i 's/DEFAULT_PACKAGES += partx-utils mkf2fs e2fsprogs kmod-button-hotplug/DEFAULT_PACKAGES += partx-utils mkf2fs e2fsprogs kmod-button-hotplug \
