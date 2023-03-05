@@ -9,7 +9,7 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease pack
 rm -rf package/linkease/preview
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/jerrykuku/luci-theme-argon package/luci-theme-argon
 
-git clone https://github.com/fw876/helloworld.git package/ssr
+git clone https://github.com/fw876/helloworld package/ssr
 #echo 'src-git helloworld https://github.com/fw876/helloworld.git' >> feeds.conf.default
 # luci-app-openclash
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
