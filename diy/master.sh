@@ -5,8 +5,9 @@ sed -i 's/root:::0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:9
 #sed -i 's@.*src-git-full packages*@#&@g' feeds.conf.default
 #echo 'src-git-full packages https://github.com/kiddin9/openwrt-packages.git;master' >> feeds.conf.default
 #echo 'src-git xiangfeidexiaohuo https://github.com/xiangfeidexiaohuo/openwrt-packages;master' >> feeds.conf.default
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
-rm -rf package/linkease/preview
+
+#svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/linkease package/linkease
+#rm -rf package/linkease/preview
 
 git clone https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 
