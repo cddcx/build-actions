@@ -21,4 +21,4 @@ coremark wget-ssl curl htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash opens
 ##修改openwrt/target/linux/x86的Makefile文件
 sed -i "s/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += autocore-x86 kmod-usb-hid kmod-mmc kmod-sdhci usbutils pciutils lm-sensors-detect kmod-alx kmod-vmxnet3 kmod-igbvf \
 kmod-iavf kmod-bnx2x kmod-pcnet32 kmod-tulip kmod-r8125 kmod-8139cp kmod-8139too kmod-i40e kmod-drm-i915 kmod-drm-amdgpu kmod-mlx4-core kmod-mlx5-core fdisk lsblk \
-kmod-phy-broadcomv luci-app-openclash luci-app-istorex luci-app-udpxy luci-app-upnp /" target/linux/x86/Makefile
+kmod-phy-broadcomv luci-app-openclash luci-app-ssr-plus luci-app-udpxy luci-app-upnp /" target/linux/x86/Makefile
