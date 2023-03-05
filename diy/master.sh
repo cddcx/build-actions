@@ -15,8 +15,9 @@ git clone https://github.com/fw876/helloworld package/ssr
 #echo 'src-git helloworld https://github.com/fw876/helloworld.git' >> feeds.conf.default
 
 # luci-app-openclash
-svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-rm -rf package/luci-app-openclash/.svn
+#svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+#rm -rf package/luci-app-openclash/.svn
+git clone https://github.com/vernesong/OpenClash.git package/luci-app-openclash
 
 ## 修改openwrt的include/target.mk文件
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
