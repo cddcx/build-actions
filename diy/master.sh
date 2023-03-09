@@ -22,7 +22,7 @@ rm -rf package/luci-app-openclash/.svn
 ## 修改openwrt的include/target.mk文件
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i 's/nftables/ip6tables iptables/g' include/target.mk 
-sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg luci-base luci-compat luci-lib-ipkg luci-lib-fs libcap libcap-bin default-settings luci \
+sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg luci-base luci-compat luci-lib-ipkg luci-lib-fs libcap libcap-bin default-settings-chn luci \
 coremark wget-ssl curl htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash openssh-sftp-server block-mount resolveip ds-lite swconfig \
 iptables-mod-extra ip6tables-mod-nat /" include/target.mk
 
