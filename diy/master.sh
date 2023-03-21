@@ -11,7 +11,7 @@ sed -i 's/root:::0:99999:7:::/root:$1$xUooaZpA$6zs50xt4ac9sJXiYpycT3\/:19338:0:9
 
 git clone https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 
-git clone https://github.com/fw876/helloworld package/ssr
+#git clone https://github.com/fw876/helloworld package/ssr
 #echo 'src-git helloworld https://github.com/fw876/helloworld.git' >> feeds.conf.default
 
 # luci-app-openclash
