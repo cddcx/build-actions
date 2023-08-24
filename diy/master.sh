@@ -19,17 +19,12 @@ svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/l
 rm -rf package/luci-app-openclash/.svn
 #git clone https://github.com/vernesong/OpenClash.git package/luci-app-openclash
 
-## target/linux/x86/Makefile
-curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
+# luci-app-passwall2
+svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 ## 修改openwrt的include/target.mk文件
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
-sed -i 's/nftables/ip6tables iptables/g' include/target.mk 
-sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg luci-base luci-compat luci-lib-ipkg luci-lib-fs libcap libcap-bin default-settings-chn luci \
-coremark wget-ssl curl htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash openssh-sftp-server block-mount resolveip ds-lite swconfig \
-iptables-mod-extra ip6tables-mod-nat /" include/target.mk
+curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/target.mk -o include/target.mk
 
-##修改openwrt/target/linux/x86的Makefile文件
-sed -i "s/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += autocore-x86 kmod-usb-hid kmod-mmc kmod-sdhci usbutils pciutils lm-sensors-detect kmod-alx kmod-vmxnet3 kmod-igbvf \
-kmod-iavf kmod-bnx2x kmod-pcnet32 kmod-tulip kmod-r8125 kmod-8139cp kmod-8139too kmod-i40e kmod-drm-i915 kmod-drm-amdgpu kmod-mlx4-core kmod-mlx5-core fdisk lsblk \
-kmod-phy-broadcomv luci-app-openclash luci-app-ssr-plus luci-app-udpxy luci-app-upnp /" target/linux/x86/Makefile
+## 修改openwrt/target/linux/x86的Makefile文件
+curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
+sed -i 's/automount/automount autocore-x86 luci default-settings-chn luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-openclash/g' target/linux/x86/Makefile
