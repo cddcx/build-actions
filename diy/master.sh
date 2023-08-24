@@ -19,6 +19,9 @@ svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/l
 rm -rf package/luci-app-openclash/.svn
 #git clone https://github.com/vernesong/OpenClash.git package/luci-app-openclash
 
+## target/linux/x86/Makefile
+curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
+
 ## 修改openwrt的include/target.mk文件
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i 's/nftables/ip6tables iptables/g' include/target.mk 
