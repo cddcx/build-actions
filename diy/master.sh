@@ -28,4 +28,4 @@ curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/inclu
 
 ## 修改openwrt/target/linux/x86的Makefile文件
 curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
-sed -i 's/automount/autocore-x86 luci default-settings-chn luci-app-passwall2 luci-app-udpxy luci-app-openclash/g' target/linux/x86/Makefile
+sed -i 's/automount/autocore-x86 luci default-settings-chn luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-openclash/g' target/linux/x86/Makefile
