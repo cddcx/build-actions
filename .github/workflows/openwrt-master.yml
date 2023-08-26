@@ -10,8 +10,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: master
   CONFIG_FILE: .config
-  DIY_P1_SH: diy/master.sh
-  DIY_P2_SH: diy/master2.sh
+  DIY_SH: diy.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -44,7 +43,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Load custom configuration  #加载自定义配置
+    - name: 加载自定义配置
       run: |
         cp -rf devices/common/. openwrt/
         cp -rf devices/x86_64/. openwrt/
@@ -64,7 +63,7 @@ jobs:
         fi
         cp -Rf ./diy/* ./ || true
 
-    - name: Apply patches #应用修补程序
+    - name: 应用.patch补丁
       run: |
         cd openwrt
         find "devices/common/patches" -type f ! -name 'china_mirrors.patch' -name '*.patch' ! -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
@@ -86,7 +85,7 @@ jobs:
         CONFIG_FAT_DEFAULT_IOCHARSET="utf8" \
         ' `find target/linux -path "target/linux/*/config-*"`
         
-    - name: Defconfig #生成默认配置文件
+    - name: 生成默认配置文件
       run: |
         cd openwrt
         make defconfig
@@ -96,29 +95,10 @@ jobs:
         fi
         cat .config
         
-    - name: DIY1(一般用于安装依赖和插件)
-      run: |
-        chmod +x $DIY_P1_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
-        
-    - name: 安装并更新feeds
-      working-directory: ./openwrt
-      run: |
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
-        ./scripts/feeds install -a
-        
     - name: 加载files和.config
       run: |        
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        
-    - name: DIY2（一般用于ip和样式等）
-      run: |
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: 下载依赖
       working-directory: ./openwrt
