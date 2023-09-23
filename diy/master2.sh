@@ -7,7 +7,7 @@
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
 
-##取消bootstrap为默认主题
+# 设置argon为默认主题
 sed -i '/set luci.main.mediaurlbase*/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-app-opkg/luci-app-opkg +luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
