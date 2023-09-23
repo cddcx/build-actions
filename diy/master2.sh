@@ -7,6 +7,9 @@
 ##配置IP
 #sed -i 's/192.168.1.1/192.168.100.101/g' package/base-files/files/bin/config_generate
 
+# 修改密码
+sed -i 's/root:::0:99999:7:::/root:$1$SOP5eWTA$fJV8ty3QohO0chErhlxCm1:18775:0:99999:7:::/g' package/base-files/files/etc/shadow
+
 # 设置argon为默认主题
 sed -i '/set luci.main.mediaurlbase*/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-app-opkg/luci-app-opkg +luci-theme-argon/g' feeds/luci/collections/luci/Makefile
