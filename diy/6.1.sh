@@ -26,7 +26,7 @@ rm -rf package/luci-app-openclash/.svn
 ## 修改openwrt的include/target.mk文件
 #curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/target.mk -o include/target.mk
 sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg luci-app-udpxy luci-app-upnp luci-app-openclash \
-luci-base luci-compat luci-lib-ipkg luci-lib-fs \
+luci-base luci-compat ipset luci-lib-ipkg luci-lib-fs \
 coremark wget-ssl curl autocore htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash luci \
 openssh-sftp-server block-mount resolveip ds-lite swconfig /" include/target.mk
 sed -i "s/procd-ujail//" include/target.mk
