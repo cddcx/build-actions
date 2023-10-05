@@ -12,3 +12,4 @@ openwrt-22.03..............5.10
 ## 致敬源码作者：
 - [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [xiangfeidexiaohuo](https://github.com/xiangfeidexiaohuo/OpenWrt_Build)
+- [kiddin9](https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1)
