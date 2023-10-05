@@ -24,8 +24,17 @@ rm -rf package/luci-app-openclash/.svn
 #svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 ## 修改openwrt的include/target.mk文件
-curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/target.mk -o include/target.mk
+#curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/target.mk -o include/target.mk
+sed -i "s/DEFAULT_PACKAGES:=/DEFAULT_PACKAGES:=luci-app-firewall luci-app-opkg luci-app-udpxy luci-app-upnp luci-app-openclash \
+luci-base luci-compat luci-lib-ipkg luci-lib-fs \
+coremark wget-ssl curl autocore htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash luci \
+openssh-sftp-server block-mount resolveip ds-lite swconfig /" include/target.mk
+sed -i "s/procd-ujail//" include/target.mk
 
 ## 修改openwrt/target/linux/x86的Makefile文件
-curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
-sed -i 's/automount/autocore default-settings-chn luci luci-compat luci-app-udpxy luci-app-upnp luci-app-openclash/g' target/linux/x86/Makefile
+#curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
+#sed -i 's/automount/autocore default-settings-chn luci luci-compat luci-app-udpxy luci-app-upnp luci-app-openclash/g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += kmod-usb-hid kmod-mmc kmod-sdhci usbutils pciutils \
+lm-sensors-detect kmod-alx kmod-vmxnet3 kmod-igbvf kmod-iavf kmod-bnx2x kmod-pcnet32 kmod-tulip \
+kmod-r8125 kmod-8139cp kmod-8139too kmod-i40e kmod-drm-i915 kmod-drm-amdgpu \
+kmod-mlx4-core kmod-mlx5-core fdisk lsblk kmod-phy-broadcom/' target/linux/x86/Makefile
