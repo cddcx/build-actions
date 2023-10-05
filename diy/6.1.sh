@@ -30,7 +30,3 @@ luci-base luci-compat ipset luci-lib-ipkg luci-lib-fs \
 coremark wget-ssl curl autocore htop nano zram-swap kmod-lib-zstd kmod-tcp-bbr bash luci \
 openssh-sftp-server block-mount resolveip ds-lite swconfig /" include/target.mk
 sed -i "s/procd-ujail//" include/target.mk
-
-## 修改openwrt/target/linux/x86的Makefile文件
-curl -sfL https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/x86/Makefile -o target/linux/x86/Makefile
-sed -i 's/automount/autocore default-settings ipset luci luci-compat luci-app-udpxy luci-app-upnp luci-app-openclash/g' target/linux/x86/Makefile
