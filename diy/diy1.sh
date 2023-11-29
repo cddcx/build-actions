@@ -21,8 +21,10 @@ sed -i 's/root::0:0:99999:7:::/root:$1$pfsE8FKB$tnZcDcV8vUTqxJpwXLzZv1:19690:0:9
 
 ## 添加源和软件
 # luci-app-filetransfer
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
-rm -rf package/luci-app-filetransfer/.svn
+#svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
+#rm -rf package/luci-app-filetransfer/.svn
+svn co https://github.com/sbwml/openwrt_pkgs/trunk/filebrowser package/filebrowser
+svn co https://github.com/sbwml/openwrt_pkgs/trunk/luci-app-filebrowser package/filebrowser
 
 # luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/homeproxy
