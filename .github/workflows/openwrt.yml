@@ -73,9 +73,10 @@ jobs:
     
     - name: 加载scripts下的补丁
       run: |
-        chmod +x $GITHUB_WORKSPACE/scripts/*.sh
-        cd openwrt/
-        bash $GITHUB_WORKSPACE/scripts/03-convert_translation.sh
+        cp -rf script openwrt/script
+        cd openwrt
+        chmod +x scripts/*.sh
+        /bin/bash "scripts/03-convert_translation.sh"
         
     - name: 下载依赖
       working-directory: ./openwrt
