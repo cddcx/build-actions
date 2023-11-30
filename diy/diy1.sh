@@ -37,7 +37,7 @@ git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwa
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl luci luci-light luci-compat luci-lib-base luci-lib-ipkg \
-luci-app-opkg luci-app-firewall/" include/target.mk
+luci-app-opkg luci-app-firewall /" include/target.mk
 
 # 修改target/linux/x86/Makefile
 sed -i 's/DEFAULT_PACKAGES +=/DEFAULT_PACKAGES += ipset ip-full /g' target/linux/x86/Makefile
