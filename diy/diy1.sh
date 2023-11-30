@@ -34,4 +34,5 @@ git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwal
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 
 ## 修改target.mk
-sed -i 's/dnsmasq/dnsmasq-full/g include/target.mk
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
