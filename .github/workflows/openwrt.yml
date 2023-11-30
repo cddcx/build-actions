@@ -106,6 +106,7 @@ jobs:
         rm -rf *kernel.bin
         rm -rf profiles.json
         rm -rf *rootfs.img
+        rm -rf *rootfs.tar.gz
         rm -rf *.manifest
         rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
