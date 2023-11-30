@@ -32,3 +32,6 @@ git clone https://github.com/immortalwrt/homeproxy package/homeproxy
 # luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+
+## 修改target.mk
+sed -i 's/dnsmasq/dnsmasq-full/g include/target.mk
