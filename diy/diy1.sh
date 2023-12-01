@@ -22,6 +22,8 @@
 
 # luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/homeproxy
+sed -i "s/ImmortalWrt/OpenWrt/g" package/homeproxy/po/zh_Hans/homeproxy.po
+sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
