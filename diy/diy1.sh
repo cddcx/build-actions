@@ -20,11 +20,14 @@
 #svn co https://github.com/sbwml/openwrt_pkgs/trunk/filebrowser package/filebrowser
 #svn co https://github.com/sbwml/openwrt_pkgs/trunk/luci-app-filebrowser package/filebrowser
 
-# luci-app-homeproxy
+## luci-app-v2raya
+git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
+
+## luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/homeproxy
 sed -i "s/ImmortalWrt/OpenWrt/g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
-# luci-app-passwall2
+## luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
