@@ -12,7 +12,7 @@ sed -i 's/PATCHVER:=*.*/PATCHVER:=6.1/g' target/linux/x86/Makefile
 
 ## 修改密码
 #sed -i 's@root:::0:99999:7:::@root:$1$pfsE8FKB$tnZcDcV8vUTqxJpwXLzZv1:19690:0:99999:7:::@g' package/base-files/files/etc/shadow
-sed -i 's@root:::0:99999:7:::@root:$1$ZMigGTJH$d1UG3vkYB0IqtYPfSWLoo/:19691:0:99999:7:::@g' package/base-files/files/etc/shadow
+sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99999:7:::@g' package/base-files/files/etc/shadow
 
 ## 修改target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
