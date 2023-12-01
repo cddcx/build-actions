@@ -73,10 +73,9 @@ jobs:
     
     - name: 加载scripts下的补丁
       run: |
-        mv -f $GITHUB_WORKSPACE/script openwrt/script
-        cd openwrt
-        chmod +x script/*.sh
-        /bin/bash "script/03-convert_translation.sh"
+        chmod +x $GITHUB_WORKSPACE/scripts/*.sh
+        cd $GITHUB_WORKSPACE
+        $GITHUB_WORKSPACE/scripts/preset-clash-core.sh
         
     - name: 下载依赖
       working-directory: ./openwrt
