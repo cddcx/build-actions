@@ -13,12 +13,6 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-#1. 默认ip
-#sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
-
-#2 修改密码
-#sed -i 's/root::0:0:99999:7:::/root:$1$pfsE8FKB$tnZcDcV8vUTqxJpwXLzZv1:19690:0:99999:7:::/g' package/base-files/files/etc/shadow
-
 ## 添加源和软件
 # luci-app-filetransfer
 #svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
@@ -32,12 +26,3 @@ git clone https://github.com/immortalwrt/homeproxy package/homeproxy
 # luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
-
-## 修改target.mk
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
-sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
-sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl luci luci-light luci-compat luci-lib-base luci-lib-ipkg \
-luci-app-opkg luci-app-firewall /" include/target.mk
-
-# 修改target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += ipset ip-full /g' target/linux/x86/Makefile
