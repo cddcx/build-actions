@@ -76,6 +76,7 @@ jobs:
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         cd $GITHUB_WORKSPACE
         $GITHUB_WORKSPACE/scripts/03-convert_translation.sh
+        $GITHUB_WORKSPACE/scripts/preset-clash-core.sh
         
     - name: 下载依赖
       working-directory: ./openwrt
