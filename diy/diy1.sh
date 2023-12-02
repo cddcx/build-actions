@@ -17,8 +17,11 @@
 # luci-app-filetransfer
 #svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
 #rm -rf package/luci-app-filetransfer/.svn
-#svn co https://github.com/sbwml/openwrt_pkgs/trunk/filebrowser package/filebrowser
-#svn co https://github.com/sbwml/openwrt_pkgs/trunk/luci-app-filebrowser package/filebrowser
+
+## default-settings
+mkdir -p package/emortal/default-settings
+svn co https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/default-settings package/emortal/default-settings
+rm -rf package/emortal/default-settings/.svn
 
 ## luci-app-v2raya
 git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
