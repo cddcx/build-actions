@@ -15,11 +15,11 @@
 
 ##### 添加源和软件
 ## luci-app-filetransfer
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
-rm -rf package/luci-app-filetransfer/.svn
+#svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
+#rm -rf package/luci-app-filetransfer/.svn
 # luci-app-filetransfer依赖
-svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
-rm -rf package/luci-lib-fs/.svn
+#svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
+#rm -rf package/luci-lib-fs/.svn
 
 ## default-settings
 mkdir -p package/emortal/default-settings
