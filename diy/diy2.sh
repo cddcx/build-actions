@@ -26,7 +26,7 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 ## 修改target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
-sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl default-settings-chn luci luci-light luci-compat luci-lib-fs luci-lib-ipkg \
+sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl default-settings-chn luci luci-light luci-compat luci-lib-ipkg \
 luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
