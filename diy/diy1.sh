@@ -13,10 +13,10 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-## 添加源和软件
+##### 添加源和软件
 # luci-app-filetransfer
-#svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
-#rm -rf package/luci-app-filetransfer/.svn
+svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
+rm -rf package/luci-app-filetransfer/.svn
 
 ## default-settings
 mkdir -p package/emortal/default-settings
