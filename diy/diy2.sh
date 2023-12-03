@@ -22,7 +22,7 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 ## luci-app-filetransfer
 svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
 rm -rf package/luci-app-filetransfer/.svn
-sed -i 's@../../luci.mk@feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
+sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
 # luci-app-filetransfer依赖
 svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
 rm -rf package/luci-lib-fs/.svn
