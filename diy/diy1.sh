@@ -16,6 +16,7 @@
 ## luci-app-filetransfer
 svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
 rm -rf package/luci-app-filetransfer/.svn
+sed -i @../../luci.mk@feeds/luci/luci.mk@g' package/luci-app-filetransfer/luci.mk
 # luci-app-filetransfer依赖
 svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
 rm -rf package/luci-lib-fs/.svn
