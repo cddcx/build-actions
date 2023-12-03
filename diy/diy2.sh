@@ -23,7 +23,7 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 cp -a package/luci-app-filetransfer feeds/luci/applications/luci-app-filetransfer
 rm -rf package/luci-app-filetransfer
 # luci-app-filetransfer依赖
-cp -a package/luci-lib-fs feeds/luci/luci-lib-fs
+cp -a package/luci-lib-fs feeds/luci/libs/luci-lib-fs
 rm -rf package/luci-lib-fs
 
 # TTYD 自动登录
