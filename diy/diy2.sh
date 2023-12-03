@@ -19,14 +19,6 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-argon/luci-theme-kucat/g' {} \;
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
 
-## luci-app-filetransfer
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
-rm -rf package/luci-app-filetransfer/.svn
-sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
-# luci-app-filetransfer依赖
-svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
-rm -rf package/luci-lib-fs/.svn
-
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
 
