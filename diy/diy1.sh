@@ -27,8 +27,8 @@ svn export https://github.com/immortalwrt/luci/branches/master/libs/luci-lib-fs 
 svn export https://github.com/v2rayA/v2raya-openwrt/trunk package/v2raya-openwrt
 
 ## luci-app-homeproxy
-svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           # homeproxy的默认版本
-#svn export https://github.com/immortalwrt/homeproxy/branches/dev package/homeproxy   # homeproxy的dev版本  
+#svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           ####### homeproxy的默认版本
+svn export https://github.com/immortalwrt/homeproxy/branches/dev package/homeproxy     ####### homeproxy的dev版本  
 sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
