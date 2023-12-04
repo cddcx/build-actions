@@ -32,6 +32,7 @@ sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
-#git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 svn export https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+svn export https://github.com/xiaorouji/openwrt-passwall-packages/trunk package/passwall
+#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
+#git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
