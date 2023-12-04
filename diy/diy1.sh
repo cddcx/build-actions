@@ -17,6 +17,7 @@
 mkdir -p package/emortal/default-settings
 svn co https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/default-settings package/emortal/default-settings
 rm -rf package/emortal/default-settings/.svn
+svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/default-settings package/emortal/default-settings
 
 ## luci-app-filetransfer
 svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
