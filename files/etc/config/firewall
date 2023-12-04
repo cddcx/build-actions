@@ -111,24 +111,6 @@ config rule
 	option proto 'esp'
 	option target 'ACCEPT'
 
-config rule
-	option name 'Allow-ISAKMP'
-	option src 'wan'
-	option dest 'lan'
-	option dest_port '500'
-	option proto 'udp'
-	option target 'ACCEPT'
-
-config include 'homeproxy_pre'
-	option type 'nftables'
-	option path '/var/run/homeproxy/fw4_pre.nft'
-	option position 'table-pre'
-
-config include 'homeproxy_post'
-	option type 'nftables'
-	option path '/var/run/homeproxy/fw4_post.nft'
-	option position 'table-post'
-
 config include 'passwall2'
 	option type 'script'
 	option path '/var/etc/passwall2.include'
