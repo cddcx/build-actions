@@ -24,7 +24,7 @@ svn export https://github.com/immortalwrt/luci/branches/master/applications/luci
 #svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
 #rm -rf package/luci-app-filetransfer/.svn
 sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
-# luci-app-filetransfer依赖
+# luci-app-filetransfer依赖luci-lib-fs
 svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
 rm -rf package/luci-lib-fs/.svn
 
