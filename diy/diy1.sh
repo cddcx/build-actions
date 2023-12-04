@@ -15,18 +15,13 @@
 
 ## default-settings
 #mkdir -p package/emortal/default-settings
-#svn co https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/default-settings package/emortal/default-settings
-#rm -rf package/emortal/default-settings/.svn
 svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/default-settings package/emortal/default-settings
 
 ## luci-app-filetransfer
 svn export https://github.com/immortalwrt/luci/branches/master/applications/luci-app-filetransfer package/luci-app-filetransfer
-#svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
-#rm -rf package/luci-app-filetransfer/.svn
 sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
 # luci-app-filetransfer依赖luci-lib-fs
-svn co https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
-rm -rf package/luci-lib-fs/.svn
+svn export https://github.com/immortalwrt/luci/branches/master/libs/luci-lib-fs package/luci-lib-fs
 
 ## luci-app-v2raya
 git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
