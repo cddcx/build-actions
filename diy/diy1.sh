@@ -33,5 +33,5 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-stati
 
 ## luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
-#svn export https://github.com/xiaorouji/openwrt-passwall2/branches/main/luci-app-passwall2 package/luci-app-passwall2
+#git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+svn export https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
