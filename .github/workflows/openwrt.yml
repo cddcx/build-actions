@@ -74,7 +74,7 @@ jobs:
     - name: 加载scripts下的补丁
       run: |
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
-        cd $OPENWRT_PATH
+        cd GITHUB_WORKSPACE/openwrt
         $GITHUB_WORKSPACE/scripts/03-convert_translation.sh
         #$GITHUB_WORKSPACE/scripts/preset-clash-core.sh
         $GITHUB_WORKSPACE/scripts/v2raya-dat.sh
