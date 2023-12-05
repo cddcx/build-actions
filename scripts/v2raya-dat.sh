@@ -8,4 +8,4 @@ GEOSITE_URL="https://github.com/v2fly/domain-list-community/releases/latest/down
 wget -qO- $GEOIP_URL > files/usr/share/xray/geoip.dat
 wget -qO- $GEOSITE_URL > files/usr/share/xray/geosite.dat
 
-chmod +x files/usr/share/xray/*
+#chmod +x files/usr/share/xray/*
