@@ -19,13 +19,13 @@
 git clone https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/default-settings package/emortal/default-settings
 
 ## luci-app-filetransfer
-svn export https://github.com/immortalwrt/luci/branches/master/applications/luci-app-filetransfer package/luci-app-filetransfer
+git clone https://github.com/immortalwrt/luci/trunk/applications/luci-app-filetransfer package/luci-app-filetransfer
 sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
 # luci-app-filetransfer依赖luci-lib-fs
-svn export https://github.com/immortalwrt/luci/branches/master/libs/luci-lib-fs package/luci-lib-fs
+git clone https://github.com/immortalwrt/luci/trunk/libs/luci-lib-fs package/luci-lib-fs
 
 ## luci-app-v2raya
-svn export https://github.com/v2rayA/v2raya-openwrt/trunk package/v2raya-openwrt
+git clone https://github.com/v2rayA/v2raya-openwrt/trunk package/v2raya-openwrt
 
 ## luci-app-homeproxy
 #svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           ####### homeproxy的默认版本(二选一)
@@ -34,8 +34,8 @@ svn export https://github.com/v2rayA/v2raya-openwrt/trunk package/v2raya-openwrt
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
-svn export https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-svn export https://github.com/xiaorouji/openwrt-passwall-packages/trunk package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall-packages/trunk package/passwall
 
 ## luci-app-openclash
-#svn export https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+#git clone https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
