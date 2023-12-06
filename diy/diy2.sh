@@ -34,4 +34,4 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl default-settin
 luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += ipset ip-full luci-app-filebrowser luci-app-ttyd luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-v2raya /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += ipset ip-full luci-app-filetransfer luci-app-ttyd luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-v2raya /g' target/linux/x86/Makefile
