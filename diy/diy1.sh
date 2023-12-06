@@ -16,7 +16,7 @@
 ## default-settings
 #mkdir -p package/emortal/default-settings
 #svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/default-settings package/emortal/default-settings
-git clone https://github.com/cddcx/default-settings.gi package/emortal/default-settings
+git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## luci-app-filetransfer
 git clone https://github.com/cddcx/luci-app-filebrowser.git package/luci-app-filebrowser
