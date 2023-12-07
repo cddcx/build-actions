@@ -15,7 +15,7 @@
 
 ## default-settings
 #mkdir -p package/emortal/default-settings
-#git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings package/emortal/default-settings
+#git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## luci-app-filetransfer
