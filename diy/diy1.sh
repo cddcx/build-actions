@@ -26,7 +26,7 @@ git clone https://github.com/cddcx/luci-lib-fs.git package/luci-lib-fs
 
 ## luci-app-v2raya
 git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
-rm -rf feeds/packages/v2raya-openwrt/xray-core
+rm -rf feeds/packages/v2raya-openwrt/xray-core          ########passwall2有新的
 
 ## luci-app-homeproxy
 #svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           ####### homeproxy的默认版本(二选一)
