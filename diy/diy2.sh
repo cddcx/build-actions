@@ -37,4 +37,4 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-filetransfer luci-ap
 
 ## 删除
 rm -rf feeds/packages/net/v2raya
-rm -rf feeds/packages/net/v2ray-core v2ray-geodata xray-core
+rm -rf feeds/packages/net/{v2raya,v2ray-core,v2ray-geodata,xray-core,sing-box}
