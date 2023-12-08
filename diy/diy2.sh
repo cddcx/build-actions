@@ -30,7 +30,7 @@ sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/ut
 ## 修改target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
-sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl default-settings-chn luci luci-light luci-compat luci-lib-ipkg \
+sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=curl default-settings-chn luci luci-light \
 luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
