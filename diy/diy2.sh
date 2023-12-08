@@ -34,3 +34,6 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 
 ## 修改target/linux/x86/Makefile
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-filetransfer luci-app-ttyd luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-v2raya /g' target/linux/x86/Makefile
+
+## 删除
+rm -rf feeds/packages/net/xray-core
