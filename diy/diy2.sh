@@ -36,4 +36,5 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-filetransfer luci-app-ttyd luci-app-passwall2 luci-app-udpxy luci-app-upnp luci-app-v2raya /g' target/linux/x86/Makefile
 
 ## 删除
-rm -rf feeds/packages/net/{v2raya,v2ray-core,v2ray-geodata,xray-core,sing-box}
+rm -rf feeds/packages/net/v2raya
+rm -rf feeds/packages/net/{microsocks,trojan-go,v2ray-core,v2ray-geodata,xray-core,sing-box}    ###### 与passwall2重复
