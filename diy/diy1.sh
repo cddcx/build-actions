@@ -25,7 +25,7 @@ git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-fi
 git clone https://github.com/cddcx/luci-lib-fs.git package/luci-lib-fs
 
 ## luci-app-v2raya
-git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
+#git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
 
 ## luci-app-homeproxy
 #svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           ####### homeproxy的默认版本(二选一)
