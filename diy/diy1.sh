@@ -29,8 +29,8 @@ git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
 rm -rf feeds/packages/v2raya-openwrt/{v2ray-core,xray-core}       ######## 与passwall2重复
 
 ## luci-app-homeproxy
-#svn export https://github.com/immortalwrt/homeproxy/trunk package/homeproxy           ####### homeproxy的默认版本(二选一)
-#svn export https://github.com/immortalwrt/homeproxy/branches/dev package/homeproxy     ####### homeproxy的dev版本(二选一)  
+#git clone https://github.com/immortalwrt/homeproxy package/homeproxy           ####### homeproxy的默认版本(二选一)
+#git clone -b dev https://github.com/immortalwrt/homeproxy package/homeproxy     ####### homeproxy的dev版本(二选一)  
 #sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
