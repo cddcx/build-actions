@@ -119,16 +119,6 @@ config rule
 	option proto 'udp'
 	option target 'ACCEPT'
 
-config include 'passwall2'
-	option type 'script'
-	option path '/var/etc/passwall2.include'
-	option reload '1'
-
-config include 'passwall2_server'
-	option type 'script'
-	option path '/var/etc/passwall2_server.include'
-	option reload '1'
-
 config zone
 	option name 'IPTV'
 	option input 'ACCEPT'
