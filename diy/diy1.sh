@@ -19,14 +19,14 @@
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## luci-app-filetransfer
-git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
+#git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
 #sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
 # luci-app-filetransfer依赖luci-lib-fs
-git clone https://github.com/cddcx/luci-lib-fs.git package/luci-lib-fs
+#git clone https://github.com/cddcx/luci-lib-fs.git package/luci-lib-fs
 
 ## luci-app-v2raya
 git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
-rm -rf feeds/packages/v2raya-openwrt/{v2ray-core,xray-core}       ######## 与passwall2重复
+#rm -rf feeds/packages/v2raya-openwrt/{v2ray-core,xray-core}       ######## 与passwall2重复
 
 ## luci-app-homeproxy
 #git clone https://github.com/immortalwrt/homeproxy package/homeproxy           ####### homeproxy的默认版本(二选一)
