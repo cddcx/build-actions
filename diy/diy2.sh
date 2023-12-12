@@ -38,3 +38,4 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-udpxy luci-app-upnp 
 ## 删除
 rm -rf feeds/packages/net/{v2raya,v2ray-core,xray-core}
 rm -rf feeds/packages/net/{microsocks,trojan-go,sing-box}    ###### 与passwall2重复
+#rm -rf feeds/packages/net/v2ray-geodata
