@@ -26,7 +26,7 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 
 ## luci-app-v2raya
 git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
-#rm -rf feeds/packages/v2raya-openwrt/{v2ray-core,xray-core}       ######## 与passwall2重复
+rm -rf feeds/packages/v2raya-openwrt/{v2raya,xray-core}
 
 ## luci-app-homeproxy
 #git clone https://github.com/immortalwrt/homeproxy package/homeproxy           ####### homeproxy的默认版本(二选一)
