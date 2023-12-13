@@ -35,6 +35,7 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
