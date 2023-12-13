@@ -25,7 +25,7 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #git clone https://github.com/cddcx/luci-lib-fs.git package/luci-lib-fs
 
 ## luci-app-v2raya
-git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
+#git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
 #rm -rf package/v2raya-openwrt/{v2raya,xray-core}
 
 ## luci-app-homeproxy
