@@ -35,8 +35,8 @@ git clone https://github.com/v2rayA/v2raya-openwrt package/v2raya-openwrt
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
-#git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
-#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
 #git clone https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
