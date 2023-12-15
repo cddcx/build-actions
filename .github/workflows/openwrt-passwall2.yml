@@ -1,4 +1,4 @@
-name: 6
+name: 6-passwall2
 
 on:
   workflow_dispatch:
