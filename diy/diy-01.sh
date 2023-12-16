@@ -1,17 +1,21 @@
 #!/bin/bash
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part1.sh
-# Description: OpenWrt DIY script part 1 (Before Update feeds)
-#
+#=================================================
+shopt -s extglob
 
-# Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+function git_clone_path() {
+          branch="$1" rurl="$2" localdir="gitemp" && shift 2
+          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          if [ "$?" != 0 ]; then
+            echo "error on $rurl"
+            return 0
+          fi
+          cd $localdir
+          git sparse-checkout init --cone
+          git sparse-checkout set $@
+		  mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+          cd ..
+		  rm -rf gitemp
+          }
 
 ## default-settings
 #mkdir -p package/emortal/default-settings
@@ -34,8 +38,11 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
-## luci-app-passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+## luci-app-passwall
+git_clone_path main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+cp -rf luci-app-passwall package/luci-app-passwall
+rm -rf luci-app-passwall
+#git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
