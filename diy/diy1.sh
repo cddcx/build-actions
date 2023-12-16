@@ -1,6 +1,5 @@
 #!/bin/bash
-#
-
+#=================================================
 shopt -s extglob
 
 function git_clone_path() {
