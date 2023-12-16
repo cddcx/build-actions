@@ -46,4 +46,6 @@ rm -rf luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
-#git clone https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+#git_clone_path master https://github.com/vernesong/OpenClash luci-app-openclash
+#cp -rf luci-app-openclash package/luci-app-openclash
+#rm -rf luci-app-openclash
