@@ -6,4 +6,4 @@ config udpxy
 	option bind 'br-lan'
 	option port '4100'
 	option source 'eth1.43'
-	option max_clients '10'
+	option max_clients '99'
