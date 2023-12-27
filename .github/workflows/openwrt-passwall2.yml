@@ -66,9 +66,9 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    #- name: 加载files
-      #run: |        
-        #[ -e files2 ] && mv files2/files openwrt/files
+    - name: 加载files
+      run: |        
+        [ -e files2 ] && mv files2/files openwrt/files
         
     - name: 加载.config
       run: |
