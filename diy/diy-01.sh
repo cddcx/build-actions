@@ -1,21 +1,21 @@
 #!/bin/bash
 #=================================================
-shopt -s extglob
+#shopt -s extglob
 
-function git_clone_path() {
-          branch="$1" rurl="$2" localdir="gitemp" && shift 2
-          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
-          if [ "$?" != 0 ]; then
-            echo "error on $rurl"
-            return 0
-          fi
-          cd $localdir
-          git sparse-checkout init --cone
-          git sparse-checkout set $@
-		  mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
-          cd ..
-		  rm -rf gitemp
-          }
+#function git_clone_path() {
+          #branch="$1" rurl="$2" localdir="gitemp" && shift 2
+          #git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          #if [ "$?" != 0 ]; then
+            #echo "error on $rurl"
+            #return 0
+          #fi
+          #cd $localdir
+          #git sparse-checkout init --cone
+          #git sparse-checkout set $@
+		  #mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+          #cd ..
+		  #rm -rf gitemp
+          #}
 
 ## default-settings
 #mkdir -p package/emortal/default-settings
@@ -39,10 +39,10 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall
-git_clone_path main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
-cp -rf luci-app-passwall package/luci-app-passwall
-rm -rf luci-app-passwall
-#git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+#git_clone_path main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+#cp -rf luci-app-passwall package/luci-app-passwall
+#rm -rf luci-app-passwall
+svn checkout https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
