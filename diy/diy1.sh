@@ -2,20 +2,20 @@
 #=================================================
 shopt -s extglob
 
-function git_clone_path() {
-          branch="$1" rurl="$2" localdir="gitemp" && shift 2
-          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
-          if [ "$?" != 0 ]; then
-            echo "error on $rurl"
-            return 0
-          fi
-          cd $localdir
-          git sparse-checkout init --cone
-          git sparse-checkout set $@
-		  mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
-          cd ..
-		  rm -rf gitemp
-          }
+#function git_clone_path() {
+          #branch="$1" rurl="$2" localdir="gitemp" && shift 2
+          #git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          #if [ "$?" != 0 ]; then
+            #echo "error on $rurl"
+            #return 0
+          #fi
+          #cd $localdir
+          #git sparse-checkout init --cone
+          #git sparse-checkout set $@
+		  #mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+          #cd ..
+		  #rm -rf gitemp
+          #}
 
 ## default-settings
 #mkdir -p package/emortal/default-settings
@@ -39,10 +39,10 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
-git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
-cp -rf luci-app-passwall2 package/luci-app-passwall2
-rm -rf luci-app-passwall2
-#git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+#git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+#cp -rf luci-app-passwall2 package/luci-app-passwall2
+#rm -rf luci-app-passwall2
+svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
