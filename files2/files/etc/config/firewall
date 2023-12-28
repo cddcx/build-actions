@@ -133,5 +133,6 @@ config zone
 	option name 'IPTV'
 	option input 'ACCEPT'
 	option output 'ACCEPT'
-	option forward 'ACCEPT'
+	option forward 'REJECT'
 	list network 'IPTV'
+
