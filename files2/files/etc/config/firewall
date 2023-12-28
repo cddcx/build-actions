@@ -135,11 +135,3 @@ config zone
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
 	list network 'IPTV'
-
-config forwarding
-	option src 'IPTV'
-	option dest 'lan'
-
-config forwarding
-	option src 'lan'
-	option dest 'IPTV'
