@@ -42,7 +42,7 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 #cp -rf luci-app-passwall2 package/luci-app-passwall2
 #rm -rf luci-app-passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
+svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
