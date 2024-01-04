@@ -23,8 +23,8 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #rm -rf feeds/packages/utils/docker
 #rm -rf feeds/packages/utils/docker-compose
 #rm -rf feeds/packages/utils/dockerd
-rm -rf feeds/luci/applications/luci-app-dockerman
-svn checkout https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
+#rm -rf feeds/luci/applications/luci-app-dockerman
+#svn checkout https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
 
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
@@ -40,7 +40,7 @@ sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-dockerman luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-udpxy /g' target/linux/x86/Makefile
 
 ## 删除
 rm -rf feeds/packages/net/v2raya
