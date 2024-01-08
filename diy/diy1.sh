@@ -20,7 +20,9 @@ shopt -s extglob
 ## default-settings
 #mkdir -p package/emortal/default-settings
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
-git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+svn checkout https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/automount package/emortal/automount
+svn checkout https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/default-settings package/emortal/default-settings
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
