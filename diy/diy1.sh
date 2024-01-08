@@ -40,9 +40,6 @@ svn checkout https://github.com/immortalwrt/immortalwrt/trunk/package/emortal/de
 #sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
-## 磁盘管理
-svn checkout https://github.com/immortalwrt/luci/trunk/applications/luci-app-diskman feeds/luci/applications/luci-app-diskman
-
 ## luci-app-passwall2
 #git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 #cp -rf luci-app-passwall2 package/luci-app-passwall2
