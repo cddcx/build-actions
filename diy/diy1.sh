@@ -17,7 +17,7 @@ shopt -s extglob
 		  #rm -rf gitemp
           #}
 
-## default-settings
+## automount与default-settings
 #mkdir -p package/emortal/default-settings
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
