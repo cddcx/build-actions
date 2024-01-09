@@ -18,19 +18,25 @@ function git_clone_path() {
           }
 
 ## automount与default-settings
-#mkdir -p package/emortal/default-settings
+mkdir -p package/emortal/automount
 git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
+mkdir -p package/emortal/default-settings
 git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
+mkdir -p utils/docker
 git_clone_path master https://github.com/immortalwrt/packages utils/docker
+mkdir -p utils/dockerd
 git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
+mkdir -p utils/docker-compose
 git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
+mkdir -p applications/luci-app-dockerman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskma/
+mkdir -p applications/luci-app-diskma
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskma
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
@@ -49,6 +55,7 @@ git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
+mkdir -p luci-app-passwall2
 git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 cp -rf luci-app-passwall2 package/luci-app-passwall2
 rm -rf luci-app-passwall2
