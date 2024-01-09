@@ -23,6 +23,12 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
+## docker
+git_clone_path master https://github.com/immortalwrt/packages utils/docker
+git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
+git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
+
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
 #sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
