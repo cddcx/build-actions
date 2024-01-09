@@ -24,9 +24,15 @@ svn checkout https://github.com/immortalwrt/luci/trunk/applications/luci-app-dis
 
 # docker
 rm -rf feeds/packages/utils/docker
+cp -rf utils/docker feeds/packages/utils/docker
 rm -rf feeds/packages/utils/dockerd
+cp -rf utils/dockerd feeds/packages/utils/dockerd
 rm -rf feeds/packages/utils/docker-compose
+cp -rf utils/docker-compose feeds/packages/utils/docker-compose
+rm -rf utils
 rm -rf feeds/luci/applications/luci-app-dockerman
+cp -rf applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
+rm -rf applications
 #svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker feeds/packages/utils/docker
 #svn checkout https://github.com/immortalwrt/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
 #svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker-compose feeds/packages/utils/docker-compose
