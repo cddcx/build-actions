@@ -19,9 +19,6 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-argon/luci-theme-kucat/g' {} \;
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
 
-## 磁盘管理
-cp -rf applications/luci-app-diskman feeds/luci/applications/luci-app-diskman
-
 # docker
 rm -rf feeds/packages/utils/docker
 cp -rf utils/docker feeds/packages/utils/docker
@@ -52,7 +49,7 @@ sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += automount blkid parted smartmontools luci-app-diskman luci-app-dockerman luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += automount luci-app-diskman luci-app-dockerman luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
 
 ## 删除
 rm -rf feeds/packages/net/v2raya
