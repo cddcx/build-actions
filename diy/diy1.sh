@@ -30,7 +30,7 @@ git_clone_path master https://github.com/immortalwrt/packages utils/docker-compo
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskma
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskma/
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
