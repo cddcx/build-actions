@@ -35,7 +35,9 @@ mkdir -p applications/luci-app-dockerman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理
-git clone https://github.com/lisaac/luci-app-diskman.git package/luci-app-diskman
+#git clone https://github.com/lisaac/luci-app-diskman.git package/luci-app-diskman
+mkdir -p applications/luci-app-diskman
+git_clone_path dev https://github.com/jjm2473/luci-app-diskman applications/luci-app-diskman
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
