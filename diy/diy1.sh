@@ -40,10 +40,10 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall2
-#git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
-#cp -rf luci-app-passwall2 package/luci-app-passwall2
-#rm -rf luci-app-passwall2
-svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+cp -rf luci-app-passwall2 package/luci-app-passwall2
+rm -rf luci-app-passwall2
+#svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
