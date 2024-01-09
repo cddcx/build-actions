@@ -37,7 +37,7 @@ git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-
 ## 磁盘管理
 mkdir -p applications/luci-app-diskman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
-
+sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' applications/luci-app-diskman/Makefile
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
 #sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
