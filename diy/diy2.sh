@@ -27,10 +27,10 @@ rm -rf feeds/packages/utils/docker
 rm -rf feeds/packages/utils/dockerd
 rm -rf feeds/packages/utils/docker-compose
 rm -rf feeds/luci/applications/luci-app-dockerman
-svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker feeds/packages/utils/docker
-svn checkout https://github.com/immortalwrt/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
-svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker-compose feeds/packages/utils/docker-compose
-svn checkout https://github.com/immortalwrt/luci/trunk/applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
+#svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker feeds/packages/utils/docker
+#svn checkout https://github.com/immortalwrt/packages/trunk/utils/dockerd feeds/packages/utils/dockerd
+#svn checkout https://github.com/immortalwrt/packages/trunk/utils/docker-compose feeds/packages/utils/docker-compose
+#svn checkout https://github.com/immortalwrt/luci/trunk/applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
 
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
