@@ -19,8 +19,8 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-argon/luci-theme-kucat/g' {} \;
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
 
-## 磁盘管理luci-app-diskman
-cp -rf applications/luci-app-diskman feeds/luci/applications/luci-app-diskman
+## 磁盘管理依赖parted
+rm -rf feeds/packages/utils/parted
 
 # docker
 rm -rf feeds/packages/utils/docker
