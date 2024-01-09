@@ -20,7 +20,7 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
 
 ## 磁盘管理
-cp -rf applications/luci-app-diskma feeds/luci/applications/luci-app-diskma
+cp -rf applications/luci-app-diskman feeds/luci/applications/luci-app-diskman
 
 # docker
 rm -rf feeds/packages/utils/docker
