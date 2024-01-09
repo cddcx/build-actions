@@ -35,9 +35,11 @@ mkdir -p applications/luci-app-dockerman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理
-mkdir -p applications/luci-app-diskman
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
-sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' applications/luci-app-diskman/Makefile
+mkdir -p package/luci-app-diskman && \
+wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/applications/luci-app-diskman/Makefile -O package/luci-app-diskman/Makefile
+mkdir -p package/parted && \
+wget https://raw.githubusercontent.com/lisaac/luci-app-diskman/master/Parted.Makefile -O package/parted/Makefile
+
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
 #sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-filetransfer/Makefile
