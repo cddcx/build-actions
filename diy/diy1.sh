@@ -59,8 +59,8 @@ mkdir -p luci-app-passwall2
 git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 cp -rf luci-app-passwall2 package/luci-app-passwall2
 rm -rf luci-app-passwall2
-#svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
+#svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 ## luci-app-openclash
 #git_clone_path master https://github.com/vernesong/OpenClash luci-app-openclash
