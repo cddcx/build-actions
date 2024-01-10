@@ -60,7 +60,7 @@ git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-pass
 cp -rf luci-app-passwall2 package/luci-app-passwall2
 rm -rf luci-app-passwall2
 #svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
 
 ## luci-app-openclash
 #git_clone_path master https://github.com/vernesong/OpenClash luci-app-openclash
