@@ -18,25 +18,25 @@ function git_clone_path() {
           }
 
 ## automount与default-settings
-mkdir -p package/emortal/automount
-git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
+#mkdir -p package/emortal/automount
+#git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
 mkdir -p package/emortal/default-settings
-git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
-#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+#git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
+git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
-mkdir -p utils/docker
-git_clone_path master https://github.com/immortalwrt/packages utils/docker
-mkdir -p utils/dockerd
-git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
-mkdir -p utils/docker-compose
-git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
-mkdir -p applications/luci-app-dockerman
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
+#mkdir -p utils/docker
+#git_clone_path master https://github.com/immortalwrt/packages utils/docker
+#mkdir -p utils/dockerd
+#git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
+#mkdir -p utils/docker-compose
+#git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
+#mkdir -p applications/luci-app-dockerman
+#git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理luci-app-diskman及依赖parted
-git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
-mkdir -p package/parted && cp -i package/luci-app-diskman/Parted.Makefile package/parted/Makefile
+#git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
+#mkdir -p package/parted && cp -i package/luci-app-diskman/Parted.Makefile package/parted/Makefile
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
