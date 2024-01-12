@@ -39,6 +39,9 @@ git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-
 cp -rf applications/luci-app-dockerman package/luci-app-dockerman
 rm -rf applications
 rm -rf utils
+sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker/Makefile
+sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker-compose/Makefile
+sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/dockerd/Makefile
 
 ## 磁盘管理luci-app-diskman及依赖parted
 #git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
