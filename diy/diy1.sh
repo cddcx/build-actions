@@ -25,14 +25,14 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
-#mkdir -p utils/docker
-#git_clone_path master https://github.com/immortalwrt/packages utils/docker
-#mkdir -p utils/dockerd
-#git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
-#mkdir -p utils/docker-compose
-#git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
-#mkdir -p applications/luci-app-dockerman
-#git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
+mkdir -p utils/docker
+git_clone_path master https://github.com/immortalwrt/packages utils/docker
+mkdir -p utils/dockerd
+git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
+mkdir -p utils/docker-compose
+git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
+mkdir -p applications/luci-app-dockerman
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理luci-app-diskman及依赖parted
 #git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
