@@ -35,8 +35,10 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 #git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 
 ## 磁盘管理luci-app-diskman及依赖parted
-git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
+#git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
 #mkdir -p package/parted && cp -i package/luci-app-diskman/Parted.Makefile package/parted/Makefile
+mkdir -p applications/luci-app-diskman
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
