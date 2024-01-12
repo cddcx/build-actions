@@ -40,7 +40,7 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 mkdir -p package/luci-app-diskman
 mkdir -p applications/luci-app-diskman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
-cp -i applications/luci-app-diskman package/luci-app-diskman
+cp -rf applications/luci-app-diskman package/luci-app-diskman
 rm -rf applications/luci-app-diskman
 
 ## luci-app-filetransfer
