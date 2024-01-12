@@ -41,7 +41,7 @@ mkdir -p package/luci-app-diskman
 mkdir -p applications/luci-app-diskman
 git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
 cp -rf applications/luci-app-diskman package/luci-app-diskman
-rm -rf applications/luci-app-diskman
+rm -rf applications
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
