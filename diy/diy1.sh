@@ -42,6 +42,7 @@ rm -rf utils
 sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker/Makefile
 sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker-compose/Makefile
 sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/dockerd/Makefile
+sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-dockerman/Makefile
 
 ## 磁盘管理luci-app-diskman及依赖parted
 #git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
