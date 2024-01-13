@@ -17,7 +17,9 @@ function git_clone_path() {
 		  rm -rf gitemp
           }
 
-## automount与default-settings
+## autocore automount default-settings
+mkdir -p package/emortal/autocore
+git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/autocore
 mkdir -p package/emortal/automount
 git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
 mkdir -p package/emortal/default-settings
