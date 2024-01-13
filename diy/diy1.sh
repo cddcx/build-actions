@@ -40,7 +40,7 @@ git_clone_path master https://github.com/lisaac/luci-app-dockerman applications/
 #cp -rf applications/luci-app-dockerman package/luci-app-dockerman
 #rm -rf applications
 #rm -rf utils
-#sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker/Makefile
+#sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/{docker,docker-compose,dockerd}/Makefile
 #sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker-compose/Makefile
 #sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/dockerd/Makefile
 #sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-dockerman/Makefile
