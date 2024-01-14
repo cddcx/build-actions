@@ -38,8 +38,8 @@ mkdir -p utils/docker-compose
 git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
 cp -rf utils/docker-compose package/docker-compose
 mkdir -p applications/luci-app-dockerman
-#git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
-git_clone_path master https://github.com/lisaac/luci-app-dockerman applications/luci-app-dockerman
+git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
+#git_clone_path master https://github.com/lisaac/luci-app-dockerman applications/luci-app-dockerman
 cp -rf applications/luci-app-dockerman package/luci-app-dockerman
 rm -rf applications
 rm -rf utils
