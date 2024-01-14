@@ -28,34 +28,34 @@ git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
-mkdir -p utils/docker
-git_clone_path master https://github.com/immortalwrt/packages utils/docker
-cp -rf utils/docker package/docker
-mkdir -p utils/dockerd
-git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
-cp -rf utils/dockerd package/dockerd
-mkdir -p utils/docker-compose
-git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
-cp -rf utils/docker-compose package/docker-compose
-mkdir -p applications/luci-app-dockerman
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
+#mkdir -p utils/docker
+#git_clone_path master https://github.com/immortalwrt/packages utils/docker
+#cp -rf utils/docker package/docker
+#mkdir -p utils/dockerd
+#git_clone_path master https://github.com/immortalwrt/packages utils/dockerd
+#cp -rf utils/dockerd package/dockerd
+#mkdir -p utils/docker-compose
+#git_clone_path master https://github.com/immortalwrt/packages utils/docker-compose
+#cp -rf utils/docker-compose package/docker-compose
+#mkdir -p applications/luci-app-dockerman
+#git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-dockerman
 #git_clone_path master https://github.com/lisaac/luci-app-dockerman applications/luci-app-dockerman
-cp -rf applications/luci-app-dockerman package/luci-app-dockerman
-rm -rf applications
-rm -rf utils
-sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-dockerman/Makefile
-sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/{docker,docker-compose,dockerd}/Makefile
+#cp -rf applications/luci-app-dockerman package/luci-app-dockerman
+#rm -rf applications
+#rm -rf utils
+#sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-dockerman/Makefile
+#sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/{docker,docker-compose,dockerd}/Makefile
 #sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/docker-compose/Makefile
 #sed -i 's@../../lang@$(TOPDIR)/feeds/packages/lang@g' package/dockerd/Makefile
 
 ## 磁盘管理luci-app-diskman及依赖parted
 #git clone https://github.com/lisaac/luci-app-diskman package/luci-app-diskman
 #mkdir -p package/parted && cp -i package/luci-app-diskman/Parted.Makefile package/parted/Makefile
-mkdir -p applications/luci-app-diskman
-git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
-cp -rf applications/luci-app-diskman package/luci-app-diskman
-rm -rf applications
-sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-diskman/Makefile
+#mkdir -p applications/luci-app-diskman
+#git_clone_path master https://github.com/immortalwrt/luci applications/luci-app-diskman
+#cp -rf applications/luci-app-diskman package/luci-app-diskman
+#rm -rf applications
+#sed -i 's@../../luci.mk@$(TOPDIR)/feeds/luci/luci.mk@g' package/luci-app-diskman/Makefile
 
 ## luci-app-filetransfer
 #git clone https://github.com/cddcx/luci-app-filetransfer.git package/luci-app-filetransfer
