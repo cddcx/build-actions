@@ -18,14 +18,14 @@ function git_clone_path() {
           }
 
 ## autocore automount default-settings
-mkdir -p package/emortal
-git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
+#mkdir -p package/emortal
+#git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/autocore
 #mkdir -p package/emortal/automount
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
 #mkdir -p package/emortal/default-settings
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/default-settings
-#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
 #mkdir -p utils/docker
