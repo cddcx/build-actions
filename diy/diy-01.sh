@@ -42,8 +42,8 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 #git_clone_path main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
 #cp -rf luci-app-passwall package/luci-app-passwall
 #rm -rf luci-app-passwall
-svn checkout https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
+#svn checkout https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
+#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall
 
 ## luci-app-openclash
 #git clone https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
