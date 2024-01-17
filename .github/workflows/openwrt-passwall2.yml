@@ -1,4 +1,4 @@
-name: 6-passwall2
+name: openwrt主路由
 
 on:
   workflow_dispatch:
