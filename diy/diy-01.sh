@@ -2,6 +2,7 @@
 #=================================================
 shopt -s extglob
 
+SHELL_FOLDER=$(dirname $(readlink -f "$0"))
 function git_clone_path() {
           branch="$1" rurl="$2" localdir="gitemp" && shift 2
           git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
@@ -12,8 +13,8 @@ function git_clone_path() {
           cd $localdir
           git sparse-checkout init --cone
           git sparse-checkout set $@
-		  mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
-          cd ..
+          mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+		  cd ..
 		  rm -rf gitemp
           }
 
