@@ -31,6 +31,10 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #cp -rf applications/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
 #rm -rf applications
 
+# dnsmasq-2.90
+sed -i 's/PKG_UPSTREAM_VERSION:=2.89/PKG_UPSTREAM_VERSION:=2.90/g' package/network/services/dnsmasq/Makefile
+sed -i 's/PKG_HASH:=02bd230346cf0b9d5909f5e151df168b2707103785eb616b56685855adebb609/PKG_HASH:=8e50309bd837bfec9649a812e066c09b6988b73d749b7d293c06c57d46a109e4/g' package/network/services/dnsmasq/Makefile
+
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
 # TTYD 更改
