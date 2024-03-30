@@ -73,12 +73,15 @@ git clone https://github.com/immortalwrt/homeproxy package/homeproxy           #
 sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
+# luci-app-ssr-plus、luci-app-passwall、luci-app-passwall2
+git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
+
 ## luci-app-passwall2
-mkdir -p luci-app-passwall2
-git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
-cp -rf luci-app-passwall2 package/luci-app-passwall2
-rm -rf luci-app-passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
+#mkdir -p luci-app-passwall2
+#git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+#cp -rf luci-app-passwall2 package/luci-app-passwall2
+#rm -rf luci-app-passwall2
+#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
 #svn checkout https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 ## luci-app-openclash
