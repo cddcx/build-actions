@@ -52,9 +52,7 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-homeproxy luci-app-p
 ## 删除
 rm -rf feeds/luci/applications/luci-app-v2raya
 rm -rf feeds/packages/net/v2raya
-rm -rf feeds/packages/net/{v2ray-core,xray-core}
-rm -rf feeds/packages/net/v2ray-geodata        ###### 与passwall2重复
-rm -rf feeds/packages/net/{microsocks,trojan-go,sing-box}    ###### 与passwall2重复
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
