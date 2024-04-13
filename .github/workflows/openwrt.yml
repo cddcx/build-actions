@@ -58,7 +58,6 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds install -a
         
     - name: DIY2（一般用于ip和样式等）
       run: |
