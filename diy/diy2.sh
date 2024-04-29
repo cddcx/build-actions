@@ -5,7 +5,7 @@
 #=================================================             
 
 # 修改内核
-sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
+sed -i 's/PATCHVER:=*.*/PATCHVER:=6.1/g' target/linux/x86/Makefile 
 
 ##. 默认ip
 #sed -i 's/*.*.*.*/192.168.1.1/g' package/base-files/files/bin/config_generate
