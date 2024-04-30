@@ -65,7 +65,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        cp -rf package/helloworld/shadowsocks-libev feeds/packages/net/shadowsocks-libev
         
     - name: 加载files
       run: |        
