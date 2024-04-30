@@ -71,7 +71,7 @@ git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/l
 
 rm -rf feeds/packages/net/shadowsocks-libev
 #mkdir -p shadowsocksr-libev
-git clone -b v5 --single-branch https://github.com/sbwml/openwrt_helloworld package/shadowsocksr-libev
+git clone -b v5 --single-branch https://github.com/sbwml/openwrt_helloworld/shadowsocksr-libev package/shadowsocksr-libev
 #git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
 #cp -rf shadowsocks-libev feeds/packages/net/shadowsocks-libev
 #rm -rf shadowsocks-libev
