@@ -44,3 +44,20 @@ config host
 	list tag 'tproxy'
 	list mac '1C:69:7A:A6:1E:96'
 
+config host
+	option name 'biji'
+	list mac 'DC:71:96:C6:07:87'
+	option ip '192.168.1.149'
+	list tag 'tproxy'
+
+config host
+	option name 'pingge'
+	option ip '192.168.1.154'
+	list tag 'tproxy'
+	list mac '22:B8:CC:B1:D8:FD'
+
+config host
+	option name 'wuxian'
+	option ip '192.168.1.168'
+	list mac '38:FC:98:9A:EB:4C'
+	list tag 'tproxy'
