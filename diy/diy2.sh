@@ -63,4 +63,7 @@ rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
 rm -rf feeds/packages/net/shadowsocks-libev
-#cp -rf package/helloworld/shadowsocks-libev feeds/packages/net/shadowsocks-libev
+mkdir -p shadowsocksr-libev
+git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
+cp -rf shadowsocks-libev feeds/packages/net/shadowsocks-libev
+rm -rf shadowsocks-libev
