@@ -76,7 +76,13 @@ rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
-rm -rf feeds/packages/net/shadowsocks-libev
-cd feeds/packages/net
-mkdir -p shadowsocksr-libev
-git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
+#rm -rf feeds/packages/net/shadowsocks-libev
+#cd feeds/packages/net
+#mkdir -p shadowsocksr-libev
+#git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
+
+rm -rf package/helloworld/shadowsocks-libev
+mkdir -p net/shadowsocksr-libev
+git_clone_path master https://github.com/openwrt/packages net/shadowsocksr-libev
+cp -rf net/shadowsocksr-libev package/helloworld/shadowsocks-libev
+rm -rf net/shadowsocksr-libev
