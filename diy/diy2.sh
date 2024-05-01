@@ -80,5 +80,3 @@ rm -rf feeds/packages/net/shadowsocks-libev
 cd feeds/packages/net
 mkdir -p shadowsocksr-libev
 git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
-#cp -rf shadowsocks-libev feeds/packages/net/shadowsocks-libev
-#rm -rf shadowsocks-libev
