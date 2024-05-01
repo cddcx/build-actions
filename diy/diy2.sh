@@ -2,14 +2,21 @@
 #=================================================
 
 # Git稀疏克隆，只克隆指定目录到本地
-function git_sparse_clone() {
-  branch="$1" repourl="$2" && shift 2
-  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-  cd $repodir && git sparse-checkout set $@
-  mv -f $@ ../package
-  cd .. && rm -rf $repodir
-}
+SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+function git_clone_path() {
+          branch="$1" rurl="$2" localdir="gitemp" && shift 2
+          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          if [ "$?" != 0 ]; then
+            echo "error on $rurl"
+            return 0
+          fi
+          cd $localdir
+          git sparse-checkout init --cone
+          git sparse-checkout set $@
+          mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+		  cd ..
+		  rm -rf gitemp
+          }
 
 # 修改内核
 sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
@@ -70,8 +77,7 @@ rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
 rm -rf feeds/packages/net/shadowsocks-libev
-#mkdir -p shadowsocksr-libev
-git clone -b v5 --single-branch https://github.com/sbwml/openwrt_helloworld/shadowsocksr-libev package/shadowsocksr-libev
-#git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
-#cp -rf shadowsocks-libev feeds/packages/net/shadowsocks-libev
-#rm -rf shadowsocks-libev
+mkdir -p shadowsocksr-libev
+git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
+cp -rf shadowsocks-libev feeds/packages/net/shadowsocks-libev
+rm -rf shadowsocks-libev
