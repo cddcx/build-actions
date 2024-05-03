@@ -8,4 +8,4 @@ GEOSITE_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/lates
 wget -qO- $GEOIP_URL > files/usr/share/singbox/geoip.dat
 wget -qO- $GEOSITE_URL > files/usr/share/singbox/geosite.dat
 
-chmod +x ffiles/usr/share/singbox/geo*
+chmod +x files/usr/share/singbox/geo*
