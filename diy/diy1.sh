@@ -73,8 +73,13 @@ git clone https://github.com/immortalwrt/homeproxy package/homeproxy           #
 sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
-# Psswall & SSRP 插件
-git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
+# Psswall & SSRP 等插件
+#git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
+
+## luci-app-passwall2
+cd package
+mkdir -p luci-app-passwall2
+git_clone_path main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
 ## luci-app-passwall2
 #mkdir -p luci-app-passwall2
