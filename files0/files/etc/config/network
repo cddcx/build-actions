@@ -12,7 +12,7 @@ config device
 	option type 'bridge'
 	list ports 'eth0'
 	list ports 'eth2'
-  list ports 'eth3'
+        list ports 'eth3'
 
 config interface 'lan'
 	option device 'br-lan'
