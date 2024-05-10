@@ -67,7 +67,7 @@ jobs:
         
     - name: 加载files
       run: |        
-        [ -e files ] && mv files openwrt/files
+        [ -e files0 ] && mv files0/files openwrt/files
         
     - name: 加载.config
       run: |
