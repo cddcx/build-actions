@@ -15,7 +15,7 @@ source ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
 #git_clone_path master https://github.com/immortalwrt/immortalwrt package/emortal/automount
 #mkdir -p package/emortal/default-settings
 merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
-git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## docker
 #mkdir -p utils/docker
