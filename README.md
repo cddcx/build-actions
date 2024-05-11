@@ -1,5 +1,5 @@
 # 说明
-1 参考[HiJwm](https://github.com/HiJwm/My-OpenWrt-New)编译[OpenWrt官方源码](https://github.com/openwrt/openwrt)
+1 参考[lwb1978](https://github.com/lwb1978/OpenWrt-Actions)编译[OpenWrt官方源码](https://github.com/openwrt/openwrt)
 
 2 内核
 
@@ -13,3 +13,4 @@ openwrt-22.03..............5.10
 - [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [xiangfeidexiaohuo](https://github.com/xiangfeidexiaohuo/OpenWrt_Build)
 - [kiddin9](https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1)
+- [lwb1978](https://github.com/lwb1978/OpenWrt-Actions)
