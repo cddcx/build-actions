@@ -1,21 +1,27 @@
 #!/bin/bash
 #=================================================
 
+echo "开始 DIY2 配置……"
+echo "========================="
+
+chmod +x ${GITHUB_WORKSPACE}/subscript.sh
+source ${GITHUB_WORKSPACE}/subscript.sh
+
 # Git稀疏克隆，只克隆指定目录到本地
-SHELL_FOLDER=$(dirname $(readlink -f "$0"))
-function git_clone_path() {
-          branch="$1" rurl="$2" localdir="gitemp" && shift 2
-          git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
-          if [ "$?" != 0 ]; then
-            echo "error on $rurl"
-            return 0
-          fi
-          cd $localdir
-          git sparse-checkout init --cone
-          git sparse-checkout set $@
-          mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
-		  cd ..
-		  rm -rf gitemp
+#SHELL_FOLDER=$(dirname $(readlink -f "$0"))
+#function git_clone_path() {
+          #branch="$1" rurl="$2" localdir="gitemp" && shift 2
+          #git clone -b $branch --depth 1 --filter=blob:none --sparse $rurl $localdir
+          #if [ "$?" != 0 ]; then
+            #echo "error on $rurl"
+            #return 0
+          #fi
+          #cd $localdir
+          #git sparse-checkout init --cone
+          #git sparse-checkout set $@
+          #mv -n $@/* ../$@/ || cp -rf $@ ../$(dirname "$@")/
+		  #cd ..
+		  #rm -rf gitemp
           }
 
 # 修改内核
@@ -80,3 +86,6 @@ git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/l
 #cd feeds/packages/net
 #mkdir -p shadowsocksr-libev
 #git_clone_path v5 https://github.com/sbwml/openwrt_helloworld shadowsocksr-libev
+
+echo "========================="
+echo " DIY2 配置完成……"
