@@ -1,11 +1,11 @@
 #!/bin/bash
 #=================================================
 
-echo "开始 DIY2 配置……"
+echo "开始 DIY1 配置……"
 echo "========================="
 
-chmod +x ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
-source ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
+chmod +x ${GITHUB_WORKSPACE}/subscript.sh
+source ${GITHUB_WORKSPACE}/subscript.sh
 
 ## autocore automount default-settings
 #mkdir -p package/emortal
