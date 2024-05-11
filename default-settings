@@ -34,6 +34,7 @@ fw_iptv_id=$(uci show firewall | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]/
 	uci set firewall.@zone[-1].input='ACCEPT'
 	uci set firewall.@zone[-1].output='ACCEPT'
 	uci set firewall.@zone[-1].forward='REJECT'
+        uci delete firewall.@zone[-1].network='IPTV'
 	uci commit firewall
 }
 
