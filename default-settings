@@ -36,7 +36,7 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 	#uci set firewall.@zone[-1].forward='REJECT'
         #uci delete firewall.@zone[-1].network='IPTV'
 	#uci commit firewall
-}
+#}
 
 # 劫持DNS端口到路由（已存在相关设置则不修改）
 #[ "$(grep -c 'nft add rule inet fw4 dstnat tcp dport 53' /etc/firewall4.user)" = "0" ] && {
