@@ -26,25 +26,25 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 	uci commit firewall
 }
 
-fw_iptv_id=$(uci show firewall | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
-#uci delete firewall.@zone["${fw_iptv_id}"]
-[ -z "${fw_iptv_id}" ] && {
-	uci add firewall zone
+#fw_iptv_id=$(uci show firewall | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
+##uci delete firewall.@zone["${fw_iptv_id}"]
+#[ -z "${fw_iptv_id}" ] && {
+	#uci add firewall zone
 	uci set firewall.@zone[-1].name='IPTV'
-	uci set firewall.@zone[-1].input='ACCEPT'
-	uci set firewall.@zone[-1].output='ACCEPT'
-	uci set firewall.@zone[-1].forward='REJECT'
-        uci delete firewall.@zone[-1].network='IPTV'
-	uci commit firewall
+	#uci set firewall.@zone[-1].input='ACCEPT'
+	#uci set firewall.@zone[-1].output='ACCEPT'
+	#uci set firewall.@zone[-1].forward='REJECT'
+        #uci delete firewall.@zone[-1].network='IPTV'
+	#uci commit firewall
 }
 
 # 劫持DNS端口到路由（已存在相关设置则不修改）
-[ "$(grep -c 'nft add rule inet fw4 dstnat tcp dport 53' /etc/firewall4.user)" = "0" ] && {
-	echo 'nft add rule inet fw4 dstnat tcp dport 53 counter redirect to :53' >> /etc/firewall4.user
-}
-[ "$(grep -c 'nft add rule inet fw4 dstnat udp dport 53' /etc/firewall4.user)" = "0" ] && {
+#[ "$(grep -c 'nft add rule inet fw4 dstnat tcp dport 53' /etc/firewall4.user)" = "0" ] && {
+	#echo 'nft add rule inet fw4 dstnat tcp dport 53 counter redirect to :53' >> /etc/firewall4.user
+#}
+#[ "$(grep -c 'nft add rule inet fw4 dstnat udp dport 53' /etc/firewall4.user)" = "0" ] && {
 	echo 'nft add rule inet fw4 dstnat udp dport 53 counter redirect to :53' >> /etc/firewall4.user
-}
+#}
 
 # shell解释器换成bash、修改profile
 if [ -f /bin/bash ]; then
