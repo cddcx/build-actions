@@ -24,4 +24,4 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-stati
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
 rm -rf package/passwall2/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,tcping,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
-merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2 luci-app-passwall2
+merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
