@@ -1,5 +1,5 @@
 # 说明
-1 参考[lwb1978](https://github.com/lwb1978/OpenWrt-Actions)编译[OpenWrt官方源码](https://github.com/openwrt/openwrt)
+1 参考[lwb1978](https://github.com/lwb1978/OpenWrt-Actions)、[sbwml](https://github.com/sbwml/r4s_build_script)编译[OpenWrt官方源码](https://github.com/openwrt/openwrt)
 
 2 内核
 
