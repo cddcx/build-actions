@@ -82,8 +82,8 @@ rm -rf feeds/packages/utils/unzip
 git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
 
 # golang 1.22
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+#rm -rf feeds/packages/lang/golang
+#git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 #rm -rf feeds/packages/lang/golang
 #git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
@@ -170,6 +170,30 @@ pushd feeds/luci/applications/luci-app-firewall
 	curl -sO https://$mirror/patch/luci/luci-nftables.patch
 popd
 
+# 补充 firewall4 luci 中文翻译
+cat >> "feeds/luci/applications/luci-app-firewall/po/zh_Hans/firewall.po" <<-EOF
+	
+	msgid ""
+	"Custom rules allow you to execute arbitrary nft commands which are not "
+	"otherwise covered by the firewall framework. The rules are executed after "
+	"each firewall restart, right after the default ruleset has been loaded."
+	msgstr ""
+	"自定义规则允许您执行不属于防火墙框架的任意 nft 命令。每次重启防火墙时，"
+	"这些规则在默认的规则运行后立即执行。"
+	
+	msgid ""
+	"Applicable to internet environments where the router is not assigned an IPv6 prefix, "
+	"such as when using an upstream optical modem for dial-up."
+	msgstr ""
+	"适用于路由器未分配 IPv6 前缀的互联网环境，例如上游使用光猫拨号时。"
+
+	msgid "NFtables Firewall"
+	msgstr "NFtables 防火墙"
+
+	msgid "IPtables Firewall"
+	msgstr "IPtables 防火墙"
+EOF
+
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
 # 移动 UPnP 到 “网络” 子菜单
@@ -189,6 +213,9 @@ cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/fil
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
 #fi
+
+./scripts/feeds update -a
+./scripts/feeds install -a
 
 echo "========================="
 echo " DIY2 配置完成……"
