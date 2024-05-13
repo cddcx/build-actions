@@ -109,6 +109,17 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
+# firewall4 Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & ipv6-nat & custom nft command option
+export mirror=raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main
+pushd feeds/luci/applications/luci-app-firewall
+        curl -sO https://$mirror/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch
+	curl -sO https://$mirror/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch1
+	curl -sO https://$mirror/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch
+        curl -sO https://$mirror/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch
+	# 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
+	curl -sO https://$mirror/patch/luci/luci-nftables.patch
+#popd
+
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
