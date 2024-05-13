@@ -1,20 +1,66 @@
 #!/bin/bash
-#
-# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part2.sh
-# Description: OpenWrt DIY script part 2 (After Update feeds)
-#
+
+# 拉取仓库文件夹
+function merge_package() {
+	# 参数1是分支名,参数2是库地址,参数3是所有文件下载到指定路径。
+	# 同一个仓库下载多个文件夹直接在后面跟文件名或路径，空格分开。
+	# 示例:
+	# merge_package master https://github.com/WYC-2020/openwrt-packages package/openwrt-packages luci-app-eqos luci-app-openclash luci-app-ddnsto ddnsto 
+	# merge_package master https://github.com/lisaac/luci-app-dockerman package/lean applications/luci-app-dockerman
+	if [[ $# -lt 3 ]]; then
+		echo "Syntax error: [$#] [$*]" >&2
+		return 1
+	fi
+	trap 'rm -rf "$tmpdir"' EXIT
+	branch="$1" curl="$2" target_dir="$3" && shift 3
+	rootdir="$PWD"
+	localdir="$target_dir"
+	[ -d "$localdir" ] || mkdir -p "$localdir"
+	tmpdir="$(mktemp -d)" || exit 1
+	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
+	cd "$tmpdir"
+	git sparse-checkout init --cone
+	git sparse-checkout set "$@"
+	# 使用循环逐个移动文件夹
+	for folder in "$@"; do
+		mv -f "$folder" "$rootdir/$localdir"
+	done
+	cd "$rootdir"
+}
+
+function drop_package(){
+	find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+}
+
+function merge_feed(){
+	./scripts/feeds update $1
+	./scripts/feeds install -a -p $1
+}
 
 echo "开始 DIY2 配置……"
 echo "========================="
 
-chmod +x ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
-source ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
+#chmod +x ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
+#source ${GITHUB_WORKSPACE}/immortalwrt/subscript.sh
+
+## 修改target.mk
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
+#sed -i "s/odhcp6c/ipv6-helper/" include/target.mk
+sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg luci-app-firewall /" include/target.mk
+
+## 修改target/linux/x86/Makefile
+#sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
+
+## 删除
+rm -rf feeds/luci/applications/luci-app-v2raya
+rm -rf feeds/packages/net/v2raya
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+
+# curl/8.5.0 - fix passwall `time_pretransfer` check
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
 # 修改x86内核到6.6版
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
@@ -149,7 +195,6 @@ EOF
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
-
 # 移动 UPnP 到 “网络” 子菜单
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
 
@@ -161,7 +206,7 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
-cat ${GITHUB_WORKSPACE}/immortalwrt/default-settings >> package/emortal/default-settings/files/99-default-settings
+cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
