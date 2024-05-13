@@ -32,40 +32,6 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
-# ------------------PassWall 科学上网--------------------------
-# 移除 openwrt feeds 自带的核心库
-rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box,pdnsd-alt,brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan,trojan-go,trojan-plus,tuic-client,v2ray-plugin,xray-plugin}
-# 核心库
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-rm -rf package/passwall-packages/{chinadns-ng,naiveproxy,shadowsocks-rust,v2ray-geodata}
-merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages chinadns-ng naiveproxy shadowsocks-rust v2ray-geodata
-# app
-rm -rf feeds/luci/applications/{luci-app-passwall,luci-app-ssr-libev-server}
-git clone -b luci-smartdns-dev --single-branch https://github.com/lwb1978/openwrt-passwall package/passwall-luci
-# git clone https://github.com/xiaorouji/openwrt-passwall package/passwall-luci
-# ------------------------------------------------------------
-
-# 优化socat中英翻译
-sed -i 's/仅IPv6/仅 IPv6/g' package/feeds/luci/luci-app-socat/po/zh_Hans/socat.po
-
-# SmartDNS
-rm -rf feeds/luci/applications/luci-app-smartdns
-git clone --single-branch https://github.com/lwb1978/luci-app-smartdns package/luci-app-smartdns
-# 替换immortalwrt 软件仓库smartdns版本为官方最新版
-rm -rf feeds/packages/net/smartdns
-cp -rf ${GITHUB_WORKSPACE}/patch/smartdns feeds/packages/net
-
-# 替换udpxy为修改版
-rm -rf feeds/packages/net/udpxy/Makefile
-cp -rf ${GITHUB_WORKSPACE}/patch/udpxy/Makefile feeds/packages/net/udpxy/
-
-# lukcy大吉
-git clone https://github.com/sirpdboy/luci-app-lucky package/lucky-packages
-
-# 添加主题
-rm -rf feeds/luci/themes/luci-theme-argon
-git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
-
 # unzip
 rm -rf feeds/packages/utils/unzip
 git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
@@ -81,10 +47,6 @@ git clone https://github.com/sbwml/package_network_services_ppp package/network/
 # TTYD设置
 sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-
-# 同步 openwrt 仓库 openssl
-rm -rf package/libs/openssl
-merge_package master https://github.com/openwrt/openwrt package/libs package/libs/openssl
 
 # openssl - quictls
 export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
@@ -134,10 +96,6 @@ pushd package/libs/openssl/patches
 	curl -sO https://$mirror/openwrt/patch/openssl/quic/0043-QUIC-Fix-extension-test.patch
 	curl -sO https://$mirror/openwrt/patch/openssl/quic/0044-QUIC-Update-metadata-version.patch
 popd
-
-# openssl 3.2
-# rm -rf package/libs/openssl
-# git clone https://github.com/sbwml/package_libs_openssl -b openssl-3.2 package/libs/openssl
 	  
 # openssl -Ofast
 sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
@@ -154,15 +112,13 @@ git clone https://github.com/sbwml/package_libs_ngtcp2 feeds/packages/libs/ngtcp
 rm -rf feeds/packages/net/curl
 git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
 
-# firewall4 add custom nft command support
-curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
-
 # firewall4 Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & ipv6-nat & custom nft command option
 export mirror=raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main
 pushd feeds/luci/applications/luci-app-firewall
         curl -sO https://$mirror/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch
 	curl -sO https://$mirror/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch1
 	curl -sO https://$mirror/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch
+        curl -sO https://$mirror/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch
 	# 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
 	curl -sO https://$mirror/patch/luci/luci-nftables.patch
 popd
@@ -208,9 +164,9 @@ sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/immortalwrt/default-settings >> package/emortal/default-settings/files/99-default-settings
 
 # 拷贝自定义文件
-if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
-	cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
-fi
+#if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
+	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
+#fi
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
