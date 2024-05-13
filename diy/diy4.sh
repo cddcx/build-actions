@@ -65,6 +65,9 @@ git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/l
 # 修改x86内核到6.6版
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
 
+## 修改密码
+sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99999:7:::@g' package/base-files/files/etc/shadow
+
 # 默认IP由1.1修改为0.1
 # sed -i 's/192.168.1.1/192.168.0.1/g' package/base-files/files/bin/config_generate
 
@@ -155,43 +158,19 @@ rm -rf feeds/packages/libs/ngtcp2
 git clone https://github.com/sbwml/package_libs_ngtcp2 feeds/packages/libs/ngtcp2
 
 # curl
-rm -rf feeds/packages/net/curl
-git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
+#rm -rf feeds/packages/net/curl
+#git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
 
 # firewall4 Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & ipv6-nat & custom nft command option
-export mirror=raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main
-pushd feeds/luci/applications/luci-app-firewall
-        curl -sO https://$mirror/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch
-	curl -sO https://$mirror/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch1
-	curl -sO https://$mirror/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch
-        curl -sO https://$mirror/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch
-	# 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
-	curl -sO https://$mirror/patch/luci/luci-nftables.patch
-popd
-
-# 补充 firewall4 luci 中文翻译
-cat >> "feeds/luci/applications/luci-app-firewall/po/zh_Hans/firewall.po" <<-EOF
-	
-	msgid ""
-	"Custom rules allow you to execute arbitrary nft commands which are not "
-	"otherwise covered by the firewall framework. The rules are executed after "
-	"each firewall restart, right after the default ruleset has been loaded."
-	msgstr ""
-	"自定义规则允许您执行不属于防火墙框架的任意 nft 命令。每次重启防火墙时，"
-	"这些规则在默认的规则运行后立即执行。"
-	
-	msgid ""
-	"Applicable to internet environments where the router is not assigned an IPv6 prefix, "
-	"such as when using an upstream optical modem for dial-up."
-	msgstr ""
-	"适用于路由器未分配 IPv6 前缀的互联网环境，例如上游使用光猫拨号时。"
-
-	msgid "NFtables Firewall"
-	msgstr "NFtables 防火墙"
-
-	msgid "IPtables Firewall"
-	msgstr "IPtables 防火墙"
-EOF
+#export mirror=raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main
+#pushd feeds/luci/applications/luci-app-firewall
+        #curl -sO https://$mirror/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch
+	#curl -sO https://$mirror/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch1
+	#curl -sO https://$mirror/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch
+        #curl -sO https://$mirror/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch
+	## 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
+	#curl -sO https://$mirror/patch/luci/luci-nftables.patch
+#popd
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
@@ -212,9 +191,6 @@ cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/fil
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
 #fi
-
-./scripts/feeds update -a
-./scripts/feeds install -a
 
 echo "========================="
 echo " DIY2 配置完成……"
