@@ -159,15 +159,17 @@ git clone https://github.com/sbwml/package_libs_ngtcp2 feeds/packages/libs/ngtcp
 rm -rf feeds/packages/net/curl
 git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
 
+# firewall4 add custom nft command support
+curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
+
 # firewall4 Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & ipv6-nat & custom nft command option
-export mirror=raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main
-pushd feeds/luci/applications/luci-app-firewall
-        curl -sO https://$mirror/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch
-	curl -sO https://$mirror/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch1
-	curl -sO https://$mirror/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch
-        curl -sO https://$mirror/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch
+pushd feeds/luci
+	# curl -s https://$mirror/openwrt/patch/firewall4/01-luci-app-firewall_add_nft-fullcone-bcm-fullcone_option.patch | patch -p1
+	curl -s https://$mirror/openwrt/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch | patch -p1
+	curl -s https://$mirror/openwrt/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch | patch -p1
+	curl -s https://$mirror/openwrt/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch | patch -p1
 	# 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
-	curl -sO https://$mirror/patch/luci/luci-nftables.patch
+	curl -s https://$mirror/openwrt/patch/luci/luci-nftables.patch | patch -p1
 popd
 
 # 补充 firewall4 luci 中文翻译
