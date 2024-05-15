@@ -111,7 +111,7 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy 
 ## 删除
 rm -rf feeds/luci/applications/luci-app-v2raya
 rm -rf feeds/packages/net/v2raya
-rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+rm -rf feeds/packages/net/{microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
 
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
