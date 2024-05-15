@@ -167,7 +167,7 @@ pushd package/libs/openssl/patches
 popd
 	  
 # openssl -Ofast
-#sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
+sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
 
 # firewall4 add custom nft command support
 curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
