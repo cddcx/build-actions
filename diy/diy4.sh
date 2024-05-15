@@ -182,6 +182,10 @@ pushd feeds/luci
 	curl -s https://$mirror/openwrt/patch/luci/luci-nftables.patch | patch -p1
 popd
 
+# kiddin9的patches补丁
+merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/common devices/common/patches
+merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
+
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang\/golang\/golang-package.mk/$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g' {}
