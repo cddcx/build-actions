@@ -1,4 +1,4 @@
-name: 22.03
+name: 23.05
 
 on:
   workflow_dispatch:
@@ -8,16 +8,16 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
-  CONFIG_FILE: diff.config
-  DIY_P1_SH: diy/22.03.sh
-  DIY_P2_SH: diy/diy02.sh
+  REPO_BRANCH: openwrt-23.05
+  CONFIG_FILE: diff-passwall2.config
+  DIY_P1_SH: diy/diy1.sh
+  DIY_P2_SH: diy/diy4.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - name: 准备结束
@@ -27,9 +27,13 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
+        sudo -E apt-get -qq install build-essential clang llvm flex g++ gawk gcc-multilib gettext \
+        git libncurses5-dev libssl-dev python3-distutils python3-pyelftools python3-setuptools \
+        libpython3-dev rsync unzip zlib1g-dev swig aria2 jq subversion qemu-utils ccache rename \
+        libelf-dev device-tree-compiler libgnutls28-dev coccinelle libgmp3-dev libmpc-dev
+        sudo -E apt-get -qq purge azure-cli ghc* zulu* firefox powershell openjdk* dotnet* google* mysql* php* android*
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -54,18 +58,39 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds install -a
-        
-    - name: 加载files和.config
-      run: |        
-        [ -e $FILES_FILE ] && mv $FILES_FILE openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         
     - name: DIY2（一般用于ip和样式等）
       run: |
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        
+    - name: 加载files
+      run: |        
+        [ -e files0 ] && mv files0/files openwrt/files
+        
+    - name: 加载.config
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+    
+    - name: 加载scripts下的补丁
+      run: |
+        chmod +x $GITHUB_WORKSPACE/scripts/*.sh
+        cd openwrt
+        #$GITHUB_WORKSPACE/scripts/03-convert_translation.sh
+        #$GITHUB_WORKSPACE/scripts/preset-clash-core.sh
+        #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
+        $GITHUB_WORKSPACE/scripts/passwall2.sh
+
+    #- name: 应用patch补丁
+      #run: |
+        #cd openwrt
+        #cp -rn devices/common/patches devices/x86_64/
+          #if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
+            #git apply devices/x86_64/patches/*.bin.patch
+          #fi
+          #find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
+          #find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
         
     - name: 下载依赖
       working-directory: ./openwrt
@@ -95,6 +120,7 @@ jobs:
         rm -rf *kernel.bin
         rm -rf profiles.json
         rm -rf *rootfs.img
+        rm -rf *rootfs.tar.gz
         rm -rf *.manifest
         rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
