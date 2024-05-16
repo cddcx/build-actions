@@ -109,9 +109,8 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
 
 ## 删除
-rm -rf feeds/luci/applications/luci-app-v2raya
-rm -rf feeds/packages/net/v2raya
-rm -rf feeds/packages/net/{microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
+rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
+rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
 
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
