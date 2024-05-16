@@ -82,6 +82,21 @@ jobs:
         #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
         $GITHUB_WORKSPACE/scripts/passwall2.sh
 
+    - name: Load custom configuration
+      run: |
+        cp -rf devices/common/. openwrt/
+        cp -rf devices/x86_64/. openwrt/
+        cp -rf devices openwrt/
+        cd openwrt
+        chmod +x devices/common/$DIY_P3_SH
+        /bin/bash "devices/common/$DIY_SH"
+        if [ -f "devices/x86_64/$DIY_SH" ]; then
+          chmod +x devices/x86_64/$DIY_SH
+          echo "/bin/bash devices/x86_64/$DIY_SH"
+          /bin/bash "devices/x86_64/$DIY_SH"
+        fi
+        cp -Rf ./diy/* ./ || true
+        
     #- name: 应用patch补丁
       #run: |
         #cd openwrt
