@@ -127,7 +127,7 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 # kiddin9的common及x86_64补丁
 merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices devices/common devices/x86_64
-rm -rf devices/common/diy.sh
+rm -rf devices/common/{diy.sh,kernel_6.1.sh,kernel_6.6.sh}
 rm -rf devices/common/patches/{targets.patch,luci_mk.patch}
 #merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
 rm -rf devices/x86_64/diy.sh
