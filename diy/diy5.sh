@@ -135,7 +135,7 @@ rm -rf devices/common/{diy.sh,kernel_6.1.sh,kernel_6.6.sh}
 rm -rf devices/common/patches/{targets.patch,luci_mk.patch,usb-audio.patch}
 #merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
 rm -rf devices/x86_64/diy.sh
-rm -rf devices/x86_64/patche/Intel_gpu.patch
+rm -rf devices/x86_64/patches/Intel_gpu.patch
 #cp -rn devices/common/patches devices/x86_64/
 #if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
         #git apply devices/x86_64/patches/*.bin.patch
