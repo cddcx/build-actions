@@ -82,7 +82,7 @@ jobs:
         #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
         $GITHUB_WORKSPACE/scripts/passwall2.sh
 
-    - name: Load custom configuration
+    - name: 加载自定义配置
       run: |
         cp -rf devices/common/. openwrt/
         cp -rf devices/x86_64/. openwrt/
