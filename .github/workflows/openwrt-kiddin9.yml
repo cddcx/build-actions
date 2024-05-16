@@ -11,7 +11,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: diff-passwall2.config
   DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy4.sh
+  DIY_P2_SH: diy/diy5.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -88,13 +88,13 @@ jobs:
         cp -rf devices/x86_64/. openwrt/
         cp -rf devices openwrt/
         cd openwrt
-        chmod +x devices/common/diy.sh
-        /bin/bash "devices/common/diy.sh"
-        if [ -f "devices/x86_64/diy.sh" ]; then
-          chmod +x devices/x86_64/diy.sh
-          echo "/bin/bash devices/x86_64/diy.sh"
-          /bin/bash "devices/x86_64/diy.sh"
-        fi
+        #chmod +x devices/common/diy.sh
+        #/bin/bash "devices/common/diy.sh"
+        #if [ -f "devices/x86_64/diy.sh" ]; then
+          #chmod +x devices/x86_64/diy.sh
+          #echo "/bin/bash devices/x86_64/diy.sh"
+          #/bin/bash "devices/x86_64/diy.sh"
+        #fi
         cp -Rf ./diy/* ./ || true
         
     - name: 应用patch补丁
