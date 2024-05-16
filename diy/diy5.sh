@@ -136,13 +136,13 @@ rm -rf devices/common/patches/{targets.patch,luci_mk.patch,usb-audio.patch}
 #merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
 rm -rf devices/x86_64/diy.sh
 rm -rf devices/x86_64/patches/Intel_gpu.patch
-#cp -rn devices/common/patches devices/x86_64/
-#if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
-        #git apply devices/x86_64/patches/*.bin.patch
-#fi
-#find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
-#find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
-#' `find target/linux -path "target/linux/*/config-*"`
+cp -rn devices/common/patches devices/x86_64/
+if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
+        git apply devices/x86_64/patches/*.bin.patch
+fi
+find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
+find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
+' `find target/linux -path "target/linux/*/config-*"`
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
