@@ -88,12 +88,12 @@ jobs:
         cp -rf devices/x86_64/. openwrt/
         cp -rf devices openwrt/
         cd openwrt
-        chmod +x devices/common/$DIY_P3_SH
-        /bin/bash "devices/common/$DIY_SH"
-        if [ -f "devices/x86_64/$DIY_SH" ]; then
-          chmod +x devices/x86_64/$DIY_SH
-          echo "/bin/bash devices/x86_64/$DIY_SH"
-          /bin/bash "devices/x86_64/$DIY_SH"
+        chmod +x devices/common/diy.sh
+        /bin/bash "devices/common/diy.sh"
+        if [ -f "devices/x86_64/diy.sh" ]; then
+          chmod +x devices/x86_64/diy.sh
+          echo "/bin/bash devices/x86_64/diy.sh"
+          /bin/bash "devices/x86_64/diy.sh"
         fi
         cp -Rf ./diy/* ./ || true
         
