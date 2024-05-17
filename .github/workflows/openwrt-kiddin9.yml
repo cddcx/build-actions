@@ -98,6 +98,7 @@ jobs:
       run: |
         cd openwrt
         cp -rn devices/common/patches devices/x86_64/
+        rm -rf devices/x86_64/patches/*.patch.b
           if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
             git apply devices/x86_64/patches/*.bin.patch
           fi
