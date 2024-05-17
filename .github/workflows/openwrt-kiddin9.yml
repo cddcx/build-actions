@@ -84,9 +84,6 @@ jobs:
 
     - name: 加载自定义配置
       run: |
-        cp -rf devices/common/. openwrt/
-        cp -rf devices/x86_64/. openwrt/
-        cp -rf devices openwrt/
         cd openwrt
         #chmod +x devices/common/diy.sh
         #/bin/bash "devices/common/diy.sh"
