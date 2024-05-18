@@ -1,0 +1,4 @@
+0 3 * * * lua /usr/share/passwall2/subscribe.lua start cfg168b02 > /dev/null 2>&1 &
+
+# 每周2、4、6凌晨5点重启路由器系统，延时70秒
+0 5  2,4,6 sleep 70 && touch /etc/banner && reboot
