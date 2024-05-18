@@ -1,4 +1,4 @@
-## 每天5点重启passwall2
-##0 5  * * * && /etc/init.d/passwall2 && restart
+## 每天6点重启passwall2
+##0 6  * * * /etc/init.d/passwall2 restart
 ## 每周3、6凌晨5点重启路由器系统，延时70秒
 0 5  3,6 sleep 70 && touch /etc/banner && reboot
