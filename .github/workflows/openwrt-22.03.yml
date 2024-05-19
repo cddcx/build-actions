@@ -11,7 +11,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: diff-passwall2.config
   DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy4.sh
+  DIY_P2_SH: diy/diy5.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -86,8 +86,7 @@ jobs:
       run: |
         cd openwrt
         pushd package/libs/openssl/patches
-          find "devices/patch/openssl/quic" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
-          find "devices/patch/openssl/quic" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
+          find "devices/patch/openssl/quic" -maxdepth 1 -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
         
     - name: 下载依赖
       working-directory: ./openwrt
