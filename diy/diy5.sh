@@ -117,7 +117,8 @@ rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-co
 #git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
 
 # openssl - quictls
-merge_package master https://github.com/sbwml/r4s_build_script devices//patch openwrt/patch/openssl/quic
+#merge_package master https://github.com/sbwml/r4s_build_script package/libs/openssl/patches openwrt/patch/openssl/quic
+merge_package master https://github.com/sbwml/r4s_build_script devices/patch openwrt/patch/openssl/quic
 
 # openssl -Ofast
 sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
