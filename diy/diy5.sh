@@ -45,7 +45,7 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # 修改内核
-#sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
+sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
 
 ##. 默认ip
 #sed -i 's/*.*.*.*/192.168.1.1/g' package/base-files/files/bin/config_generate
@@ -58,10 +58,6 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/themes/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/*mediaurlbase*/d' {} \;
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-argon/luci-theme-kucat/g' {} \;
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
-
-sed -i 's/256/1024/g' target/linux/x86/image/Makefile
-
-sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
 
 # 最大连接数修改为65535
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
@@ -113,15 +109,31 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
 
 ## 删除
-rm -rf feeds/luci/applications/{luci-app-v2raya,shadowsocks-libev}
+rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
 rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
 
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
 #git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
-	  
+
+# openssl - quictls
+merge_package master https://github.com/sbwml/r4s_build_script devices//patch openwrt/patch/openssl/quic
+
 # openssl -Ofast
 sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
+
+# firewall4 add custom nft command support
+curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
+
+# firewall4 Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & ipv6-nat & custom nft command option
+export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+pushd feeds/luci
+	curl -s https://$mirror/openwrt/patch/firewall4/02-luci-app-firewall_add_shortcut-fe.patch | patch -p1
+	curl -s https://$mirror/openwrt/patch/firewall4/03-luci-app-firewall_add_ipv6-nat.patch | patch -p1
+	curl -s https://$mirror/openwrt/patch/firewall4/04-luci-add-firewall4-nft-rules-file.patch | patch -p1
+	# 状态-防火墙页面去掉iptables警告，并添加nftables、iptables标签页
+	curl -s https://$mirror/openwrt/patch/luci/luci-nftables.patch | patch -p1
+popd
 
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
@@ -129,19 +141,29 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
-# kiddin9的common及x86_64补丁
-merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices devices/common devices/x86_64
-rm -rf devices/common/{diy.sh,kernel_6.1.sh,kernel_6.6.sh}
-rm -rf devices/common/patches/{luci_mk.patch,targets.patch,usb-audio.patch}
-#merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
-rm -rf devices/x86_64/diy.sh
-rm -rf devices/x86_64/patches/Intel_gpu.patch
-#cp -rn devices/common/patches devices/x86_64/
-#if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
-        #git apply devices/x86_64/patches/*.bin.patch
-#fi
-#find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
-#find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
+# 补充 firewall4 luci 中文翻译
+cat >> "feeds/luci/applications/luci-app-firewall/po/zh_Hans/firewall.po" <<-EOF
+	
+	msgid ""
+	"Custom rules allow you to execute arbitrary nft commands which are not "
+	"otherwise covered by the firewall framework. The rules are executed after "
+	"each firewall restart, right after the default ruleset has been loaded."
+	msgstr ""
+	"自定义规则允许您执行不属于防火墙框架的任意 nft 命令。每次重启防火墙时，"
+	"这些规则在默认的规则运行后立即执行。"
+	
+	msgid ""
+	"Applicable to internet environments where the router is not assigned an IPv6 prefix, "
+	"such as when using an upstream optical modem for dial-up."
+	msgstr ""
+	"适用于路由器未分配 IPv6 前缀的互联网环境，例如上游使用光猫拨号时。"
+
+	msgid "NFtables Firewall"
+	msgstr "NFtables 防火墙"
+
+	msgid "IPtables Firewall"
+	msgstr "IPtables 防火墙"
+EOF
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
@@ -151,6 +173,7 @@ cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/fil
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
 #fi
+
 
 echo "========================="
 echo " DIY2 配置完成……"
