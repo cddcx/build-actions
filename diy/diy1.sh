@@ -45,8 +45,8 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 ## autocore automount default-settings
-merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
-#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+#merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
+git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 ## luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/homeproxy           ####### homeproxy的默认版本(二选一)
