@@ -11,7 +11,7 @@ env:
   REPO_BRANCH: main
   CONFIG_FILE: diff-passwall2.config
   DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy3.sh
+  DIY_P2_SH: diy/diy5.sh
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
