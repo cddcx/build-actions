@@ -1,3 +1,15 @@
+# 添加iptv防火墙
+fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-Incoming' | grep -oE '\[.*?\]' | sed 's/[][]//g')
+#uci delete firewall.@rule["${fw_iptv_id}"]
+[ -z "${fw_iptv_id}" ] && {
+	uci add firewall rule
+	uci set firewall.@rule[-1].name='IPTV'
+	uci set firewall.@rule[-1].input='ACCEPT'
+	uci set firewall.@rule[-1].output='ACCEP'
+	uci set firewall.@rule[-1].forward='REJECT'
+	ucidef set firewall.@rule[-1].network='IPTV'
+	uci commit firewall
+
 # 添加组播防火墙规则
 fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-Incoming' | grep -oE '\[.*?\]' | sed 's/[][]//g')
 #uci delete firewall.@rule["${fw_iptv_id}"]
@@ -29,7 +41,7 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 # 添加网络接口iptv
 network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
 [ -z "${network_iptv_id}" ] && {
- 	uci add network include
+ 	uci add network include 'IPTV'
  	uci set network.@include[-1].proto='static'
  	uci set network.@include[-1].device='eth1.43'
  	uci set network.@include[-1].ipaddr='10.117.242.15'
@@ -37,7 +49,7 @@ network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[
 }
 
 # 添加网络接口eth
-network_eth_id=$(uci show network | sed 's/[][]//g')
+network_eth_id=$(uci show network | grep 'eth1.43' | sed 's/[][]//g')
 [ -z "${network_iptv_id}" ] && {
  	uci add network device
  	uci set network.@device[-1].name='eth1.43'
