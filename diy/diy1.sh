@@ -45,8 +45,8 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # 修改网络
-sed -i "12i ucidef_set_interface_lan 'eth2'" package/base-files/files/etc/board.d/99-default_network
-sed -i "13i ucidef_set_interface_lan 'eth3'" package/base-files/files/etc/board.d/99-default_network
+#sed -i "12i ucidef_set_interface_lan 'eth2'" package/base-files/files/etc/board.d/99-default_network
+#sed -i "13i ucidef_set_interface_lan 'eth3'" package/base-files/files/etc/board.d/99-default_network
 
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
