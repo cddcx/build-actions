@@ -1,14 +1,14 @@
 # 添加iptv防火墙
-fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-Incoming' | grep -oE '\[.*?\]' | sed 's/[][]//g')
+fw_iptv_id=$(uci show firewall | sed 's/[][]//g')
 #uci delete firewall.@rule["${fw_iptv_id}"]
 [ -z "${fw_iptv_id}" ] && {
-	uci add firewall rule
-	uci set firewall.@rule[-1].name='IPTV'
-	uci set firewall.@rule[-1].input='ACCEPT'
-	uci set firewall.@rule[-1].output='ACCEP'
-	uci set firewall.@rule[-1].forward='REJECT'
-        ucidef add firewall.@rule[-1].network='IPTV'
-	#ucidef set firewall.@rule[-1].network='IPTV'
+	uci add firewall zone
+	uci set firewall.@zone[-1].name='IPTV'
+	uci set firewall.@zone[-1].input='ACCEPT'
+	uci set firewall.@zone[-1].output='ACCEP'
+	uci set firewall.@zone[-1].forward='REJECT'
+        ucidef add firewall.@zone[-1].network='IPTV'
+	#ucidef set firewall.@zone[-1].network='IPTV'
 	uci commit firewall
 
 # 添加组播防火墙规则
@@ -39,17 +39,7 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 	uci commit firewall
 }
 
-# 添加网络接口iptv
-network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
-[ -z "${network_iptv_id}" ] && {
- 	uci add network interface
- 	uci set network.@interface[-1].proto='static'
- 	uci set network.@interface[-1].device='eth1.43'
- 	uci set network.@interface[-1].ipaddr='10.117.242.15'
- 	uci commit network
-}
-
-# 添加网络接口eth
+# 添加网络接口(eth1.43)
 network_eth_id=$(uci show network | sed 's/[][]//g')
 [ -z "${network_iptv_id}" ] && {
  	uci add network device
@@ -59,6 +49,16 @@ network_eth_id=$(uci show network | sed 's/[][]//g')
  	uci set network.@device[-1].vid='43'
  	uci set network.@device[-1].macaddr='90:D8:F3:C8:C0:24'
         uci commit network
+}
+
+# 添加网络接口iptv
+network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
+[ -z "${network_iptv_id}" ] && {
+ 	uci add network interface
+ 	uci set network.@interface[-1].proto='static'
+ 	uci set network.@interface[-1].device='eth1.43'
+ 	uci set network.@interface[-1].ipaddr='10.117.242.15'
+ 	uci commit network
 }
 
 # 劫持DNS端口到路由（已存在相关设置则不修改）
