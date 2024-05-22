@@ -7,9 +7,10 @@ fw_iptv_id=$(uci show firewall | sed 's/[][]//g')
 	uci set firewall.@zone[-1].input='ACCEPT'
 	uci set firewall.@zone[-1].output='ACCEP'
 	uci set firewall.@zone[-1].forward='REJECT'
-        ucidef add firewall.@zone[-1].network='IPTV'
+        uci add_list firewall.@zone[-1].network='IPTV'
 	#ucidef set firewall.@zone[-1].network='IPTV'
 	uci commit firewall
+}
 
 # 添加组播防火墙规则
 fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-Incoming' | grep -oE '\[.*?\]' | sed 's/[][]//g')
