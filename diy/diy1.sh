@@ -44,6 +44,9 @@ echo "========================="
 #chmod +x ${GITHUB_WORKSPACE}/subscript.sh
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
+# 修改网络
+sed -i 's/eth0/eth0 eth2 eth3/' package/base-files/files/etc/board.d/99-default-settings
+
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
