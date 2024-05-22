@@ -42,15 +42,15 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 # 添加网络接口iptv
 network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
 [ -z "${network_iptv_id}" ] && {
- 	uci add network include 'IPTV'
- 	uci set network.@include[-1].proto='static'
- 	uci set network.@include[-1].device='eth1.43'
- 	uci set network.@include[-1].ipaddr='10.117.242.15'
+ 	uci add network interface
+ 	uci set network.@interface[-1].proto='static'
+ 	uci set network.@interface[-1].device='eth1.43'
+ 	uci set network.@interface[-1].ipaddr='10.117.242.15'
  	uci commit network
 }
 
 # 添加网络接口eth
-network_eth_id=$(uci show network | grep 'eth1.43' | sed 's/[][]//g')
+network_eth_id=$(uci show network | sed 's/[][]//g')
 [ -z "${network_iptv_id}" ] && {
  	uci add network device
  	uci set network.@device[-1].name='eth1.43'
