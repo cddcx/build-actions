@@ -26,16 +26,27 @@ fw_iptv_id=$(uci show firewall | grep 'Allow-IPTV-igmpproxy' | grep -oE '\[.*?\]
 	uci commit firewall
 }
 
-# 添加防火墙自定义规则
-# fw_user_id=$(uci show firewall | grep '/etc/firewall4.user' | grep -oE '\[.*?\]' | sed 's/[][]//g')
-# [ -z "${fw_user_id}" ] && {
-# 	uci add firewall include
-# 	uci set firewall.@include[-1].enabled=1
-# 	uci set firewall.@include[-1].type='script'
-# 	uci set firewall.@include[-1].path='/etc/firewall4.user'
-# 	uci set firewall.@include[-1].fw4_compatible=1
-# 	uci commit firewall
-# }
+# 添加网络接口iptv
+network_iptv_id=$(uci show network | grep 'IPTV' | grep -oE '\[.*?\]' | sed 's/[][]//g')
+[ -z "${network_iptv_id}" ] && {
+ 	uci add network include
+ 	uci set network.@include[-1].proto='static'
+ 	uci set network.@include[-1].device='eth1.43'
+ 	uci set network.@include[-1].ipaddr='10.117.242.15'
+ 	uci commit network
+}
+
+# 添加网络接口eth
+network_eth_id=$(uci show network | sed 's/[][]//g')
+[ -z "${network_iptv_id}" ] && {
+ 	uci add network device
+ 	uci set network.@device[-1].name='eth1.43'
+ 	uci set network.@device[-1].type='8021q'
+ 	uci set network.@device[-1].ifname='eth1'
+ 	uci set network.@device[-1].vid='43'
+ 	uci set network.@device[-1].macaddr='90:D8:F3:C8:C0:24'
+        uci commit network
+}
 
 # 劫持DNS端口到路由（已存在相关设置则不修改）
 #[ "$(grep -c 'nft add rule inet fw4 dstnat tcp dport 53' /etc/firewall4.user)" = "0" ] && {
