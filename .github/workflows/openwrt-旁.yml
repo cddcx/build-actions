@@ -12,6 +12,7 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy/diy1.sh
   DIY_P2_SH: diy/diy2.sh
+  FILES: files1
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
@@ -68,7 +69,7 @@ jobs:
         
     - name: 加载files
       run: |        
-        [ -e files1 ] && mv files1/files openwrt/files
+        [ -e $FILES ] && mv $FILES openwrt/files
         
     - name: 加载.config
       run: |
