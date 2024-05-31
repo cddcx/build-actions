@@ -106,7 +106,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 
 ## 修改target/linux/x86/Makefile
 #sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-ssl px5g-mbedtls luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += libpcre luci-ssl px5g-mbedtls luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
 
 ## 删除
 rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
