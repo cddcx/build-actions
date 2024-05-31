@@ -48,3 +48,6 @@ config interface 'IPTV'
 	option vendorid 'SCITV'
 	option metric '20'
 	option force_link '1'
+	option defaultroute '0'
+	option peerdns '0'
+
