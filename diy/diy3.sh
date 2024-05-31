@@ -114,7 +114,7 @@ rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-co
 
 # haproxy
 rm -rf feeds/packages/net/haproxy
-merge_package master https://github.com/immortalwrt/packages feeds/packages/net haproxy
+merge_package master https://github.com/immortalwrt/packages feeds/packages/net net/haproxy
 
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
