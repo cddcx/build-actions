@@ -51,7 +51,6 @@ sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile
 #sed -i 's/*.*.*.*/192.168.1.1/g' package/base-files/files/bin/config_generate
 
 ## 修改密码
-#sed -i 's@root:::0:99999:7:::@root:$1$pfsE8FKB$tnZcDcV8vUTqxJpwXLzZv1:19690:0:99999:7:::@g' package/base-files/files/etc/shadow
 sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99999:7:::@g' package/base-files/files/etc/shadow
 
 # 取消主题默认设置
@@ -60,7 +59,7 @@ sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99
 #find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
 
 # 最大连接数修改为65535
-sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
+#sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
 # 修复上移下移按钮翻译
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
@@ -119,9 +118,6 @@ rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-co
 # curl/8.5.0 - fix passwall `time_pretransfer` check
 #rm -rf feeds/packages/net/curl
 #git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
-
-# firewall4 add custom nft command support
-curl -s https://$mirror/openwrt/patch/firewall4/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
 
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
