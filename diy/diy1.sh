@@ -44,10 +44,6 @@ echo "========================="
 #chmod +x ${GITHUB_WORKSPACE}/subscript.sh
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
-# 修改网络
-#sed -i "12i ucidef_set_interface_lan 'eth2'" package/base-files/files/etc/board.d/99-default_network
-#sed -i "13i ucidef_set_interface_lan 'eth3'" package/base-files/files/etc/board.d/99-default_network
-
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
@@ -65,5 +61,7 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-stati
 merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
 # 核心包
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
-rm -rf package/passwall2/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box,tcping,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
-merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
+rm -rf package/passwall2/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box}
+rm -rf package/passwall2/{tcping,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
+merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box tcping
+merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
