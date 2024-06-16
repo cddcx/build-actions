@@ -64,4 +64,4 @@ merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
 
 # luci-app-unblockneteasemusic与luci-app-uugamebooster
-merge_package master https://github.com/kiddin9/openwrt-packages package/openwrt-packages luci-app-unblockneteasemusic luci-app-uugamebooster UnblockNeteaseMusic uugamebooster
+#merge_package master https://github.com/kiddin9/openwrt-packages package/openwrt-packages luci-app-unblockneteasemusic luci-app-uugamebooster UnblockNeteaseMusic uugamebooster
