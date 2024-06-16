@@ -54,9 +54,6 @@ git clone https://github.com/immortalwrt/homeproxy package/homeproxy           #
 sed -i "s@ImmortalWrt@OpenWrt@g" package/homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
-# Psswall & SSRP 等插件
-#git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
-
 ## luci-app-passwall2
 merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
 # 核心包
@@ -65,3 +62,6 @@ rm -rf package/passwall2/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,micro
 rm -rf package/passwall2/{tcping,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
+
+# luci-app-unblockneteasemusic与luci-app-uugamebooster
+merge_package master https://github.com/kiddin9/openwrt-packages package/openwrt-packages luci-app-unblockneteasemusic luci-app-uugamebooster UnblockNeteaseMusic uugamebooster
