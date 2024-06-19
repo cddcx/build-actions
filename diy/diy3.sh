@@ -104,11 +104,11 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy 
 	#curl -s https://github.com/openwrt/packages/pull/24414/commits/5fd761ebb369b5e06c9a28e3e3c1ea88905c45fb.patch | patch -p1
 #fi
 pushd feeds/packages
-	curl_ver=$(cat feeds/packages/net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}' | awk 'BEGIN{FS=".";OFS="."};{print $1,$2}')
-	if ((`expr $curl_ver \<= 8.8`)); then
-		echo "替换curl版本"
-		curl -s https://github.com/openwrt/packages/pull/24414/commits/5fd761ebb369b5e06c9a28e3e3c1ea88905c45fb.patch | patch -p1
-	fi
+	curl_ver=$(cat net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}' | awk 'BEGIN{FS=".";OFS="."};{print $1,$2}')
+	[ "$curl_ver" \<= "8.8" ] && {
+		 echo "替换curl版本"
+		 curl -s https://github.com/openwrt/packages/pull/24414/commits/5fd761ebb369b5e06c9a28e3e3c1ea88905c45fb.patch | patch -p1
+	}
 popd
 
 ## 删除
