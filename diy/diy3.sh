@@ -98,8 +98,8 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy 
 # 替换curl
 #rm -rf feeds/packages/net/curl
 #merge_package curl https://github.com/Ra2-IFV/packages feeds/packages/net net/curl
-curl_ver=$(cat feeds/packages | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}' | awk 'BEGIN{FS=".";OFS="."};{print $1,$2}')
-if ((`expr $curl_ver/net/curl/Makefile \<= 8.8`)); then
+curl_ver=$(cat feeds/packages/net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}' | awk 'BEGIN{FS=".";OFS="."};{print $1,$2}')
+if ((`expr $curl_ver \<= 8.8`)); then
 	echo "替换curl版本"
 	curl -s https://github.com/openwrt/packages/pull/24414/commits/5fd761ebb369b5e06c9a28e3e3c1ea88905c45fb.patch | patch -p1
         #curl -s https://github.com/openwrt/packages/pull/24414/commits/2716f264363c3ab337ad1cdba522667fea45c93a.patch | patch -p1
