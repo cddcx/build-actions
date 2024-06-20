@@ -98,9 +98,9 @@ sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy 
 # 替换curl
 #rm -rf feeds/packages/net/curl
 #merge_package openwrt-23.05 https://github.com/openwrt/packages feeds/packages/net net/curl
-pushd feeds/packages
-	curl -s https://github.com/openwrt/packages/commit/d97d07c6da0d02d15496d1daf2bdb5cb941c8c43.patch | patch -p1
-popd
+#pushd feeds/packages
+	#curl -s https://github.com/openwrt/packages/commit/d97d07c6da0d02d15496d1daf2bdb5cb941c8c43.patch | patch -p1
+#popd
 
 ## 删除
 rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
