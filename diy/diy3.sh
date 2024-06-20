@@ -107,7 +107,6 @@ pushd feeds/packages
 	curl_ver=$(cat net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}' | awk 'BEGIN{FS=".";OFS="."};{print $1,$2}')
 	[ "$curl_ver" = "8.8.0" ] && {
 		 echo "替换curl版本"
-		 #curl -s https://github.com/openwrt/packages/pull/24414/commits/5fd761ebb369b5e06c9a28e3e3c1ea88905c45fb.patch | patch -p1
                  curl -s https://github.com/openwrt/packages/commit/d97d07c6da0d02d15496d1daf2bdb5cb941c8c43.patch | patch -p1
 	}
 popd
