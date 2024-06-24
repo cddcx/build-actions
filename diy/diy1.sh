@@ -65,5 +65,5 @@ rm -rf package/passwall2/{tcping,trojan-plus,trojan,tuic-client,v2ray-core,v2ray
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
 merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall2 tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
 
-# luci-app-unblockneteasemusic与luci-app-uugamebooster
-#merge_package master https://github.com/kiddin9/openwrt-packages package/openwrt-packages luci-app-unblockneteasemusic luci-app-uugamebooster UnblockNeteaseMusic uugamebooster
+echo "========================="
+echo " DIY1 配置完成……"
