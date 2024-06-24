@@ -57,7 +57,7 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
 ## luci-app-passwall2
-merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
+#merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
 # 核心包
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall2
 rm -rf package/passwall2/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box}
