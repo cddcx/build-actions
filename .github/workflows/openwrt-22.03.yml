@@ -51,6 +51,7 @@ jobs:
         
     - name: DIY1(一般用于安装依赖和插件)
       run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -61,20 +62,14 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         
-    - name: DIY2（一般用于ip和样式等）
+    - name: 加载自定义设置
       run: |
+        [ -e $FILES ] && mv $FILES openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 加载files
-      run: |        
-        [ -e files0 ] && mv files0/files openwrt/files
-        
-    - name: 加载.config
-      run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-    
     - name: 加载scripts下的补丁
       run: |
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
@@ -84,11 +79,15 @@ jobs:
         #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
         $GITHUB_WORKSPACE/scripts/passwall2.sh
 
-    - name: 应用patch补丁
-      run: |
-        cd openwrt
-        pushd package/libs/openssl/patches
-          find "devices/patch/openssl/quic" -maxdepth 1 -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
+    #- name: 应用patch补丁
+      #run: |
+        #cd openwrt
+        #cp -rn devices/common/patches devices/x86_64/
+          #if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
+            #git apply devices/x86_64/patches/*.bin.patch
+          #fi
+          #find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
+          #find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
         
     - name: 下载依赖
       working-directory: ./openwrt
@@ -101,7 +100,7 @@ jobs:
     - name: 编译固件
       working-directory: ./openwrt
       run: |
-        echo -e "$(nproc) thread build."
+        echo -e "$(nproc) thread build"
         make -j$(nproc) || make -j1 || make -j1 V=s
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
