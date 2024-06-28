@@ -55,5 +55,18 @@ merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/luci-app-h
 sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
+## luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
+
+## luci-app-passwall2
+#merge_package 主 https://github.com/xiaorouji/openwrt-passwall2 包 luci-app-passwall2
+
+# 核心包
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+rm -rf package/passwall-packages/{chinadns-ng，dns2socks，dns2tcp，hysteria，ipt2socks，microsocks，naiveproxy，shadowsocks-rust，shadowsocksr-libev，simple-obfs，sing-box}
+rm -rf package/passwall-packages/{tcping，trojan-plus，trojan，tuic-client，v2ray-core，v2ray-geodata，v2ray-plugin，xray-core，xray-plugin}
+merge_package v5 https://github.com/sbwml/openwrt_helloworld 包/passwall-packages chinadns-ng dns2socks dns2tcp 歇斯底里 ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages tcping 木马加木马 tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
+
 echo "========================="
 echo " DIY1 配置完成……"
