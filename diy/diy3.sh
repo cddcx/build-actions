@@ -96,8 +96,8 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-homeproxy luci-app-upnp luci-app-udpxy luci-app-passwall /g' target/linux/x86/Makefile
 
 # 替换curl
-rm -rf feeds/packages/net/curl
-merge_package openwrt-23.05 https://github.com/openwrt/packages feeds/packages/net net/curl
+#rm -rf feeds/packages/net/curl
+#merge_package openwrt-23.05 https://github.com/openwrt/packages feeds/packages/net net/curl
 #pushd feeds/packages
 	#curl -s https://github.com/openwrt/packages/commit/d97d07c6da0d02d15496d1daf2bdb5cb941c8c43.patch | patch -p1
 #popd
