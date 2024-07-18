@@ -56,10 +56,10 @@ sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
+#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
 ## luci-app-passwall2
-#merge_package 主 https://github.com/xiaorouji/openwrt-passwall2 包 luci-app-passwall2
+merge_package 主 https://github.com/xiaorouji/openwrt-passwall2 包 luci-app-passwall2
 
 # 核心包
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
