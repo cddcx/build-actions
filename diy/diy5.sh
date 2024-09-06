@@ -70,7 +70,6 @@ sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/us
 
 # golang 1.22
 rm -rf feeds/packages/lang/golang
-#git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # ppp - 2.5.0
@@ -110,16 +109,12 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 #sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-homeproxy luci-app-passwall2 luci-app-upnp luci-app-udpxy /g' target/linux/x86/Makefile
 
-# 替换curl
-#rm -rf feeds/packages/net/curl
-#merge_package openwrt-23.05 https://github.com/openwrt/packages feeds/packages/net net/curl
-#pushd feeds/packages
-	#curl -s https://github.com/openwrt/packages/commit/d97d07c6da0d02d15496d1daf2bdb5cb941c8c43.patch | patch -p1
-#popd
+# 移除 openwrt feeds 自带的核心包
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 
 ## 删除
 rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
-rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
+rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
