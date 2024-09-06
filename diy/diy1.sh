@@ -48,7 +48,7 @@ echo "========================="
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
-# luci-app-homeproxy
+# luci-app-homeproxy luci-app-passwall luci-app-passwall2
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
 sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
@@ -57,14 +57,14 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/l
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
 ## luci-app-passwall2
-merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
+#merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
 
 # 核心包
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-rm -rf package/passwall-packages/{chinadns-ng，dns2socks，dns2tcp，hysteria，ipt2socks，microsocks，naiveproxy，shadowsocks-rust，shadowsocksr-libev，simple-obfs，sing-box}
-rm -rf package/passwall-packages/{tcping，trojan-plus，trojan，tuic-client，v2ray-core，v2ray-geodata，v2ray-plugin，xray-core，xray-plugin}
-merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
-merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages tcping trojan-plus，trojan, tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
+#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+#rm -rf package/passwall-packages/{chinadns-ng，dns2socks，dns2tcp，hysteria，ipt2socks，microsocks，naiveproxy，shadowsocks-rust，shadowsocksr-libev，simple-obfs，sing-box}
+#rm -rf package/passwall-packages/{tcping，trojan-plus，trojan，tuic-client，v2ray-core，v2ray-geodata，v2ray-plugin，xray-core，xray-plugin}
+#merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
+#merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages tcping trojan-plus，trojan, tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
 
 echo "========================="
 echo " DIY1 配置完成……"
