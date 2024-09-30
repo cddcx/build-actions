@@ -48,7 +48,7 @@ echo "========================="
 #sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
 
 ##. 默认ip
-#sed -i 's/*.*.*.*/192.168.1.1/g' package/base-files/files/bin/config_generate
+sed -i 's/*.*.*.*/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 ## 修改密码
 #sed -i 's@root:::0:99999:7:::@root:$1$pfsE8FKB$tnZcDcV8vUTqxJpwXLzZv1:19690:0:99999:7:::@g' package/base-files/files/etc/shadow
@@ -69,21 +69,9 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
-# unzip
-rm -rf feeds/packages/utils/unzip
-git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
-
-# ppp - 2.5.0
-rm -rf package/network/services/ppp
-git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
-
-# nghttp3
-rm -rf feeds/packages/libs/nghttp3
-git clone https://github.com/sbwml/package_libs_nghttp3 feeds/packages/libs/nghttp3
-
 # golang 1.22
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
@@ -109,33 +97,8 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-upnp luci-app-udpxy luci-app-homeproxy luci-app-passwall2 /g' target/linux/x86/Makefile
 
 ## 删除
-rm -rf feeds/luci/applications/{luci-app-v2raya,shadowsocks-libev}
-rm -rf feeds/packages/net/{v2raya,microsocks,sing-box,shadowsocks-libev,v2ray-core,v2ray-geodata,xray-core}
-
-# curl/8.5.0 - fix passwall `time_pretransfer` check
-#rm -rf feeds/packages/net/curl
-#git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
-	  
-# openssl -Ofast
-sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
-
-# 修正部分从第三方仓库拉取的软件 Makefile 路径问题
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang\/golang\/golang-package.mk/$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
-
-# kiddin9的patches补丁
-merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/common devices/common/patches
-rm -rf devices/common/patches/{targets.patch,luci_mk.patch}
-merge_package master https://github.com/kiddin9/OpenWrt_x86-r2s-r4s-r5s-N1 devices/x86_64 devices/x86_64/patches
-rm -rf devices/x86_64/Intel_gpu.patch
-cp -rn devices/common/patches devices/x86_64/
-if [ -n "$(ls -A devices/x86_64/*.bin.patch 2>/dev/null)" ]; then
-        git apply devices/x86_64/patches/*.bin.patch
-fi
-find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.revert.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -R -B --merge -p1 -E --forward"
-find "devices/x86_64/patches" -maxdepth 1 -type f -name '*.patch' ! -name '*.revert.patch' ! -name '*.bin.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -B --merge -p1 -E --forward"
+#rm -rf feeds/luci/applications/{luci-app-v2raya,shadowsocks-libev}
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
