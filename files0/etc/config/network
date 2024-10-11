@@ -30,7 +30,7 @@ config interface 'wan'
 	option ipv6 'auto'
 
 config interface 'wan6'
-	option device 'eth1'
+	option device 'eth1.200'
 	option proto 'dhcpv6'
 
 config device
