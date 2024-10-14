@@ -28,6 +28,7 @@ config interface 'wan'
 	option username 'CD0283366379757'
 	option password '19701115'
 	option ipv6 'auto'
+        option mtu '1500'
 
 config interface 'wan6'
 	option device 'eth1.200'
