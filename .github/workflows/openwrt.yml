@@ -65,10 +65,10 @@ jobs:
     - name: 加载自定义设置
       run: |
         [ -e $FILES ] && mv $FILES openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE ] && sudo mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        sudo $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: 加载scripts下的补丁
       run: |
@@ -96,6 +96,12 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: 编译固luci-app-daed
+      working-directory: ./openwrt
+      run: |
+        echo -e "$(nproc) thread build"
+        sudo make package/helloworld/luci-app-daed/compile V=s
         
     - name: 编译固件
       working-directory: ./openwrt
