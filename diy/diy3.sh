@@ -149,11 +149,15 @@ endef
 $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 
-
+# .config
 echo '
-
-CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-CONFIG_PACKAGE_libcron=y
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_TARGET_IMAGES_GZIP is not set
+CONFIG_TARGET_KERNEL_PARTSIZE=80
+CONFIG_TARGET_ROOTFS_PARTSIZE=600
+# CONFIG_TARGET_ROOTFS_TARGZ is not set
 ' >> .config
 
 # 拷贝自定义文件
@@ -161,6 +165,8 @@ CONFIG_PACKAGE_libcron=y
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
 #fi
 
+./scripts/feeds update -a
+./scripts/feeds install -a
 
 echo "========================="
 echo " DIY2 配置完成……"
