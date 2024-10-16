@@ -153,7 +153,6 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 echo '
 
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-' >> .config
 CONFIG_PACKAGE_libcron=y
 ' >> .config
 
