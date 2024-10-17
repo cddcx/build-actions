@@ -11,7 +11,7 @@ env:
   REPO_BRANCH: openwrt-23.05
   CONFIG_FILE: diff-passwall2.config
   DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy5.sh
+  DIY_P2_SH: diy/diy3.sh
   FEEDS_CONF: feeds.conf.default
   FILES: files0
   UPLOAD_FIRMWARE: true
@@ -30,7 +30,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install build-essential clang llvm flex g++ gawk gcc-multilib gettext \
+        sudo -E apt-get -qq install build-essential clang* llvm flex g++ gawk gcc-multilib gettext \
         git libncurses5-dev libssl-dev python3-distutils python3-pyelftools python3-setuptools \
         libpython3-dev rsync unzip zlib1g-dev swig aria2 jq subversion qemu-utils ccache rename \
         libelf-dev device-tree-compiler libgnutls28-dev coccinelle libgmp3-dev libmpc-dev
