@@ -170,7 +170,7 @@ CONFIG_KERNEL_DEBUG_INFO_BTF=y
 
 CONFIG_PACKAGE_libcron=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-' >> .config
+' >>  ./target/linux/x86/config-6.6
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
