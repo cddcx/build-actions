@@ -154,11 +154,11 @@ CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >> .config
 
 # .config
-echo '
-CONFIG_TARGET_x86=y
-CONFIG_TARGET_x86_64=y
-CONFIG_TARGET_x86_64_DEVICE_generic=y
-' >>  ./target/linux/x86/config-6.6
+#echo '
+#CONFIG_TARGET_x86=y
+#CONFIG_TARGET_x86_64=y
+#CONFIG_TARGET_x86_64_DEVICE_generic=y
+#' >>  ./target/linux/x86/config-6.6
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
