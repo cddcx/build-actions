@@ -150,9 +150,6 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 echo '
 
-CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-' >> .config
-
 # .config
 #echo '
 #CONFIG_TARGET_x86=y
