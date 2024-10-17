@@ -150,9 +150,6 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 echo '
 
-CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-' >> .config
-
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
