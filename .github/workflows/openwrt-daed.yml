@@ -96,6 +96,8 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        sed -i 's/# CONFIG_DEVEL is not set/CONFIG_DEVEL=y/g' .config
+        sed -i 's/# CONFIG_PACKAGE_kmod-xdp-sockets-diag is not set/CONFIG_PACKAGE_kmod-xdp-sockets-diag=y/g' .config
 
     #- name: 编译固luci-app-daed
       #working-directory: ./openwrt
