@@ -69,12 +69,12 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
 # ppp - 2.5.0
-rm -rf package/network/services/ppp
-git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
+#rm -rf package/network/services/ppp
+#git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # golang 1.22
-rm -rf feeds/packages/lang/golang
-git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+#rm -rf feeds/packages/lang/golang
+#git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # 修复编译时提示 freeswitch 缺少 libpcre 依赖
 sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefile
@@ -92,12 +92,12 @@ sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/lu
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
 
 # TTYD 自动登录
-sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
+#sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
 # TTYD 更改
-sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
+#sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+#sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+#sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
+#sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 
 ## 修改target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
@@ -149,13 +149,6 @@ endef
 $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 echo '
-
-## .config
-#echo '
-#CONFIG_TARGET_x86=y
-#CONFIG_TARGET_x86_64=y
-#CONFIG_TARGET_x86_64_DEVICE_generic=y
-#' >>  ./target/linux/x86/config-6.6
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
