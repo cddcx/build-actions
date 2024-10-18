@@ -107,7 +107,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 
 ## 修改target/linux/x86/Makefile
 #sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-homeproxy luci-app-mihomo luci-app-upnp luci-app-udpxy luci-app-openclash /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-homeproxy luci-app-mihomo luci-app-upnp luci-app-udpxy /g' target/linux/x86/Makefile
 
 # 移除 openwrt feeds 自带的核心包
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
