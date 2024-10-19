@@ -97,15 +97,6 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         sed -i 's/# CONFIG_PACKAGE_kmod-xdp-sockets-diag is not set/CONFIG_PACKAGE_kmod-xdp-sockets-diag=y/g' .config
-        echo '
-        CONFIG_BPF_TOOLCHAIN_HOST=y
-        # CONFIG_BPF_TOOLCHAIN_NONE is not set
-        CONFIG_KERNEL_BPF_EVENTS=y
-        CONFIG_KERNEL_CGROUP_BPF=y
-        CONFIG_KERNEL_DEBUG_INFO=y
-        CONFIG_KERNEL_DEBUG_INFO_BTF=y
-        # CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-        ' >> .config
 
     #- name: 编译固luci-app-daed
       #working-directory: ./openwrt
