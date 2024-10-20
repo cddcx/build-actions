@@ -35,7 +35,6 @@ config interface 'wan6'
 	option proto 'dhcpv6'
 	option reqaddress 'try'
 	option reqprefix 'auto'
-	option sourcefilter '0'
 
 config device
 	option type '8021q'
