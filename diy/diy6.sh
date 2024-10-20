@@ -127,9 +127,9 @@ sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
 # 编译luci-app-daed所需内核模块
-#cat ${GITHUB_WORKSPACE}/netsupport.mk >> package/kernel/linux/modules/netsupport.mk
+#依赖
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
-
+#内核模块
 echo '
 
 define KernelPackage/xdp-sockets-diag
@@ -148,7 +148,7 @@ endef
 $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 
-# 自定义默认cofig文件
+# 启用 eBPF 支持
 echo '
 CONFIG_DEVEL=y
 CONFIG_BPF_TOOLCHAIN_HOST=y
