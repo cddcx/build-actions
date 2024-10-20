@@ -126,13 +126,6 @@ rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
-# 自定义默认cofig文件
-echo '
-CONFIG_TARGET_x86=y
-CONFIG_TARGET_x86_64=y
-CONFIG_TARGET_x86_64_DEVICE_generic=y
-' >> target/linux/x86/config-6.6
-
 # 编译luci-app-daed所需内核模块
 #cat ${GITHUB_WORKSPACE}/netsupport.mk >> package/kernel/linux/modules/netsupport.mk
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
@@ -155,6 +148,17 @@ endef
 $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 
+# 自定义默认cofig文件
+echo '
+CONFIG_DEVEL=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
+# CONFIG_BPF_TOOLCHAIN_NONE is not set
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_BTF=y
+# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+' >>  ./.config
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
 	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
