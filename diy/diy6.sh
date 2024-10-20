@@ -126,6 +126,13 @@ rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
+# 自定义默认cofig文件
+echo '
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+' >> ./target/linux/x86/config-6.6
+
 # 编译luci-app-daed所需内核模块
 #cat ${GITHUB_WORKSPACE}/netsupport.mk >> package/kernel/linux/modules/netsupport.mk
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
