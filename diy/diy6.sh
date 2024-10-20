@@ -131,7 +131,7 @@ echo '
 CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
-' >> ./target/linux/x86/config-6.6
+' >> target/linux/x86/config-6.6
 
 # 编译luci-app-daed所需内核模块
 #cat ${GITHUB_WORKSPACE}/netsupport.mk >> package/kernel/linux/modules/netsupport.mk
