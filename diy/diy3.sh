@@ -123,7 +123,6 @@ rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 #find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
 #pushd feeds/packages/lang/ruby/Makefile
-	# 防火墙4添加自定义nft命令选项卡
 	#curl -s https://github.com/openwrt/packages/pull/25151/commits/b780dd263356150cf467e85dc1676feb12bed727.patch | patch -p1
 #popd
 
