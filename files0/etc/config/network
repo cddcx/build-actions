@@ -36,6 +36,13 @@ config interface 'wan6'
 	option reqaddress 'try'
 	option reqprefix 'auto'
 
+config device
+	option name 'eth1.100'
+	option type '8021q'
+	option ifname 'eth1'
+	option vid '100'
+	option macaddr '90:D8:F3:C8:C0:24'
+
 config interface 'IPTV'
 	option proto 'dhcp'
 	option device 'eth1.100'
