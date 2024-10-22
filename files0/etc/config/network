@@ -31,7 +31,7 @@ config interface 'wan'
         option mtu '1500'
 
 config interface 'wan6'
-	option device 'eth1.200'
+	option device 'eth1'
 	option proto 'dhcpv6'
 	option reqaddress 'try'
 	option reqprefix 'auto'
