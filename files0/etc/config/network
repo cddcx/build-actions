@@ -35,6 +35,7 @@ config interface 'wan6'
 	option proto 'dhcpv6'
 	option reqaddress 'try'
 	option reqprefix 'auto'
+        option disabled '1'
 
 config device
 	option name 'eth1.100'
