@@ -6,7 +6,7 @@ config interface 'loopback'
 	option netmask '255.0.0.0'
 
 config globals 'globals'
-	option ula_prefix 'fda5:0ce5:975b::/48'
+	option ula_prefix 'fda6:1176:8db::/48'
 
 config device
 	option name 'br-lan'
