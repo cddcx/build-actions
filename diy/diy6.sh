@@ -69,24 +69,19 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
 # ppp - 2.5.0
-#rm -rf package/network/services/ppp
-#git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
+rm -rf package/network/services/ppp
+git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # golang 1.22
-#rm -rf feeds/packages/lang/golang
-#git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+rm -rf feeds/packages/lang/golang
+git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # ruby
-rm -rf feeds/packages/lang/ruby
-merge_package openwrt-23.05 https://github.com/immortalwrt/packages feeds/packages/lang/ruby lang/ruby
+#rm -rf feeds/packages/lang/ruby
+#merge_package openwrt-23.05 https://github.com/immortalwrt/packages feeds/packages/lang/ruby lang/ruby
 
 # 修复编译时提示 freeswitch 缺少 libpcre 依赖
 sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefile
-
-# 修复ruby
-#pushd feeds/packages/lang/ruby/Makefile
-	#curl -s https://github.com/openwrt/packages/pull/25151/commits/b780dd263356150cf467e85dc1676feb12bed727.patch | patch -p1
-#popd
 
 # 替换udpxy为修改版，解决组播源数据有重复数据包导致的花屏和马赛克问题
 rm -rf feeds/packages/net/udpxy/Makefile
@@ -116,7 +111,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 
 ## 修改target/linux/x86/Makefile
 #sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-mihomo luci-app-upnp luci-app-udpxy luci-app-openclash /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-mihomo luci-app-upnp luci-app-udpxy luci-app-passwall2 /g' target/linux/x86/Makefile
 
 # 移除 openwrt feeds 自带的核心包
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
@@ -132,8 +127,8 @@ rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 #find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
 # 自定义默认配置
-sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
-cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
+#sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
+#cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
 # 编译luci-app-daed所需内核模块
 #依赖
