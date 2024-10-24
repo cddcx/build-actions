@@ -125,20 +125,3 @@ config zone
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
 	list network 'IPTV'
-
-config rule
-	option name 'Allow-IPTV-Incoming'
-	option target 'ACCEPT'
-	option src 'wan'
-	option family 'ipv4'
-	option proto 'udp'
-	option dest_ip '224.0.0.0/4'
-
-config rule
-	option name 'Allow-IPTV-igmpproxy'
-	option target 'ACCEPT'
-	option src 'wan'
-	option family 'ipv4'
-	option proto 'udp'
-	option dest 'lan'
-	option dest_ip '224.0.0.0/4'
