@@ -55,7 +55,7 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/helloworld/luci-app-homepro
 #rm -rf package/helloworld/daed
 #rm -rf package/helloworld/luci-app-daed
 rm -rf package/helloworld/luci-app-ssr-plus
-rm -rf package/helloworld/uci-app-mihomo
+rm -rf package/helloworld/luci-app-mihomo
 rm -rf package/helloworld/mihomo
 
 # luci-app-daed
