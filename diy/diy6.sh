@@ -68,10 +68,6 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
-# unzip
-rm -rf feeds/packages/utils/unzip
-git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
-
 # ppp - 2.5.0
 rm -rf package/network/services/ppp
 git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
