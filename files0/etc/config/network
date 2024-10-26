@@ -43,7 +43,6 @@ config device
 config interface 'IPTV'
 	option proto 'dhcp'
 	option device 'eth1.100'
-	option force_link '1'
 	option clientid '5510919900703210000090D8F3C8C024'
 	option vendorid 'SCITV'
 	option metric '20'
