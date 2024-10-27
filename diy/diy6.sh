@@ -69,8 +69,8 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
 # ppp - 2.5.0
-#rm -rf package/network/services/ppp
-#git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
+rm -rf package/network/services/ppp
+git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # golang 1.22
 rm -rf feeds/packages/lang/golang
@@ -131,17 +131,18 @@ rm -rf feeds/packages/net/{v2raya,microsocks,shadowsocks-libev}
 #cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
 # 编译luci-app-daed所需内核模块
-#依赖
+# 依赖
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
 
-#编译luci-app-daed所需内核模块
+# 编译luci-app-daed所需内核模块
 echo '
 
 define KernelPackage/xdp-sockets-diag
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   TITLE:=PF_XDP sockets monitoring interface support for ss utility
-  DEPENDS:=@KERNEL_XDP_SOCKETS
-  KCONFIG:=CONFIG_XDP_SOCKETS_DIAG
+  KCONFIG:= \
+	CONFIG_XDP_SOCKETS=y \
+	CONFIG_XDP_SOCKETS_DIAG
   FILES:=$(LINUX_DIR)/net/xdp/xsk_diag.ko
   AUTOLOAD:=$(call AutoLoad,31,xsk_diag)
 endef
