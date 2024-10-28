@@ -9,7 +9,7 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-23.05
-  CONFIG_FILE: diff-passwall2.config
+  CONFIG_FILE: daed.config
   DIY_P1_SH: diy/diy1.sh
   DIY_P2_SH: diy/diy5.sh
   FEEDS_CONF: feeds.conf.default
@@ -77,7 +77,7 @@ jobs:
         #$GITHUB_WORKSPACE/scripts/03-convert_translation.sh
         #$GITHUB_WORKSPACE/scripts/preset-clash-core.sh
         #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
-        $GITHUB_WORKSPACE/scripts/passwall2.sh
+        #$GITHUB_WORKSPACE/scripts/passwall2.sh
 
     #- name: 应用patch补丁
       #run: |
@@ -96,6 +96,7 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        sed -i 's/# CONFIG_PACKAGE_daed is not se/CONFIG_PACKAGE_daed=y/g' .config
         
     - name: 编译固件
       working-directory: ./openwrt
