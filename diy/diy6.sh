@@ -69,8 +69,8 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
 # ppp - 2.5.0
-#rm -rf package/network/services/ppp
-#git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
+rm -rf package/network/services/ppp
+git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # golang 1.22
 rm -rf feeds/packages/lang/golang
