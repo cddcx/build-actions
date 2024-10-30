@@ -44,6 +44,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/*
+        sudo rm -rf /opt/ghc /opt/hostedtoolcache/CodeQL
         sudo rm -rf /tmp/*
         sudo rm -rf /usr/share/dotnet/
         sudo rm -rf /usr/local/graalvm/
@@ -53,6 +54,7 @@ jobs:
         sudo rm -rf /usr/local/lib/android
         sudo rm -rf /usr/local/lib/node_modules
         df -h
+        sudo docker image prune --all --force
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install build-essential clang-13 llvm flex g++ gawk gcc-multilib gettext \
         git libncurses5-dev libssl-dev python3-distutils python3-pyelftools python3-setuptools \
