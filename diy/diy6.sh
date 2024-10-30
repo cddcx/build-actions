@@ -73,8 +73,8 @@ sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/us
 #git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # golang 1.22
-#rm -rf feeds/packages/lang/golang
-#git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+rm -rf feeds/packages/lang/golang
+git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # ruby
 #rm -rf feeds/packages/lang/ruby
