@@ -9,7 +9,7 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-23.05
-  CONFIG_FILE: daed.config
+  CONFIG_FILE: diff.config
   DIY_P1_SH: diy/diy1.sh
   DIY_P2_SH: diy/diy5.sh
   FEEDS_CONF: feeds.conf.default
@@ -121,7 +121,7 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        sed -i 's/# CONFIG_PACKAGE_daed is not se/CONFIG_PACKAGE_daed=y/g' .config
+        sed -i 's/# CONFIG_PACKAGE_daed is not set/CONFIG_PACKAGE_daed=y/g' .config
         
     - name: 编译固件
       working-directory: ./openwrt
