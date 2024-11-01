@@ -154,8 +154,7 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 
 ## X86/64
-echo '
-CONFIG_TARGET_x86=y
+echo 'CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_TARGET_IMAGES_GZIP is not set
