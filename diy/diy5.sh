@@ -127,9 +127,6 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
-# luci-app-daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
-
 # 编译luci-app-daed所需内核模块
 # 依赖
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
