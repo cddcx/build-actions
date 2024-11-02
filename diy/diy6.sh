@@ -153,16 +153,25 @@ endef
 $(eval $(call KernelPackage,xdp-sockets-diag))
 ' >> package/kernel/linux/modules/netsupport.mk
 
+## 启用 eBPF 支持
+mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+# bpf
+curl -s https://$mirror/openwrt/generic/config-bpf >> .config
+# kselftests-bpf
+curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
+# BTF: fix failed to validate module
+curl -s https://$mirror/openwrt/patch/generic-24.10/0006-kernel-add-MODULE_ALLOW_BTF_MISMATCH-option.patch | patch -p1
+
 # 启用 eBPF 支持
-echo 'CONFIG_DEVEL=y
-CONFIG_BPF_TOOLCHAIN_HOST=y
-# CONFIG_BPF_TOOLCHAIN_NONE is not set
-CONFIG_KERNEL_BPF_EVENTS=y
-CONFIG_KERNEL_CGROUP_BPF=y
-CONFIG_KERNEL_DEBUG_INFO=y
-CONFIG_KERNEL_DEBUG_INFO_BTF=y
-# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-' >>  ./.config
+#echo 'CONFIG_DEVEL=y
+#CONFIG_BPF_TOOLCHAIN_HOST=y
+## CONFIG_BPF_TOOLCHAIN_NONE is not set
+#CONFIG_KERNEL_BPF_EVENTS=y
+#CONFIG_KERNEL_CGROUP_BPF=y
+#CONFIG_KERNEL_DEBUG_INFO=y
+#CONFIG_KERNEL_DEBUG_INFO_BTF=y
+## CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+#' >>  ./.config
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
