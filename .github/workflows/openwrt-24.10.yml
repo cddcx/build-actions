@@ -1,4 +1,4 @@
-name: main
+name: 24.10
 
 on:
   workflow_dispatch:
