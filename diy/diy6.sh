@@ -155,6 +155,7 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 
 ## 启用 eBPF 支持
 mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+github="github.com"
 # bpf
 curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 # kselftests-bpf
@@ -167,6 +168,22 @@ CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >> .config
+
+# clang
+# xtables-addons module
+rm -rf feeds/packages/net/xtables-addons
+git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+# netatop
+sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
+curl -s https://$mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
+# dmx_usb_module
+rm -rf feeds/packages/libs/dmx_usb_module
+git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
+# macremapper
+curl -s https://$mirror/openwrt/patch/packages-patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
+# coova-chilli module
+rm -rf feeds/packages/net/coova-chilli
+git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
 
 # 启用 eBPF 支持
 #echo 'CONFIG_DEVEL=y
