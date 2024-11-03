@@ -155,7 +155,8 @@ $(eval $(call KernelPackage,xdp-sockets-diag))
 
 ## 启用 eBPF 支持
 mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
-github="github.com"
+gitea=git.cooluc.com
+github=github.com
 # bpf
 curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 # kselftests-bpf
