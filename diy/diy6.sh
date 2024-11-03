@@ -161,6 +161,12 @@ curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 # BTF: fix failed to validate module
 curl -s https://$mirror/openwrt/patch/generic-24.10/0006-kernel-add-MODULE_ALLOW_BTF_MISMATCH-option.patch | patch -p1
+# KERNEL_CLANG_LTO
+echo '# Kernel - CLANG LTO
+CONFIG_KERNEL_CC="clang"'
+CONFIG_EXTRA_OPTIMIZATION=""
+# CONFIG_PACKAGE_kselftests-bpf is not set
+' >> .config
 
 # 启用 eBPF 支持
 #echo 'CONFIG_DEVEL=y
