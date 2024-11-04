@@ -161,41 +161,21 @@ github=github.com
 curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 # kselftests-bpf
 curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
-# BTF: fix failed to validate module
-curl -s https://$mirror/openwrt/patch/generic-24.10/0006-kernel-add-MODULE_ALLOW_BTF_MISMATCH-option.patch | patch -p1
-# KERNEL_CLANG_LTO
-echo '# Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang"
-CONFIG_EXTRA_OPTIMIZATION=""
-# CONFIG_PACKAGE_kselftests-bpf is not set
-' >> .config
 
-# clang
-# xtables-addons module
-rm -rf feeds/packages/net/xtables-addons
-git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
-# netatop
-sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
-curl -s https://$mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-# dmx_usb_module
-rm -rf feeds/packages/libs/dmx_usb_module
-git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
-# macremapper
-curl -s https://$mirror/openwrt/patch/packages-patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
-# coova-chilli module
-rm -rf feeds/packages/net/coova-chilli
-git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+# x86_64 - target 6.12
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/64/config-6.12 > target/linux/x86/64/config-6.12
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/config-6.12 > target/linux/x86/config-6.12
+mkdir -p target/linux/x86/patches-6.12
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/100-fix_cs5535_clockevt.patch > target/linux/x86/patches-6.12/100-fix_cs5535_clockevt.patch
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/103-pcengines_apu6_platform.patch > target/linux/x86/patches-6.12/103-pcengines_apu6_platform.patch
+# x86_64 - target
+sed -ri "s/(KERNEL_PATCHVER:=)[^\"]*/\16.6/" target/linux/x86/Makefile
+sed -i '/KERNEL_PATCHVER/a\KERNEL_TESTING_PATCHVER:=6.12' target/linux/x86/Makefile
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/01_leds > target/linux/x86/base-files/etc/board.d/01_leds
+curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_network > target/linux/x86/base-files/etc/board.d/02_network
 
-# 启用 eBPF 支持
-#echo 'CONFIG_DEVEL=y
-#CONFIG_BPF_TOOLCHAIN_HOST=y
-## CONFIG_BPF_TOOLCHAIN_NONE is not set
-#CONFIG_KERNEL_BPF_EVENTS=y
-#CONFIG_KERNEL_CGROUP_BPF=y
-#CONFIG_KERNEL_DEBUG_INFO=y
-#CONFIG_KERNEL_DEBUG_INFO_BTF=y
-## CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-#' >>  ./.config
+# kernel - 6.12
+curl -s https://$mirror/tags/kernel-6.12 > include/kernel-6.12
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
