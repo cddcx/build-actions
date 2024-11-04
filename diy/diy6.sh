@@ -45,7 +45,7 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # 修改内核
-sed -i 's/PATCHVER:=*.*/PATCHVER:=6.12/g' target/linux/x86/Makefile 
+#sed -i 's/PATCHVER:=*.*/PATCHVER:=6.12/g' target/linux/x86/Makefile 
 
 ##. 默认ip
 #sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
@@ -162,20 +162,19 @@ curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 # kselftests-bpf
 curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 
-# x86_64 - target 6.12
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/64/config-6.12 > target/linux/x86/64/config-6.12
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/config-6.12 > target/linux/x86/config-6.12
-mkdir -p target/linux/x86/patches-6.12
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/100-fix_cs5535_clockevt.patch > target/linux/x86/patches-6.12/100-fix_cs5535_clockevt.patch
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/103-pcengines_apu6_platform.patch > target/linux/x86/patches-6.12/103-pcengines_apu6_platform.patch
-# x86_64 - target
-sed -ri "s/(KERNEL_PATCHVER:=)[^\"]*/\16.6/" target/linux/x86/Makefile
-sed -i '/KERNEL_PATCHVER/a\KERNEL_TESTING_PATCHVER:=6.12' target/linux/x86/Makefile
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/01_leds > target/linux/x86/base-files/etc/board.d/01_leds
-curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_network > target/linux/x86/base-files/etc/board.d/02_network
-
-# kernel - 6.12
-curl -s https://$mirror/tags/kernel-6.12 > include/kernel-6.12
+## x86_64 - target 6.12
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/64/config-6.12 > target/linux/x86/64/config-6.12
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/config-6.12 > target/linux/x86/config-6.12
+#mkdir -p target/linux/x86/patches-6.12
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/100-fix_cs5535_clockevt.patch > target/linux/x86/patches-6.12/100-fix_cs5535_clockevt.patch
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/patches-6.12/103-pcengines_apu6_platform.patch > target/linux/x86/patches-6.12/103-pcengines_apu6_platform.patch
+## x86_64 - target
+#sed -ri "s/(KERNEL_PATCHVER:=)[^\"]*/\16.6/" target/linux/x86/Makefile
+#sed -i '/KERNEL_PATCHVER/a\KERNEL_TESTING_PATCHVER:=6.12' target/linux/x86/Makefile
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/01_leds > target/linux/x86/base-files/etc/board.d/01_leds
+#curl -s https://$mirror/openwrt/patch/openwrt-6.x/x86/base-files/etc/board.d/02_network > target/linux/x86/base-files/etc/board.d/02_network
+## kernel - 6.12
+#curl -s https://$mirror/tags/kernel-6.12 > include/kernel-6.12
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
