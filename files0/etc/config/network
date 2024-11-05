@@ -6,7 +6,6 @@ config interface 'loopback'
 	option netmask '255.0.0.0'
 
 config globals 'globals'
-	option ula_prefix 'fd62:b358:ad42::/48'
 
 config device
 	option name 'br-lan'
@@ -21,6 +20,7 @@ config interface 'lan'
 	option ipaddr '192.168.10.1'
 	option netmask '255.255.255.0'
 	option ip6assign '60'
+        option delegate '0'
 
 config device
 	option name 'eth1.200'
