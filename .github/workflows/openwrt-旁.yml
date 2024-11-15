@@ -64,6 +64,7 @@ jobs:
         
     - name: DIY1(一般用于安装依赖和插件)
       run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -74,27 +75,22 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         
-    - name: DIY2（一般用于ip和样式等）
+    - name: 加载自定义设置
       run: |
+        [ -e $FILES ] && mv $FILES openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 加载files
-      run: |        
-        [ -e $FILES ] && mv $FILES openwrt/files
-        
-    - name: 加载.config
-      run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-    
     - name: 加载scripts下的补丁
       run: |
         chmod +x $GITHUB_WORKSPACE/scripts/*.sh
         cd openwrt
         #$GITHUB_WORKSPACE/scripts/03-convert_translation.sh
         #$GITHUB_WORKSPACE/scripts/preset-clash-core.sh
-        $GITHUB_WORKSPACE/scripts/passwall2.sh
+        #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
+        #$GITHUB_WORKSPACE/scripts/passwall2.sh
         
     - name: 下载依赖
       working-directory: ./openwrt
@@ -113,6 +109,10 @@ jobs:
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
         
+    - name: 检查空间使用情况
+      if: (!cancelled())
+      run: df -hT
+      
     - name: 整理文件
       id: organize
       run: |
