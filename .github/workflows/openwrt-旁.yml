@@ -18,25 +18,39 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: 准备结束
       uses: actions/checkout@main
 
+    - name: 释放磁盘空间
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: true
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
+
     - name: 初始化编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E apt-get -qq update
-        sudo -E apt-get -qq install build-essential clang llvm flex g++ gawk gcc-multilib gettext \
-        git libncurses5-dev libssl-dev python3-distutils python3-pyelftools python3-setuptools \
-        libpython3-dev rsync unzip zlib1g-dev swig aria2 jq subversion qemu-utils ccache rename \
-        libelf-dev device-tree-compiler libgnutls28-dev coccinelle libgmp3-dev libmpc-dev
-        sudo -E apt-get -qq purge azure-cli ghc* zulu* firefox powershell openjdk* dotnet* google* mysql* php* android*
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo apt update -y
+        sudo apt full-upgrade -y
+        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+        bzip2 ccache clang* cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+        git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev \
+        libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev \
+        libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 \
+        python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo \
+        uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -58,7 +72,6 @@ jobs:
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
-        ./scripts/feeds install -a
         ./scripts/feeds install -a
         
     - name: DIY2（一般用于ip和样式等）
