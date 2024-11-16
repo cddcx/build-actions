@@ -131,7 +131,25 @@ mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
 gitea=git.cooluc.com
 github=github.com
 # bpf
-curl -s https://$mirror/openwrt/generic/config-bpf >> .config
+#curl -s https://$mirror/openwrt/generic/config-bpf >> .config
+echo '### BPF
+CONFIG_DEVEL=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
+# CONFIG_BPF_TOOLCHAIN_NONE is not set
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_BTF=y
+# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
+CONFIG_KERNEL_XDP_SOCKETS=y
+
+### BPF Kernel Modules
+CONFIG_PACKAGE_kmod-sched-core=y
+CONFIG_PACKAGE_kmod-sched-bpf=y
+CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
+' >>  ./.config
+
 # kselftests-bpf
 curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 
