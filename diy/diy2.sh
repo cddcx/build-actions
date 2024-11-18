@@ -132,7 +132,15 @@ gitea=git.cooluc.com
 github=github.com
 # bpf
 #curl -s https://$mirror/openwrt/generic/config-bpf >> .config
-echo '### BPF
+echo 'CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_TARGET_IMAGES_GZIP is not set
+CONFIG_TARGET_KERNEL_PARTSIZE=80
+CONFIG_TARGET_ROOTFS_PARTSIZE=600
+# CONFIG_TARGET_ROOTFS_TARGZ is not set
+
+### BPF
 CONFIG_DEVEL=y
 CONFIG_BPF_TOOLCHAIN_HOST=y
 # CONFIG_BPF_TOOLCHAIN_NONE is not set
@@ -149,7 +157,7 @@ CONFIG_PACKAGE_kmod-sched-core=y
 CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 
-# Kernel - CLANG LTO
+### Kernel - CLANG LTO
 CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
