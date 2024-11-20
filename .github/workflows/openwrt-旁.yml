@@ -44,7 +44,6 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo apt-get update -y
-        sudo apt-get update -y
         sudo apt-get full-upgrade -y
         sudo apt-get install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache clang-18 cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
