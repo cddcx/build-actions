@@ -158,11 +158,24 @@ CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 
 ### Kernel - CLANG LTO
-CONFIG_KERNEL_CC="ccache clang"
+CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
 
+### clang
+# xtables-addons module
+rm -rf feeds/packages/net/xtables-addons
+git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+# netatop
+sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
+curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
+# macremapper
+curl -s $mirror/openwrt/patch/packages-patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
+# coova-chilli module
+rm -rf feeds/packages/net/coova-chilli
+git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+    
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 rm -rf package/devel/kselftests-bpf/Makefile
