@@ -166,7 +166,7 @@ CONFIG_EXTRA_OPTIMIZATION=""
 ### clang
 # xtables-addons module
 rm -rf feeds/packages/net/xtables-addons
-git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+git clone https://github.com/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
 # netatop
 sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
 curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
@@ -174,7 +174,7 @@ curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-
 curl -s $mirror/openwrt/patch/packages-patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
-git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
     
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
