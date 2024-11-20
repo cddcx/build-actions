@@ -169,9 +169,13 @@ rm -rf feeds/packages/net/xtables-addons
 git clone https://github.com/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
 # netatop
 sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
-curl -s https://github.com/cddcx/patch/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
+merge_package master https://github.com/sbwml/r4s_build_script feeds/packages/admin/netatop/patches openwrt/patch/packages-patches/clang
+cp -rf feeds/packages/admin/netatop/patches/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/
 # macremapper
-curl -s https://github.com/cddcx/patch/100-macremapper-fix-clang-build.patch | patch -p1
+pushd
+        feeds/packages/admin/netatop/patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
+popd
+rm -rf feeds/packages/admin/netatop/patches/clang
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
