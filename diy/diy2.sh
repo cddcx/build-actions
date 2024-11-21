@@ -174,7 +174,7 @@ cp -rf package-patches/clang/netatop/900-fix-build-with-clang.patch feeds/packag
 # macremapper
 rm -rf feeds/packages/kernel/macremapper/Makefile
 merge_package main https://github.com/cddcx/patch  package macremapper
-cp -rf package/macremapper//Makefile feeds/packages/kernel/macremapper/
+cp -rf package/macremapper/Makefile feeds/packages/kernel/macremapper/
 rm -rf package/macremapper
 pushd feeds/packages
         patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
