@@ -172,6 +172,8 @@ sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
 merge_package master https://github.com/sbwml/r4s_build_script package-patches openwrt/patch/packages-patches/clang
 cp -rf package-patches/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/
 # macremapper
+rm -rf feeds/packages/kernel/macremapper/Makefile
+merge_package main 
 pushd feeds/packages
         patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
 popd
