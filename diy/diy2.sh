@@ -176,10 +176,6 @@ rm -rf feeds/packages/kernel/macremapper/Makefile
 merge_package main https://github.com/cddcx/patch  package macremapper
 cp -rf package/macremapper/Makefile feeds/packages/kernel/macremapper/
 rm -rf package/macremapper
-pushd feeds/packages
-        patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
-popd
-rm -rf package-patches
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
