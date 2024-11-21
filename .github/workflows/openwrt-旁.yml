@@ -149,4 +149,3 @@ jobs:
       with:
         name: OpenWrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-        path: ${{ env.FIRMWARE }}
