@@ -165,6 +165,10 @@ CONFIG_EXTRA_OPTIMIZATION=""
 # Link time optimization
 CONFIG_USE_GC_SECTIONS=y
 CONFIG_USE_LTO=y
+
+# DPDK
+CONFIG_PACKAGE_dpdk-tools=y
+CONFIG_PACKAGE_numactl=y
 ' >>  ./.config
 
 ### clang
