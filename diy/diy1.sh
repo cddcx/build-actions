@@ -49,7 +49,8 @@ echo "========================="
 #echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
 
 # DPDK & NUMACTL
-merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk/
+merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk openwrt/patch/dpdk/numactl
+
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
