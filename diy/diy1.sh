@@ -44,6 +44,10 @@ echo "========================="
 #chmod +x ${GITHUB_WORKSPACE}/subscript.sh
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
+# Add a feed source
+#echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
+
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
