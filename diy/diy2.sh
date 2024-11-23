@@ -132,7 +132,8 @@ gitea=git.cooluc.com
 github=github.com
 # bpf
 #curl -s https://$mirror/openwrt/generic/config-bpf >> .config
-echo 'CONFIG_TARGET_x86=y
+echo '# x86_64
+CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_TARGET_IMAGES_GZIP is not set
@@ -171,6 +172,10 @@ CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
 ' >>  ./.config
 
+# openssl - lto
+sed -i "s/ no-lto//g" package/libs/openssl/Makefile
+sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
+
 ### clang
 # xtables-addons module
 rm -rf feeds/packages/net/xtables-addons
@@ -187,7 +192,11 @@ rm -rf package/macremapper
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
-    
+# llvm-clang
+merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
+cd package/generic-24.10/
+patch -p1 < ../0005-kernel-Add-support-for-llvm-clang-compiler.patch
+
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 rm -rf package/devel/kselftests-bpf/Makefile
