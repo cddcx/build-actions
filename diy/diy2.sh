@@ -186,16 +186,13 @@ merge_package master https://github.com/sbwml/r4s_build_script package-patches o
 cp -rf package-patches/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/
 # macremapper
 rm -rf feeds/packages/kernel/macremapper/Makefile
-merge_package main https://github.com/cddcx/patch  package macremapper
-cp -rf package/macremapper/Makefile feeds/packages/kernel/macremapper/
-rm -rf package/macremapper
+patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
 # llvm-clang
 merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
-cd package/generic-24.10/
-patch -p1 < ../0005-kernel-Add-support-for-llvm-clang-compiler.patch
+patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
