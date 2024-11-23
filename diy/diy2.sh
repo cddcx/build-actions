@@ -185,7 +185,7 @@ sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
 merge_package master https://github.com/sbwml/r4s_build_script package-patches openwrt/patch/packages-patches/clang
 cp -rf package-patches/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/
 # macremapper
-sed -i 's/@@ endef/@@/g' package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
+#sed -i 's/@@ endef/@@/g' package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
 patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
