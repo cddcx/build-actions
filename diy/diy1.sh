@@ -46,8 +46,10 @@ echo "========================="
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
+#echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
 
+# DPDK & NUMACTL
+merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk/
 ## autocore automount default-settings
 #merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
