@@ -190,8 +190,8 @@ patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.pa
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
 # llvm-clang
-merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
-patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
+#merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
+#patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
