@@ -132,7 +132,16 @@ gitea=git.cooluc.com
 github=github.com
 # bpf
 #curl -s https://$mirror/openwrt/generic/config-bpf >> .config
-echo '### BPF
+echo '# x86_64
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_TARGET_IMAGES_GZIP is not set
+CONFIG_TARGET_KERNEL_PARTSIZE=80
+CONFIG_TARGET_ROOTFS_PARTSIZE=600
+# CONFIG_TARGET_ROOTFS_TARGZ is not set
+
+### BPF
 CONFIG_DEVEL=y
 CONFIG_BPF_TOOLCHAIN_HOST=y
 # CONFIG_BPF_TOOLCHAIN_NONE is not set
@@ -153,12 +162,41 @@ CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
+
+# Link time optimization
+CONFIG_USE_GC_SECTIONS=y
+CONFIG_USE_LTO=y
+
+# DPDK
+CONFIG_PACKAGE_dpdk-tools=y
+CONFIG_PACKAGE_numactl=y
 ' >>  ./.config
+
+# openssl - lto
+sed -i "s/ no-lto//g" package/libs/openssl/Makefile
+sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
+
+### clang
+# xtables-addons module
+rm -rf feeds/packages/net/xtables-addons
+git clone https://github.com/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+# netatop
+sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
+merge_package master https://github.com/sbwml/r4s_build_script package-patches openwrt/patch/packages-patches/clang
+cp -rf package-patches/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/
+# macremapper
+patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.patch
+# coova-chilli module
+rm -rf feeds/packages/net/coova-chilli
+git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+# llvm-clang
+merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
+patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
-#rm -rf package/devel/kselftests-bpf/Makefile
-#merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
+rm -rf package/devel/kselftests-bpf/Makefile
+merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
