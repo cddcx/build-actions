@@ -76,6 +76,10 @@ git clone https://github.com/sbwml/package_network_services_ppp package/network/
 rm -rf feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
+# apk-tools APK管理器不再校验版本号的合法性
+merge_package master https://github.com/sbwml/r4s_build_script package/apk-tools openwrt/patch/apk-tools
+cp -f package/apk-tools/9999-hack-for-linux-pre-releases.patch package/system/apk/patches/
+
 # 修复编译时提示 freeswitch 缺少 libpcre 依赖
 sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefile
 
