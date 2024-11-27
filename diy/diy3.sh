@@ -163,18 +163,10 @@ CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 
-# Link time optimization
-CONFIG_USE_GC_SECTIONS=y
-CONFIG_USE_LTO=y
-
 # DPDK
 CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
 ' >>  ./.config
-
-# openssl - lto
-sed -i "s/ no-lto//g" package/libs/openssl/Makefile
-sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
 
 ### clang
 # xtables-addons module
