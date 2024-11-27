@@ -166,10 +166,6 @@ CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 CONFIG_KERNEL_CC="clang"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
-
-# DPDK
-CONFIG_PACKAGE_dpdk-tools=y
-CONFIG_PACKAGE_numactl=y
 ' >>  ./.config
 
 ### clang
