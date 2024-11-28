@@ -1,4 +1,4 @@
-name: openwrt-23.05
+name: openwrt
 
 on:
   workflow_dispatch:
