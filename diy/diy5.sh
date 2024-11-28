@@ -131,27 +131,17 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 # 依赖
 merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
 
-# 编译luci-app-daed所需内核模块
-echo '
-
-define KernelPackage/xdp-sockets-diag
-  SUBMENU:=$(NETWORK_SUPPORT_MENU)
-  TITLE:=PF_XDP sockets monitoring interface support for ss utility
-  DEPENDS:=@KERNEL_XDP_SOCKETS
-  KCONFIG:=CONFIG_XDP_SOCKETS_DIAG
-  FILES:=$(LINUX_DIR)/net/xdp/xsk_diag.ko
-  AUTOLOAD:=$(call AutoLoad,31,xsk_diag)
-endef
-
-define KernelPackage/xdp-sockets-diag/description
- Support for PF_XDP sockets monitoring interface used by the ss tool
-endef
-
-$(eval $(call KernelPackage,xdp-sockets-diag))
-' >> package/kernel/linux/modules/netsupport.mk
-
 # 启用 eBPF 支持
-echo '
+echo '# x86_64
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_TARGET_IMAGES_GZIP is not set
+CONFIG_TARGET_KERNEL_PARTSIZE=80
+CONFIG_TARGET_ROOTFS_PARTSIZE=600
+# CONFIG_TARGET_ROOTFS_TARGZ is not set
+
+### BPF
 CONFIG_DEVEL=y
 CONFIG_BPF_TOOLCHAIN_HOST=y
 # CONFIG_BPF_TOOLCHAIN_NONE is not set
@@ -160,6 +150,13 @@ CONFIG_KERNEL_CGROUP_BPF=y
 CONFIG_KERNEL_DEBUG_INFO=y
 CONFIG_KERNEL_DEBUG_INFO_BTF=y
 # CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
+CONFIG_KERNEL_XDP_SOCKETS=y
+
+### BPF Kernel Modules
+CONFIG_PACKAGE_kmod-sched-core=y
+CONFIG_PACKAGE_kmod-sched-bpf=y
+CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >>  ./.config
 
 # 自定义默认配置
