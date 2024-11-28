@@ -183,8 +183,8 @@ patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compile
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
-rm -rf package/devel/kselftests-bpf/Makefile
-merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
+#rm -rf package/devel/kselftests-bpf/Makefile
+#merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
