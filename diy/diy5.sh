@@ -129,7 +129,8 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 # 编译luci-app-daed所需内核模块
 # 依赖
-merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
+#merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
+mkdir -p Package/libcron && wget -O Package/libcron/Makefile https://raw.githubusercontent.com/immortalwrt/packages/refs/heads/master/libs/libcron/Makefile
 
 # 启用 eBPF 支持
 echo '# x86_64
@@ -143,19 +144,14 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=600
 
 ### BPF
 CONFIG_DEVEL=y
-CONFIG_BPF_TOOLCHAIN_HOST=y
-# CONFIG_BPF_TOOLCHAIN_NONE is not set
-CONFIG_KERNEL_BPF_EVENTS=y
-CONFIG_KERNEL_CGROUP_BPF=y
 CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_REDUCED=n
 CONFIG_KERNEL_DEBUG_INFO_BTF=y
-# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
+CONFIG_KERNEL_CGROUPS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
 CONFIG_KERNEL_XDP_SOCKETS=y
-
-### BPF Kernel Modules
-CONFIG_PACKAGE_kmod-sched-core=y
-CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >>  ./.config
 
