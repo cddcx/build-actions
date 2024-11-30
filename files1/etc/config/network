@@ -17,10 +17,10 @@ config device
 config interface 'lan'
 	option device 'br-lan'
 	option proto 'static'
-	option ipaddr '192.168.1.2'
+	option ipaddr '192.168.5.2'
 	option netmask '255.255.255.0'
-	option gateway '192.168.1.1'
-	list dns '192.168.1.1'
+	option gateway '192.168.5.1'
+	list dns '192.168.5.1'
 	option delegate '0'
 
 config interface 'IPYV'
