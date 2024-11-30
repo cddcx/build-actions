@@ -128,7 +128,8 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 # 编译luci-app-daed所需内核模块
 # 依赖
-merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
+#merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
+mkdir -p Package/libcron && wget -O Package/libcron/Makefile https://raw.githubusercontent.com/immortalwrt/packages/refs/heads/master/libs/libcron/Makefile
 
 ## 启用 eBPF 支持
 mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
