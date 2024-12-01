@@ -9,7 +9,7 @@ on:
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-24.10
-  CONFIG_FILE: daed.config
+  CONFIG_FILE: d1ff.config
   DIY_P1_SH: diy/diy1.sh
   DIY_P2_SH: diy/diy2.sh
   FEEDS_CONF: feeds.conf.default
@@ -46,7 +46,7 @@ jobs:
         sudo apt-get update -y
         sudo apt-get full-upgrade -y
         sudo apt-get install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-        bzip2 ccache clang-18 cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+        bzip2 ccache clang-15 llvm-15 npm cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
         git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev \
         libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev \
         libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 \
