@@ -162,6 +162,10 @@ CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
+
+# Link time optimization
+CONFIG_USE_GC_SECTIONS=y
+CONFIG_USE_LTO=y
 ' >>  ./.config
 
 ### clang
