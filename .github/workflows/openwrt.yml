@@ -43,8 +43,6 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
-        sudo docker image prune --all --force
         sudo apt-get update -y
         sudo apt-get full-upgrade -y
         sudo apt-get install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
