@@ -159,7 +159,7 @@ CONFIG_KERNEL_XDP_SOCKETS=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 
 ### Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-15"
+CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
