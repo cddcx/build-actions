@@ -1,4 +1,4 @@
-name: main-daed
+name: daed
 
 on:
   workflow_dispatch:
