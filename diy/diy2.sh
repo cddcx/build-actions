@@ -190,6 +190,10 @@ patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compile
 rm -rf package/devel/kselftests-bpf/Makefile
 merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
+# perf
+curl -s $mirror/openwrt/patch/openwrt-6.x/musl/990-add-typedefs-for-Elf64_Relr-and-Elf32_Relr.patch > toolchain/musl/patches/990-add-typedefs-for-Elf64_Relr-and-Elf32_Relr.patch
+curl -s $mirror/openwrt/patch/openwrt-6.x/perf/Makefile.2 > package/devel/perf/Makefile
+
 # openssl - lto
 sed -i "s/ no-lto//g" package/libs/openssl/Makefile
 sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
