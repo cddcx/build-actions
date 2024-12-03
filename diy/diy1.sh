@@ -66,7 +66,7 @@ rm -rf package/helloworld/luci-app-mihomo
 rm -rf package/helloworld/mihomo
 
 # luci-app-daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
+#git clone https://github.com/QiuSimons/luci-app-daed package/dae
 
 # luci-app-mihomo
 merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld luci-app-mihomo
