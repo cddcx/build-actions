@@ -171,8 +171,8 @@ CONFIG_EXTRA_OPTIMIZATION=""
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
-rm -rf package/devel/kselftests-bpf/Makefile
-merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
+#rm -rf package/devel/kselftests-bpf/Makefile
+#merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
 # 拷贝自定义文件
 #if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
