@@ -3,7 +3,7 @@ config udpxy
 	option respawn '1'
 	option status '1'
 	option disabled '0'
-	option bind 'br-lan'
+	option bind 'eth0'
 	option port '4100'
 	option source 'eth1'
 	option max_clients '99'
