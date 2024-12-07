@@ -1,0 +1,37 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option packet_steering '1'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+
+config interface 'lan'
+	option device 'eth0'
+	option proto 'static'
+	option ipaddr '192.168.3.2'
+	option netmask '255.255.255.0'
+	option gateway '192.168.3.1'
+	list dns '192.168.3.1'
+	option delegate '0'
+
+config interface 'IPYV'
+	option proto 'dhcp'
+	option device 'eth1'
+	option hostname '5510919900703210000090D8F3C8C024'
+	option clientid '5510919900703210000090D8F3C8C024'
+	option vendorid 'SCITV'
+	option dns_metric '20'
+	option delegate '0'
+
+config device
+	option name 'eth1'
+	option macaddr '90:D8:F3:C8:C0:24'
+	option ipv6 '0'
+
