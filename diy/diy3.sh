@@ -160,7 +160,7 @@ CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 
 ### Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang"
+CONFIG_KERNEL_CC="clang-15"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 
