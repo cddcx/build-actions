@@ -122,15 +122,16 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
+export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+export gitea=git.cooluc.com
+export github=github.com
+
 # 编译luci-app-daed所需内核模块
 # 依赖
 #merge_package main https://github.com/kenzok8/small-package package/helloworld libcron
 merge_package master https://github.com/immortalwrt/packages/libs packages/libs libcron
 
 ## 启用 eBPF 支持
-mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
-gitea=git.cooluc.com
-github=github.com
 # bpf
 #curl -s https://$mirror/openwrt/generic/config-bpf >> .config
 echo '# x86_64
@@ -164,7 +165,7 @@ CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
 
 # Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang"
+CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 
@@ -172,6 +173,18 @@ CONFIG_EXTRA_OPTIMIZATION=""
 CONFIG_USE_GC_SECTIONS=y
 CONFIG_USE_LTO=y
 ' >>  ./.config
+
+# patch source
+curl -s $mirror/openwrt/patch/generic-24.10/0001-tools-add-upx-tools.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0002-rootfs-add-upx-compression-support.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0003-rootfs-add-r-w-permissions-for-UCI-configuration-fil.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0004-rootfs-Add-support-for-local-kmod-installation-sourc.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0006-build-kernel-add-out-of-tree-kernel-config.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0007-include-kernel-add-miss-config-for-linux-6.11.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0008-meson-add-platform-variable-to-cross-compilation-fil.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0009-kernel-add-legacy-cgroup-v1-memory-controller.patch | patch -p1
+curl -s $mirror/openwrt/patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-for-aarch64-x86_64.patch | patch -p1
 
 ### clang
 # xtables-addons module
@@ -187,8 +200,20 @@ patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.pa
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
 # llvm-clang
-#merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
-#patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
+merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
+patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
+
+# openssl - lto
+sed -i "s/ no-lto//g" package/libs/openssl/Makefile
+sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
+
+# DPDK & NUMACTL
+mkdir -p package/new/{dpdk/patches,numactl}
+curl -s $mirror/openwrt/patch/dpdk/dpdk/Makefile > package/new/dpdk/Makefile
+curl -s $mirror/openwrt/patch/dpdk/dpdk/Config.in > package/new/dpdk/Config.in
+curl -s $mirror/openwrt/patch/dpdk/dpdk/patches/010-dpdk_arm_build_platform_fix.patch > package/new/dpdk/patches/010-dpdk_arm_build_platform_fix.patch
+curl -s $mirror/openwrt/patch/dpdk/dpdk/patches/201-r8125-add-r8125-ethernet-poll-mode-driver.patch > package/new/dpdk/patches/201-r8125-add-r8125-ethernet-poll-mode-driver.patch
+curl -s $mirror/openwrt/patch/dpdk/numactl/Makefile > package/new/numactl/Makefile
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
