@@ -168,10 +168,6 @@ CONFIG_PACKAGE_numactl=y
 CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
-
-# Link time optimization
-CONFIG_USE_GC_SECTIONS=y
-CONFIG_USE_LTO=y
 ' >>  ./.config
 
 # patch source
@@ -202,10 +198,6 @@ git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages
 # llvm-clang
 merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
 patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
-
-# openssl - lto
-sed -i "s/ no-lto//g" package/libs/openssl/Makefile
-sed -i "/TARGET_CFLAGS +=/ s/\$/ -ffat-lto-objects/" package/libs/openssl/Makefile
 
 # DPDK & NUMACTL
 mkdir -p package/new/{dpdk/patches,numactl}
