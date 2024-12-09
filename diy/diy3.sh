@@ -159,14 +159,18 @@ CONFIG_PACKAGE_kmod-sched-core=y
 CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 
-### Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-15"
-CONFIG_EXTRA_OPTIMIZATION=""
-# CONFIG_PACKAGE_kselftests-bpf is not set
-
 # DPDK
 CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
+
+# Kernel - CLANG LTO
+CONFIG_KERNEL_CC="clang"
+CONFIG_EXTRA_OPTIMIZATION=""
+# CONFIG_PACKAGE_kselftests-bpf is not set
+
+# Link time optimization
+CONFIG_USE_GC_SECTIONS=y
+CONFIG_USE_LTO=y
 ' >>  ./.config
 
 ### clang
