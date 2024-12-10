@@ -51,7 +51,7 @@ jobs:
         libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lld lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch \
         pkgconf python3 python3-pip python3-ply python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig \
         texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev \
-        clang-18 lldb-18 lld-18 clang-tools-18 clang-tidy-18 clang-format-18 llvm-18 npm
+        clang-18 lldb-18 lld-18 clang-tools-18 clang-tidy-18 clang-format-18 llvm-18 llvm-strip-18 npm
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
