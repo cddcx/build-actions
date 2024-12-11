@@ -195,9 +195,6 @@ patch -p1 < package-patches/clang/macremapper/100-macremapper-fix-clang-build.pa
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://github.com/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
-# llvm-clang
-merge_package master https://github.com/sbwml/r4s_build_script package openwrt/patch/generic-24.10
-patch -p1 < package/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
 
 # DPDK & NUMACTL
 mkdir -p package/new/{dpdk/patches,numactl}
