@@ -161,7 +161,7 @@ CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
 
 # Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-18"
+CONFIG_KERNEL_CC="clang-15"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
