@@ -72,8 +72,11 @@ merge_package v5 https://github.com/sbwml/openwrt_helloworld package/dae luci-ap
 # luci-app-mihomo
 merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld luci-app-mihomo
 merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld mihomo
-sed -i "s@clang-11@clang-15 clang-18@g" include/bpf.mk
-sed -i "s@clang-12@clang-19 clang-20@g" include/bpf.mk
+
+# bpf - add host clang-15/17 support
+sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
+#sed -i "s@clang-11@clang-15 clang-18@g" include/bpf.mk
+#sed -i "s@clang-12@clang-19 clang-20@g" include/bpf.mk
 
 ## luci-app-passwall
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
