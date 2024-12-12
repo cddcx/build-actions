@@ -171,8 +171,8 @@ export gitea=git.cooluc.com
 export github=github.com
 
 # 下载patch
-merge_package master https://github.com/sbwml/r4s_build_script package-patch/generic-24.10 openwrt/patch/generic-24.10
-merge_package master https://github.com/sbwml/r4s_build_script package-patch/clang openwrt/patch/packages-patches/clang
+merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/generic-24.10
+merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
 
 # patch source
 patch -p1 < package-patch/generic-24.10/0001-tools-add-upx-tools.patch
