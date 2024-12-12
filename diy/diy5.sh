@@ -183,6 +183,24 @@ curl -s $mirror/openwrt/patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-f
 rm -rf package/devel/kselftests-bpf/Makefile
 merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
+# clang
+if [ "$KERNEL_CLANG_LTO" = "y" ]; then
+    # xtables-addons module
+    rm -rf feeds/packages/net/xtables-addons
+    git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+    # netatop
+    sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
+    curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
+    # dmx_usb_module
+    rm -rf feeds/packages/libs/dmx_usb_module
+    git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
+    # macremapper
+    curl -s $mirror/openwrt/patch/packages-patches/clang/macremapper/100-macremapper-fix-clang-build.patch | patch -p1
+    # coova-chilli module
+    rm -rf feeds/packages/net/coova-chilli
+    git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+fi
+
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
