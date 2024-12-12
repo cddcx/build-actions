@@ -175,16 +175,16 @@ merge_package master https://github.com/sbwml/r4s_build_script package-patch ope
 merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
 
 # patch source
-patch -p1 < package-patch/generic-24.10/0001-tools-add-upx-tools.patch
-patch -p1 < package-patch/generic-24.10/0002-rootfs-add-upx-compression-support.patch
-patch -p1 < package-patch/generic-24.10/0003-rootfs-add-r-w-permissions-for-UCI-configuration-fil.patch
-patch -p1 < package-patch/generic-24.10/0004-rootfs-Add-support-for-local-kmod-installation-sourc.patch
-patch -p1 < package-patch/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
-patch -p1 < package-patch/generic-24.10/0006-build-kernel-add-out-of-tree-kernel-config.patch
+#patch -p1 < package-patch/generic-24.10/0001-tools-add-upx-tools.patch
+#patch -p1 < package-patch/generic-24.10/0002-rootfs-add-upx-compression-support.patch
+#patch -p1 < package-patch/generic-24.10/0003-rootfs-add-r-w-permissions-for-UCI-configuration-fil.patch
+#patch -p1 < package-patch/generic-24.10/0004-rootfs-Add-support-for-local-kmod-installation-sourc.patch
+#patch -p1 < package-patch/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
+#patch -p1 < package-patch/generic-24.10/0006-build-kernel-add-out-of-tree-kernel-config.patch
 #patch -p1 < package-patch/generic-24.10/0007-include-kernel-add-miss-config-for-linux-6.11.patch
-patch -p1 < package-patch/generic-24.10/0008-meson-add-platform-variable-to-cross-compilation-fil.patch
-patch -p1 < package-patch/generic-24.10/0009-kernel-add-legacy-cgroup-v1-memory-controller.patch
-patch -p1 < package-patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-for-aarch64-x86_64.patch
+#patch -p1 < package-patch/generic-24.10/0008-meson-add-platform-variable-to-cross-compilation-fil.patch
+#patch -p1 < package-patch/generic-24.10/0009-kernel-add-legacy-cgroup-v1-memory-controller.patch
+#patch -p1 < package-patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-for-aarch64-x86_64.patch
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
@@ -193,20 +193,20 @@ merge_package master https://github.com/sbwml/r4s_build_script package/devel ope
 
 ### clang
 # xtables-addons module
-#rm -rf feeds/packages/net/xtables-addons
-#git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
+rm -rf feeds/packages/net/xtables-addons
+git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
 # netatop
-#sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
+sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
 #curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-#cp -rf package-patch/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
+cp -rf package-patch/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
 # dmx_usb_module
-#rm -rf feeds/packages/libs/dmx_usb_module
-#git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
+rm -rf feeds/packages/libs/dmx_usb_module
+git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
 # macremapper
-#patch -p1 -f < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
+patch -p1 -f < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
 # coova-chilli module
-#rm -rf feeds/packages/net/coova-chilli
-#git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
+rm -rf feeds/packages/net/coova-chilli
+git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
 
 # 删除patch
 rm -rf package-patch
