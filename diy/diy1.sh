@@ -76,8 +76,18 @@ merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworl
 
 # bpf - add host clang-15/18/20 support
 sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
-#sed -i "s@clang-11@clang-15 clang-18@g" include/bpf.mk
-#sed -i "s@clang-12@clang-19 clang-20@g" include/bpf.mk
+
+export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+export gitea=git.cooluc.com
+export github=github.com
+
+# Realtek driver - R8168 & R8125 & R8126 & R8152 & R8101
+rm -rf package/kernel/r8168 package/kernel/r8101 package/kernel/r8125 package/kernel/r8126
+git clone https://$github/sbwml/package_kernel_r8168 package/kernel/r8168
+git clone https://$github/sbwml/package_kernel_r8152 package/kernel/r8152
+git clone https://$github/sbwml/package_kernel_r8101 package/kernel/r8101
+git clone https://$github/sbwml/package_kernel_r8125 package/kernel/r8125
+git clone https://$github/sbwml/package_kernel_r8126 package/kernel/r8126
 
 ## luci-app-passwall
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
