@@ -203,7 +203,7 @@ cp -rf package-patch/clang/netatop/900-fix-build-with-clang.patch feeds/packages
 rm -rf feeds/packages/libs/dmx_usb_module
 git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
 # macremapper
-patch -f < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
+patch -p1 < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
 # coova-chilli module
 rm -rf feeds/packages/net/coova-chilli
 git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
