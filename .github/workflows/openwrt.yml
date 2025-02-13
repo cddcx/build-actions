@@ -207,7 +207,6 @@ jobs:
          make diffconfig
          make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j72 IGNORE_ERRORS=1
          make package/index
-         bash  bakkmod.sh
          echo "status=success" >> $GITHUB_OUTPUT
          
     - name: 生成固件
@@ -221,7 +220,6 @@ jobs:
           make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
           make checksum
-          bash buildmd5.sh
           echo "status=success" >> $GITHUB_OUTPUT
         
     - name: 检查空间使用情况
