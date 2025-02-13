@@ -129,7 +129,7 @@ jobs:
         sudo chown -R runner.runner /builder
         # sudo chown $USER:$GROUPS /builder
         
-    - name: 构建系统设置
+    - name: 构建系统依赖
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -144,7 +144,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
         
-    - name: 克隆openwrt源码
+    - name: 克隆源码
       working-directory: /builder
       run: |
         df -hT $PWD
@@ -181,18 +181,20 @@ jobs:
         skip_saving: 'true'
         prefix: /builder/openwrt
         
-    - name: defconfig
+    - name: 默认配置文件
       run: |
         cd openwrt
         make defconfig
-    - name: Download package
+        
+    - name: 下载软件包
       id: package
       run: |
         cd openwrt
         make download -j50
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-    - name: Compile Packages
+        
+    - name: 编译包
       id: compileopenwrt
       run: |
          df -h
@@ -207,7 +209,8 @@ jobs:
          make package/index
          bash  bakkmod.sh
          echo "status=success" >> $GITHUB_OUTPUT
-    - name: Generate Firmware
+         
+    - name: 生成固件
       id: compile
       if: steps.compileopenwrt.outputs.status  == 'success'
       run: |
