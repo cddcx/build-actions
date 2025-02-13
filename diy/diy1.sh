@@ -75,7 +75,7 @@ merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworl
 merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld mihomo
 
 # bpf - add host clang-15/18/20 support
-sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
+sed -i 's/command -v clang/command -v clang clang-15 clang-17 clang-18 clang-20/g' include/bpf.mk
 
 export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
 export gitea=git.cooluc.com
