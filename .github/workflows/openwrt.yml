@@ -12,7 +12,7 @@ on:
         options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
         
       config_s:
-        description: '配置文件'
+        description: '选择配置文件'
         default: 'diff.config'
         required: true
         type: choice
