@@ -4,8 +4,15 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+      URL:
+        description: '选择源码：'
+        default: 'openwrt'
+        required: true
+        type: choice
+        options: [ openwrt,  immortalwrt ]
+        
       branch:
-        description: '选择仓库的分支：'
+        description: '选择源码的分支：'
         default: 'openwrt-24.10'
         required: true
         type: choice
@@ -42,7 +49,6 @@ on:
         required: false
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
   DIY_P1_SH: diy/diy1.sh
   DIY_P2_SH: diy/diy3.sh
   FEEDS_CONF: feeds.conf.default
@@ -59,6 +65,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     name: openwrt-${{github.event.inputs.config_s}}-${{github.event.inputs.target}}-${{github.event.inputs.branch}}-${{github.event.inputs.date_s}}
     env:
+      REPO_URL: ${{github.event.inputs.URL}}
       CONFIG_S: ${{github.event.inputs.config_s}}
       CPU_S: ${{github.event.inputs.cpu_s}}
       DATE_S: ${{github.event.inputs.date_s}}
@@ -148,7 +155,32 @@ jobs:
     - name: 克隆源码
       working-directory: /builder
       run: |
-        df -hT $PWD
+        # 设置编译源代码
+          if [[ "${{ inputs.source_branch }}" == *"openwrt_daed"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_BRANCH="openwrt-24.10"
+              TAGS_NAME="openwrt_daed"
+          elif [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_BRANCH="main"
+              TAGS_NAME="openwrt"
+          elif [[ "${{ inputs.source_branch }}" == *"openwrt_24.10"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+              REPO_BRANCH="openwrt-24.10"
+              TAGS_NAME="op-24.10"
+          elif [[ "${{ inputs.source_branch }}" == *"immortalwrt"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+              REPO_BRANCH="master"
+              TAGS_NAME="immortalwrt"
+          elif [[ "${{ inputs.source_branch }}" == *"immortalwrt_24.10"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrtt"
+              REPO_BRANCH="openwrt-24.10"
+              TAGS_NAME="im-24.10"
+          else
+              echo "源代码仓库的地址无法被识别或无法访问."
+              exit 1
+          fi
+        # 克隆源代码
         git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         
