@@ -156,26 +156,10 @@ jobs:
       working-directory: /builder
       run: |
         # 设置编译源代码
-          if [[ "${{ inputs.source_branch }}" == *"openwrt_daed"* ]]; then
+          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
               REPO_URL="https://github.com/openwrt/openwrt"
-              REPO_BRANCH="openwrt-24.10"
-              TAGS_NAME="openwrt_daed"
-          elif [[ "${{ inputs.source_branch }}" == *"openwrt"* ]]; then
-              REPO_URL="https://github.com/openwrt/openwrt"
-              REPO_BRANCH="main"
-              TAGS_NAME="openwrt"
-          elif [[ "${{ inputs.source_branch }}" == *"openwrt_24.10"* ]]; then
-              REPO_URL="https://github.com/openwrt/openwrt"
-              REPO_BRANCH="openwrt-24.10"
-              TAGS_NAME="op-24.10"
-          elif [[ "${{ inputs.source_branch }}" == *"immortalwrt"* ]]; then
+          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
               REPO_URL="https://github.com/immortalwrt/immortalwrt"
-              REPO_BRANCH="master"
-              TAGS_NAME="immortalwrt"
-          elif [[ "${{ inputs.source_branch }}" == *"immortalwrt_24.10"* ]]; then
-              REPO_URL="https://github.com/immortalwrt/immortalwrtt"
-              REPO_BRANCH="openwrt-24.10"
-              TAGS_NAME="im-24.10"
           else
               echo "源代码仓库的地址无法被识别或无法访问."
               exit 1
