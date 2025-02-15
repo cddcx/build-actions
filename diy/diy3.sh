@@ -48,7 +48,7 @@ echo "========================="
 #sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile 
 
 ##. 默认ip
-sed -i 's/192.168.1.1/192.168.1.2/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generate
 
 ## 修改密码
 sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99999:7:::@g' package/base-files/files/etc/shadow
@@ -107,7 +107,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 
 ## 修改target/linux/x86/Makefile
 #sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
-sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-mihomo luci-app-udpxy /g' target/linux/x86/Makefile
+sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-advancedplus luci-app-netwizard luci-app-passwall2 luci-app-mihomo luci-app-udpxy /g' target/linux/x86/Makefile
 
 # 移除 openwrt feeds 自带的核心包
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
