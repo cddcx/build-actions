@@ -48,7 +48,7 @@ on:
 
 env:
   FEEDS_CONF: feeds.conf.default
-  FILES: files1
+  #FILES: files1
   UPLOAD_BIN_DIR: false
   UPLOAD_IPK_DIR: false
   UPLOAD_RELEASE: false
@@ -67,8 +67,8 @@ jobs:
       DATE_S: ${{github.event.inputs.date_s}}
       TARGET_DEVICE: ${{github.event.inputs.target}}
       REPO_BRANCH: ${{github.event.inputs.branch}}
-      DIY_P1_SH: ${{github.event.inputs.diy1_s}}
-      DIY_P2_SH: ${{github.event.inputs.diy2_s}}
+      DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
+      DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
     steps:
     - name: 准备结束
