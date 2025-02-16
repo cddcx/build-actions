@@ -52,7 +52,7 @@ echo "========================="
 git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
 # 酷猫主题
-https://github.com/sirpdboy/luci-theme-kucat
+git clone -b js https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat
 
 # 新版 进价设置
 git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
