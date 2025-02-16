@@ -12,7 +12,7 @@ on:
         options: [ openwrt,  immortalwrt ]
         
       branch:
-        description: '选择源码的分支：'
+        description: '源码的分支(immortalwrt无main)'
         default: 'openwrt-24.10'
         required: true
         type: choice
