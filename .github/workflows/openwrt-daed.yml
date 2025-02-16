@@ -25,17 +25,20 @@ on:
         type: choice
         options: [ diff.config, Free-Mini, Vip-Mini ]
   
-      cpu_s:
-        description: 'CPU优选'
+      diy1_s:
+        description: '自定义diy1'
+        default: 'op-diy1'
         required: true
-        default: '8'
         type: choice
-        options:
-          - '8'
-          - '8370C'
-          - '8272CL'
-          - '8171M'
+        options: [ op-diy1.sh, im-diy1.sh ]
           
+      diy2_s:
+        description: '自定义diy2'
+        default: 'op-diy2'
+        required: true
+        type: choice
+        options: [ op-diy2.sh, im-diy2.sh ]
+        
       target:
         description: '选择要生成的机型：'
         default: 'x86_64'
@@ -43,14 +46,7 @@ on:
         type: choice
         options: [ x86_64 ]
 
-      date_s:
-        description: '固件日期'
-        default: 'default'
-        required: false
-
 env:
-  DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy3.sh
   FEEDS_CONF: feeds.conf.default
   FILES: files1
   UPLOAD_BIN_DIR: false
@@ -63,7 +59,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
-    name: ${{github.event.inputs.URL}}-${{github.event.inputs.config_s}}-${{github.event.inputs.target}}-${{github.event.inputs.branch}}-${{github.event.inputs.date_s}}
+    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}-${{github.event.inputs.branch}}
     env:
       REPO_URL: ${{github.event.inputs.URL}}
       CONFIG_S: ${{github.event.inputs.config_s}}
@@ -71,6 +67,8 @@ jobs:
       DATE_S: ${{github.event.inputs.date_s}}
       TARGET_DEVICE: ${{github.event.inputs.target}}
       REPO_BRANCH: ${{github.event.inputs.branch}}
+      DIY_P1_SH: ${{github.event.inputs.diy1_s}}
+      DIY_P2_SH: ${{github.event.inputs.diy2_s}}
 
     steps:
     - name: 准备结束
@@ -189,15 +187,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 高速缓存
-      id: cache
-      uses: stupidloud/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        mixkey: ${{ env.TARGET_DEVICE }}-${{ env.REPO_BRANCH }}
-        skip_saving: 'true'
-        prefix: /builder/openwrt
-        
     - name: 默认配置文件
       run: |
         cd openwrt
@@ -264,5 +253,5 @@ jobs:
     - name: 上传固件
       uses: actions/upload-artifact@main
       with:
-        name: OpenWrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: ${{github.event.inputs.URL}}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
