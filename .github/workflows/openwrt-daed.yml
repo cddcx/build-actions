@@ -48,7 +48,7 @@ on:
 
 env:
   FEEDS_CONF: feeds.conf.default
-  #FILES: files1
+  FILES: files1
   UPLOAD_BIN_DIR: false
   UPLOAD_IPK_DIR: false
   UPLOAD_RELEASE: false
@@ -181,7 +181,7 @@ jobs:
         
     - name: 加载自定义设置
       run: |
-        [ -e $FILES ] && mv $FILES openwrt/files
+        #[ -e $FILES ] && mv $FILES openwrt/files
         mv ${{github.event.inputs.config_s}} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
