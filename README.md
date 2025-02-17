@@ -6,3 +6,4 @@
 - [P3TERX](https://github.com/P3TERX/Actions-OpenWrt)
 - [sbwml](https://github.com/sbwml/r4s_build_script)
 - [lwb1978](https://github.com/lwb1978/OpenWrt-Actions)
+- [sirpdboy](https://github.com/sirpdboy/openwrt)
