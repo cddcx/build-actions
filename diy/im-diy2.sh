@@ -102,7 +102,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 
 # 修改target/linux/x86/Makefile
-sed -i 's/automount/luci-app-mihomo luci-app-passwall2 luci-app-udpxy/g' target/linux/x86/Makefile
+sed -i 's/automount/luci-app-advancedplus luci-theme-kucat luci-app-netwizard luci-app-mihomo luci-app-passwall2 luci-app-udpxy/g' target/linux/x86/Makefile
 
 ## 删除软件
 rm -rf feeds/luci/applications/luci-app-adguardhome
@@ -175,7 +175,7 @@ CONFIG_PACKAGE_dpdk-tools=y
 CONFIG_PACKAGE_numactl=y
 
 # Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-15"
+CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
