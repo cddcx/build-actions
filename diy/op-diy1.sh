@@ -47,6 +47,7 @@ echo "========================="
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
+
 # 网络设置向导
 git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
