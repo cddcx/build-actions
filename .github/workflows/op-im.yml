@@ -62,7 +62,7 @@ jobs:
     name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
       REPO_URL: ${{github.event.inputs.URL}}
-      CONFIG_S: ${{github.event.inputs.config_s}}
+      CONFIG_FILE: configs/${{github.event.inputs.config_s}}
       CPU_S: ${{github.event.inputs.cpu_s}}
       DATE_S: ${{github.event.inputs.date_s}}
       TARGET_DEVICE: ${{github.event.inputs.target}}
@@ -185,7 +185,7 @@ jobs:
     - name: 加载自定义设置
       run: |
         [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
-        cp -f ${{github.event.inputs.config_s}} openwrt/.config
+        [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
