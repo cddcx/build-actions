@@ -59,7 +59,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
-    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}-${{github.event.inputs.branch}}
+    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
       REPO_URL: ${{github.event.inputs.URL}}
       CONFIG_S: ${{github.event.inputs.config_s}}
