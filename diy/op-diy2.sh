@@ -53,14 +53,6 @@ sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_genera
 ## 修改密码
 sed -i 's@root:::0:99999:7:::@root:$1$/n/cF0jQ$ffjS0OFp8jH5zPyfdOJvq/:19692:0:99999:7:::@g' package/base-files/files/etc/shadow
 
-# 取消主题默认设置
-#find feeds/luci/themes/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/*mediaurlbase*/d' {} \;
-#find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-argon/luci-theme-kucat/g' {} \;
-#find feeds/luci/collections/*/* -type f -name 'Makefile' -print -exec sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' {} \;
-
-# 最大连接数修改为65535
-#sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
-
 # 修复上移下移按钮翻译
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
 sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
@@ -82,9 +74,6 @@ sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefi
 # 替换udpxy为修改版，解决组播源数据有重复数据包导致的花屏和马赛克问题
 rm -rf feeds/packages/net/udpxy/Makefile
 curl -sfL https://raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main/patch/udpxy/Makefile -o feeds/packages/net/udpxy/Makefile
-#cp -rf ${GITHUB_WORKSPACE}/patch/udpxy/Makefile feeds/packages/net/udpxy/
-#rm -rf feeds/luci/applications/luci-app-udpxy/po
-#cp -rf ${GITHUB_WORKSPACE}/patch/luci-app-udpxy/po feeds/luci/applications/luci-app-udpxy/po
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
@@ -106,7 +95,6 @@ sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg luci-app-firewall /" include/target.mk
 
 ## 修改target/linux/x86/Makefile
-#sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-passwall2 luci-app-ttyd luci-app-udpxy /g' target/linux/x86/Makefile
 sed -i 's/DEFAULT_PACKAGES += /DEFAULT_PACKAGES += luci-app-advancedplus luci-theme-kucat luci-app-netwizard luci-app-passwall2 luci-app-mihomo luci-app-udpxy /g' target/linux/x86/Makefile
 
 # 移除 openwrt feeds 自带的核心包
@@ -172,20 +160,7 @@ export github=github.com
 merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/generic-24.10
 merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
 
-# patch source
-#patch -p1 < package-patch/generic-24.10/0001-tools-add-upx-tools.patch
-#patch -p1 < package-patch/generic-24.10/0002-rootfs-add-upx-compression-support.patch
-#patch -p1 < package-patch/generic-24.10/0003-rootfs-add-r-w-permissions-for-UCI-configuration-fil.patch
-#patch -p1 < package-patch/generic-24.10/0004-rootfs-Add-support-for-local-kmod-installation-sourc.patch
-#patch -p1 < package-patch/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
-#patch -p1 < package-patch/generic-24.10/0006-build-kernel-add-out-of-tree-kernel-config.patch
-#patch -p1 < package-patch/generic-24.10/0007-include-kernel-add-miss-config-for-linux-6.11.patch
-#patch -p1 < package-patch/generic-24.10/0008-meson-add-platform-variable-to-cross-compilation-fil.patch
-#patch -p1 < package-patch/generic-24.10/0009-kernel-add-legacy-cgroup-v1-memory-controller.patch
-#patch -p1 < package-patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-for-aarch64-x86_64.patch
-
 # kselftests-bpf
-#curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
 rm -rf package/devel/kselftests-bpf/Makefile
 merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
 
@@ -213,13 +188,7 @@ rm -rf package-patch
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
 cat ${GITHUB_WORKSPACE}/default-settings >> package/emortal/default-settings/files/99-default-settings
 
-# 拷贝自定义文件
-#if [ -n "$(ls -A "${GITHUB_WORKSPACE}/immortalwrt/diy" 2>/dev/null)" ]; then
-	#cp -Rf ${GITHUB_WORKSPACE}/immortalwrt/diy/* .
-#fi
-
-./scripts/feeds update -a
-./scripts/feeds install -a
+make defconfig
 
 echo "========================="
 echo " DIY2 配置完成……"
