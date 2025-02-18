@@ -45,7 +45,7 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # 默认IP
-sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 # 修改内核
 #sed -i 's/PATCHVER:=*.*/PATCHVER:=6.6/g' target/linux/x86/Makefile
