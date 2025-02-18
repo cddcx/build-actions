@@ -13,8 +13,8 @@ config device
 	option name 'br-lan'
 	option type 'bridge'
 	list ports 'eth0'
+	list ports 'eth1'
 	list ports 'eth2'
-	list ports 'eth3'
 
 config interface 'lan'
 	option device 'br-lan'
@@ -33,7 +33,7 @@ config interface 'lan6'
 
 config interface 'IPTV'
 	option proto 'dhcp'
-	option device 'eth1'
+	option device 'eth3'
 	option hostname '5510919900703210000090D8F3C8C024'
 	option clientid '5510919900703210000090D8F3C8C024'
 	option vendorid 'SCITV'
@@ -41,7 +41,7 @@ config interface 'IPTV'
 	option delegate '0'
 
 config device
-	option name 'eth1'
+	option name 'eth3'
 	option macaddr '90:D8:F3:C8:C0:24'
 	option ipv6 '0'
 
