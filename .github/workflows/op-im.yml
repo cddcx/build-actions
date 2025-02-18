@@ -48,7 +48,7 @@ on:
 
 env:
   FEEDS_CONF: feeds.conf.default
-  FILES: files1
+  FILES: files
   UPLOAD_BIN_DIR: false
   UPLOAD_IPK_DIR: false
   UPLOAD_RELEASE: false
