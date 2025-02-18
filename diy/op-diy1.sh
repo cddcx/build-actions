@@ -83,8 +83,8 @@ git clone https://github.com/QiuSimons/luci-app-daed package/dae
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
 
 # luci-app-mihomo
-merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld luci-app-mihomo
-merge_package main https://github.com/morytyann/OpenWrt-mihomo package/helloworld mihomo
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
 # bpf - add host clang-15/18/20 support
 sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
