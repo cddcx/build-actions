@@ -75,19 +75,11 @@ sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefi
 # 替换udpxy为修改版，解决组播源数据有重复数据包导致的花屏和马赛克问题
 rm -rf feeds/packages/net/udpxy/Makefile
 curl -sfL https://raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main/patch/udpxy/Makefile -o feeds/packages/net/udpxy/Makefile
-#rm -rf feeds/luci/applications/luci-app-udpxy/po
-#cp -rf ${GITHUB_WORKSPACE}/patch/luci-app-udpxy/po feeds/luci/applications/luci-app-udpxy/po
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
 # 移动 UPnP 到 “网络” 子菜单
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
-
-# 替换udpxy为修改版，解决组播源数据有重复数据包导致的花屏和马赛克问题
-#rm -rf feeds/packages/net/udpxy/Makefile
-#curl -sfL https://raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main/patch/udpxy/Makefile -o feeds/packages/net/udpxy/Makefile
-# 修改 udpxy 菜单名称为大写
-#sed -i 's#\"title\": \"udpxy\"#\"title\": \"UDPXY\"#g' feeds/luci/applications/luci-app-udpxy/root/usr/share/luci/menu.d/luci-app-udpxy.json
 
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
@@ -102,7 +94,7 @@ sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-ch
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 
 # 修改target/linux/x86/Makefile
-sed -i 's/automount/luci-app-advancedplus luci-theme-kucat luci-app-netwizard luci-app-mihomo luci-app-passwall2 luci-app-udpxy/g' target/linux/x86/Makefile
+sed -i 's/automount/luci-app-advancedplus luci-theme-kucat luci-app-netwizard luci-app-nikki luci-app-passwall2 luci-app-udpxy/g' target/linux/x86/Makefile
 
 ## 删除软件
 rm -rf feeds/luci/applications/luci-app-adguardhome
@@ -187,18 +179,6 @@ export github=github.com
 # 下载patch
 merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/generic-24.10
 merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
-
-# patch source
-#patch -p1 < package-patch/generic-24.10/0001-tools-add-upx-tools.patch
-#patch -p1 < package-patch/generic-24.10/0002-rootfs-add-upx-compression-support.patch
-#patch -p1 < package-patch/generic-24.10/0003-rootfs-add-r-w-permissions-for-UCI-configuration-fil.patch
-#patch -p1 < package-patch/generic-24.10/0004-rootfs-Add-support-for-local-kmod-installation-sourc.patch
-#patch -p1 < package-patch/generic-24.10/0005-kernel-Add-support-for-llvm-clang-compiler.patch
-#patch -p1 < package-patch/generic-24.10/0006-build-kernel-add-out-of-tree-kernel-config.patch
-#patch -p1 < package-patch/generic-24.10/0007-include-kernel-add-miss-config-for-linux-6.11.patch
-#patch -p1 < package-patch/generic-24.10/0008-meson-add-platform-variable-to-cross-compilation-fil.patch
-#patch -p1 < package-patch/generic-24.10/0009-kernel-add-legacy-cgroup-v1-memory-controller.patch
-#patch -p1 < package-patch/generic-24.10/0010-kernel-add-PREEMPT_RT-support-for-aarch64-x86_64.patch
 
 # kselftests-bpf
 #curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
