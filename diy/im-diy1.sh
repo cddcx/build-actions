@@ -60,12 +60,12 @@ sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/l
 ## luci-app-passwall
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
-# luci-app-mihomo
-merge_package main https://github.com/morytyann/OpenWrt-mihomo package luci-app-mihomo
-merge_package main https://github.com/morytyann/OpenWrt-mihomo package mihomo
+# luci-app-nikki
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
 # bpf - add host clang-15/18/20 support
-sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
+sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
 #sed -i "s@clang-11@clang-15 clang-18@g" include/bpf.mk
 #sed -i "s@clang-12@clang-19 clang-20@g" include/bpf.mk
 
