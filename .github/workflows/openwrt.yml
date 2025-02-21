@@ -1,4 +1,4 @@
-name: build-actions
+name: openwrt
 
 on:
   repository_dispatch:
