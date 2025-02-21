@@ -1,34 +1,44 @@
-name: openwrt
+name: build-actions
 
 on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+      URL:
+        description: '选择源码：'
+        default: 'openwrt'
+        required: true
+        type: choice
+        options: [ openwrt,  immortalwrt ]
+        
       branch:
-        description: '选择仓库的分支：'
+        description: '源码的分支(immortalwrt无main)'
         default: 'openwrt-24.10'
         required: true
         type: choice
         options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
         
       config_s:
-        description: '选择配置文件'
-        default: 'diff.config'
+        description: '选择config配置文件'
+        default: 'op.config'
         required: true
         type: choice
-        options: [ diff.config, Free-Mini, Vip-Mini ]
+        options: [ diff.config, op.config, im.config ]
   
-      cpu_s:
-        description: 'CPU优选'
+      diy1_s:
+        description: '自定义diy1'
+        default: 'op-diy1'
         required: true
-        default: '8'
         type: choice
-        options:
-          - '8'
-          - '8370C'
-          - '8272CL'
-          - '8171M'
+        options: [ op-diy1.sh, im-diy1.sh ]
           
+      diy2_s:
+        description: '自定义diy2'
+        default: 'op-diy2'
+        required: true
+        type: choice
+        options: [ op-diy2.sh, im-diy2.sh ]
+        
       target:
         description: '选择要生成的机型：'
         default: 'x86_64'
@@ -36,17 +46,9 @@ on:
         type: choice
         options: [ x86_64 ]
 
-      date_s:
-        description: '固件日期'
-        default: 'default'
-        required: false
-
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  DIY_P1_SH: diy/diy1.sh
-  DIY_P2_SH: diy/diy3.sh
   FEEDS_CONF: feeds.conf.default
-  FILES: files1
+  FILES: files
   UPLOAD_BIN_DIR: false
   UPLOAD_IPK_DIR: false
   UPLOAD_RELEASE: false
@@ -57,13 +59,16 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
-    name: openwrt-${{github.event.inputs.config_s}}-${{github.event.inputs.target}}-${{github.event.inputs.branch}}-${{github.event.inputs.date_s}}
+    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
-      CONFIG_S: ${{github.event.inputs.config_s}}
+      REPO_URL: ${{github.event.inputs.URL}}
+      CONFIG_FILE: configs/${{github.event.inputs.config_s}}
       CPU_S: ${{github.event.inputs.cpu_s}}
       DATE_S: ${{github.event.inputs.date_s}}
       TARGET_DEVICE: ${{github.event.inputs.target}}
       REPO_BRANCH: ${{github.event.inputs.branch}}
+      DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
+      DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
     steps:
     - name: 准备结束
@@ -104,7 +109,8 @@ jobs:
         sudo apt-get -y purge firefox clang* ghc* google* llvm* mono* mongo* mysql* php*
         sudo apt-get -y autoremove --purge
         sudo apt-get clean
-        sudo rm -rf /etc/mysql /etc/php /usr/lib/jvm /usr/libexec/docker /usr/local /usr/src/* /var/lib/docker /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm}
+        sudo rm -rf /etc/mysql /etc/php /usr/lib/jvm /usr/libexec/docker /usr/local /usr/src/* /var/lib/docker /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel \
+        /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm}
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
         rm -rf ~/{.cargo,.dotnet,.rustup}
         df -Th
@@ -134,11 +140,13 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo sh -c 'echo "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-17 main" >> /etc/apt/sources.list'
-        sudo sh -c 'echo "deb-src http://apt.llvm.org/focal/ llvm-toolchain-focal-17 main" >> /etc/apt/sources.list'
+        sudo sh -c 'echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
+        sudo sh -c 'echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
         wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
         sudo apt-get update
-        sudo apt-get install -y build-essential flex bison clang-17 cmake g++ gawk gcc-multilib g++-multilib gettext git libfuse-dev libncurses5-dev libssl-dev python3 python3-pip python3-ply python3-distutils python3-pyelftools rsync unzip zlib1g-dev file wget subversion patch upx-ucl autoconf automake curl asciidoc binutils bzip2 lib32gcc-s1 libc6-dev-i386 uglifyjs msmtp texinfo libreadline-dev libglib2.0-dev xmlto libelf-dev libtool autopoint antlr3 gperf ccache swig coreutils haveged scons libpython3-dev rename
+        sudo apt-get install -y build-essential flex bison clang-18 llvm-18 npm cmake g++ gawk gcc-multilib g++-multilib gettext git libfuse-dev libncurses5-dev libssl-dev python3 python3-pip python3-ply \
+        python3-distutils python3-pyelftools rsync unzip zlib1g-dev file wget subversion patch upx-ucl autoconf automake curl asciidoc binutils bzip2 lib32gcc-s1 libc6-dev-i386 uglifyjs msmtp texinfo \
+        libreadline-dev libglib2.0-dev xmlto libelf-dev libtool autopoint antlr3 gperf ccache swig coreutils haveged scons libpython3-dev rename
         sudo apt-get clean
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -Th
@@ -148,13 +156,22 @@ jobs:
     - name: 克隆源码
       working-directory: /builder
       run: |
-        df -hT $PWD
+        # 设置编译源代码
+          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+          else
+              echo "源代码仓库的地址无法被识别或无法访问."
+              exit 1
+          fi
+        # 克隆源代码
         git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         
     - name: DIY1(一般用于安装依赖和插件)
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [[ -f "${FEEDS_CONF}" ]] && cp -f ${FEEDS_CONF} openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -167,20 +184,11 @@ jobs:
         
     - name: 加载自定义设置
       run: |
-        [ -e $FILES ] && mv $FILES openwrt/files
-        mv ${{github.event.inputs.config_s}} openwrt/.config
+        [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
+        [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        
-    - name: 高速缓存
-      id: cache
-      uses: stupidloud/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        mixkey: ${{ env.TARGET_DEVICE }}-${{ env.REPO_BRANCH }}
-        skip_saving: 'true'
-        prefix: /builder/openwrt
         
     - name: 默认配置文件
       run: |
@@ -221,6 +229,8 @@ jobs:
           make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
           make checksum
+          [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+          echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
           echo "status=success" >> $GITHUB_OUTPUT
         
     - name: 检查空间使用情况
@@ -248,5 +258,5 @@ jobs:
     - name: 上传固件
       uses: actions/upload-artifact@main
       with:
-        name: OpenWrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: ${{github.event.inputs.URL}}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
