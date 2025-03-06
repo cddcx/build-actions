@@ -80,14 +80,6 @@ sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/lu
 # 移动 UPnP 到 “网络” 子菜单
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
 
-# TTYD 自动登录
-sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
-# TTYD 更改
-sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i '3 a\\t\t"order": 50,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
-
 ## 修改target.mk
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
@@ -127,62 +119,22 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=600
 
 ### BPF
 CONFIG_DEVEL=y
-CONFIG_BPF_TOOLCHAIN_HOST=y
-# CONFIG_BPF_TOOLCHAIN_NONE is not set
-CONFIG_KERNEL_BPF_EVENTS=y
-CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_DEVEL=y
 CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_REDUCED=n
 CONFIG_KERNEL_DEBUG_INFO_BTF=y
-# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
+CONFIG_KERNEL_CGROUPS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
 CONFIG_KERNEL_XDP_SOCKETS=y
-
-### BPF Kernel Modules
-CONFIG_PACKAGE_kmod-sched-core=y
-CONFIG_PACKAGE_kmod-sched-bpf=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-
-# DPDK
-CONFIG_PACKAGE_dpdk-tools=y
-CONFIG_PACKAGE_numactl=y
 
 # Kernel - CLANG LTO
 CONFIG_KERNEL_CC="clang-18"
 CONFIG_EXTRA_OPTIMIZATION=""
 # CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
-
-export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
-export gitea=git.cooluc.com
-export github=github.com
-
-# 下载patch
-merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/generic-24.10
-merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
-
-# kselftests-bpf
-rm -rf package/devel/kselftests-bpf/Makefile
-merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
-
-### clang
-# xtables-addons module
-rm -rf feeds/packages/net/xtables-addons
-git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
-# netatop
-sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
-#curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-cp -rf package-patch/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-# dmx_usb_module
-rm -rf feeds/packages/libs/dmx_usb_module
-git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
-# macremapper
-patch -p1 < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
-# coova-chilli module
-rm -rf feeds/packages/net/coova-chilli
-git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
-
-# 删除patch
-rm -rf package-patch
 
 # 自定义默认配置
 sed -i '/exit 0$/d' package/emortal/default-settings/files/99-default-settings
