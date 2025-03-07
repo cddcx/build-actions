@@ -59,7 +59,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
-    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
+    
+    name: 编译${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
       REPO_URL: ${{github.event.inputs.URL}}
       CONFIG_FILE: configs/${{github.event.inputs.config_s}}
