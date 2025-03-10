@@ -20,7 +20,7 @@ on:
         
       config_s:
         description: '选择config配置文件'
-        default: 'op.config'
+        default: 'diff.config'
         required: true
         type: choice
         options: [ diff.config, op.config, im.config ]
@@ -37,7 +37,7 @@ on:
         default: 'op-diy3.sh'
         required: true
         type: choice
-        options: [ op-diy2.sh, op-diy3.sh im-diy2.sh ]
+        options: [ op-diy2.sh, op-diy3.sh, im-diy2.sh ]
         
       target:
         description: '选择要生成的机型：'
