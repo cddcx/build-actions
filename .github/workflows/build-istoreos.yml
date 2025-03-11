@@ -4,23 +4,53 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      lan_ip:
-        description: '设置LAN IP地址'
+      URL:
+        description: '选择源码：'
+        default: 'openwrt'
         required: true
-        default: '192.168.100.1'
-      os_name:
-        description: '设置系统名称'
+        type: choice
+        options: [ openwrt,  immortalwrt ]
+        
+      branch:
+        description: '源码的分支(immortalwrt无main)'
+        default: 'openwrt-24.10'
         required: true
-        default: 'iStore OS'
+        type: choice
+        options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
+        
+      config_s:
+        description: '选择config配置文件'
+        default: 'diff.config'
+        required: true
+        type: choice
+        options: [ diff.config, op.config, im.config ]
+  
+      diy1_s:
+        description: '自定义diy1'
+        default: 'op-diy1.sh'
+        required: true
+        type: choice
+        options: [ op-diy1.sh, im-diy1.sh ]
+          
+      diy2_s:
+        description: '自定义diy2'
+        default: 'op-diy3.sh'
+        required: true
+        type: choice
+        options: [ op-diy2.sh, op-diy3.sh, im-diy2.sh ]
+        
+      target:
+        description: '选择要生成的机型：'
+        default: 'x86_64'
+        required: true
+        type: choice
+        options: [ x86_64 ]
+        
       enable_wifi:
         description: '启用WiFi'
         required: true
-        default: true
+        default: false
         type: boolean
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
 
 
 env:
