@@ -101,6 +101,10 @@ jobs:
       with:
         go-version: 'stable'
 
+    - name: 设置发布环境
+      run: |
+        echo WORKDIR="/workdir" >> "$GITHUB_ENV"
+
     - name: 初始化编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
