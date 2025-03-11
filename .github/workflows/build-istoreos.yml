@@ -52,34 +52,30 @@ on:
         default: false
         type: boolean
 
-
 env:
-  REPO_URL: https://github.com/istoreos/istoreos
-  # REPO_BRANCH: main
-  FEEDS_CONF: feeds.conf
-  CONFIG_FILE: .config
-  DIY_P1_SH: scripts/diy-part1.sh
-  DIY_P2_SH: scripts/diy-part2.sh
-  WORK_DIR: /mnt/workdir
-  UPLOAD_BIN_DIR: true
+  FEEDS_CONF: feeds.conf.default
+  FILES: files
+  UPLOAD_BIN_DIR: false
+  UPLOAD_IPK_DIR: false
+  UPLOAD_RELEASE: false
   UPLOAD_FIRMWARE: true
-  UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        REPO_BRANCH:
-          - istoreos-22.03
-        ARCHITECTURE:
-          - x86
-        os:
-          - ubuntu-22.04
-
-      fail-fast: false
+    runs-on: ubuntu-24.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    
+    name: 编译${{github.event.inputs.URL}}-${{github.event.inputs.target}}
+    env:
+      REPO_URL: ${{github.event.inputs.URL}}
+      CONFIG_FILE: configs/${{github.event.inputs.config_s}}
+      CPU_S: ${{github.event.inputs.cpu_s}}
+      DATE_S: ${{github.event.inputs.date_s}}
+      TARGET_DEVICE: ${{github.event.inputs.target}}
+      REPO_BRANCH: ${{github.event.inputs.branch}}
+      DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
+      DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
     steps:
     - name: 准备完成
@@ -100,10 +96,10 @@ jobs:
         echo "------------------------------- 磁盘详情 -------------------------------\n"
         df -Th
 
-    - name: 安装 Go 1.21.1
-      uses: actions/setup-go@v1
+    - name: 安装 Go 稳定版
+      uses: actions/setup-go@v5
       with:
-        go-version: 1.21.1
+        go-version: 'stable'
 
     - name: 初始化编译环境
       env:
@@ -111,8 +107,9 @@ jobs:
       run: |
         echo "------------------------------- 更新并安装依赖 -------------------------------"
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
+                sudo bash -c "curl -s https://us.cooluc.com/ubuntu-apt/sources-24.04.list > /etc/apt/sources.list"
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/depends/${{ matrix.os }})
+        sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         wget https://bootstrap.pypa.io/pip/3.6/get-pip.py
         sudo python3 get-pip.py
         sudo rm -rf get-pip.py
@@ -125,75 +122,52 @@ jobs:
         sudo -E apt-get -qq clean
         echo "------------------------------- 设置工作目录及时区 -------------------------------"
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /mnt/workdir
-        sudo chown $USER:$GROUPS /mnt/workdir
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
 
     - name: 克隆源码
-      working-directory: /mnt/workdir
+      working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b ${{ matrix.REPO_BRANCH }} openwrt
-        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        # 设置编译源代码
+        if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
+            REPO_URL="https://github.com/openwrt/openwrt"
+        elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
+            REPO_URL="https://github.com/immortalwrt/immortalwrt"
+        else
+            echo "源代码仓库的地址无法被识别或无法访问."
+            exit 1
+        fi
+        # 克隆源代码
+        git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: 缓存构建动作
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'true'
-        mixkey: ${{ matrix.os }}-${{ matrix.ARCHITECTURE }}-${{ matrix.REPO_BRANCH }}
-        prefix: ${{ github.workspace }}/openwrt
-
-    - name: 加载自定义 feeds
-      env:
-        FEEDS_CONF_PATH: ${{ matrix.ARCHITECTURE }}/${{ env.FEEDS_CONF }}
+    - name: DIY1(一般用于安装依赖和插件)
       run: |
-        [ -e $FEEDS_CONF_PATH ] && mv $FEEDS_CONF_PATH openwrt/$FEEDS_CONF
+        [[ -f "${FEEDS_CONF}" ]] && cp -f ${FEEDS_CONF} openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
-    - name: 更新 feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: 安装 feeds
-      run: cd openwrt && ./scripts/feeds install -a
-
-    - name: 加载自定义配置
-      env:
-        CONFIG_FILE_PATH: ${{ matrix.ARCHITECTURE }}/${{ env.CONFIG_FILE }}
+        
+    - name: 安装并更新feeds
+      working-directory: ./openwrt
       run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE_PATH ] && mv $CONFIG_FILE_PATH openwrt/$CONFIG_FILE
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        
+    - name: 加载自定义设置
+      run: |
+        [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
+        [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH ${{ matrix.ARCHITECTURE }}
-
-    - name: 设置LAN IP地址（路由器登录地址）
-      run: |
-        cd openwrt
-        SET_IP=${{ github.event.inputs.lan_ip }}
-        #修改默认IP地址
-        sed -i "s/192\.168\.[0-9]*\.[0-9]*/$SET_IP/g" package/base-files/files/bin/config_generate
-        echo "Set LAN IP Address: $SET_IP"
-
-    - name: 设置系统名称
-      run: |
-        cd openwrt
-        set_os_name="${{ github.event.inputs.os_name }}"
-        sed -i "s/OpenWrt/${set_os_name}/g" package/base-files/files/bin/config_generate
-        echo "Set OS name : ${set_os_name}"
+        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: 启用WiFi
       if: github.event.inputs.enable_wifi == 'true'
       run: |
         cd openwrt
         sed -i 's/disabled=1/disabled=0/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-
-    - name: SSH 连接到 Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: 下载软件包
       id: package
@@ -217,69 +191,25 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: 上传 bin 文件夹
-      uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.FILE_DATE }}
-        path: openwrt/bin
-
     - name: 整理固件文件
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
+        # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间
         rm -rf packages
+        rm -rf feeds.buildinfo
+        rm -rf version.buildinfo
+        rm -rf *kernel.bin
+        rm -rf profiles.json
+        rm -rf *rootfs.img
+        rm -rf *rootfs.tar.gz
+        rm -rf *.manifest
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
-    - name: 上传固件目录
+    - name: 上传固件
       uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware${{ env.FILE_DATE }}
+        name: ${{github.event.inputs.URL}}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-
-    - name: 生成发布标签
-      id: tag
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "::set-output name=release_tag::${{ matrix.ARCHITECTURE }}"
-        touch release.txt
-        echo "
-        💻 架构: ${{ matrix.ARCHITECTURE }}
-
-        📂 源码: ${{ env.REPO_URL }}
-
-        🌳 分支: ${{ matrix.REPO_BRANCH }}
-
-        ⏱️ 编译时间: $(date +"%Y年%m月%d日%H时%M分")
-
-        🌐 管理地址: 192.168.100.1
-
-        👤 用户名: root
-
-        🔒 密码: password " >> release.txt
-        echo "::set-output name=status::success"
-
-    - name: 自动发布固件到 Releases
-      uses: softprops/action-gh-release@v1
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
-
-    - name: 删除运行记录
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 3
-        token: ${{ env.GITHUB_TOKEN }}
-
-    - name: 删除自动发布的旧固件
-      uses: dev-drprasad/delete-older-releases@v0.1.0
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 6
-        delete_tags: true
