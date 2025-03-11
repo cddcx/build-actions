@@ -110,7 +110,8 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         echo "------------------------------- 更新并安装依赖 -------------------------------"
-        #sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
+        sudo bash -c "curl -s https://us.cooluc.com/ubuntu-apt/sources-24.04.list > /etc/apt/sources.list"
         sudo sh -c 'echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
         sudo sh -c 'echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
         wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
