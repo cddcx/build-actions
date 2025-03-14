@@ -1,0 +1,22 @@
+
+config defaults
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option synflood_protect '1'
+
+config zone
+	option name 'lan'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'ACCEPT'
+	list network 'lan'
+	option masq '1'
+
+config zone
+	option name 'IPTV'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	list network 'IPTV'
+
