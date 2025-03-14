@@ -44,7 +44,7 @@ on:
         default: 'x86_64'
         required: true
         type: choice
-        options: [ x86_64 ]
+        options: [ x86_64, r5s, r5c ]
         
       enable_wifi:
         description: '启用WiFi'
