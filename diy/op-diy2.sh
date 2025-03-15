@@ -129,11 +129,6 @@ CONFIG_KERNEL_BPF_EVENTS=y
 CONFIG_BPF_TOOLCHAIN_HOST=y
 CONFIG_KERNEL_XDP_SOCKETS=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-
-# Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-18"
-CONFIG_EXTRA_OPTIMIZATION=""
-# CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
 
 # 自定义默认配置
