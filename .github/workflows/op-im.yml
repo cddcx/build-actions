@@ -34,10 +34,10 @@ on:
           
       diy2_s:
         description: '自定义diy2'
-        default: 'op-diy3.sh'
+        default: 'op-diy2.sh'
         required: true
         type: choice
-        options: [ op-diy2.sh, im-diy2.sh, op-diy3.sh ]
+        options: [ op-diy2.sh, im-diy2.sh ]
         
       target:
         description: '选择要生成的机型：'
