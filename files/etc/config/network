@@ -26,11 +26,6 @@ config interface 'lan'
 	option gateway '192.168.3.1'
 	option dns '192.168.3.1'
 
-config interface 'lan6'
-	option proto 'dhcpv6'
-	option delegate '1'
-	option device '@lan'
-
 config interface 'IPTV'
 	option proto 'dhcp'
 	option device 'eth3'
