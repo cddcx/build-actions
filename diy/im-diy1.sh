@@ -45,10 +45,10 @@ echo "========================="
 #git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
 # 酷猫主题
-git clone -b js https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat
+#git clone -b js https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat
 
 # 新版 进价设置
-git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
+#git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 
 # luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy           ####### homeproxy的默认版本(二选一) 
