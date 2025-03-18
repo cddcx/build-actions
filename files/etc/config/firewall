@@ -4,7 +4,6 @@ config defaults
 	option output 'ACCEPT'
 	option forward 'REJECT'
 	option synflood_protect '1'
-        option syn_flood '1'
 
 config zone
 	option name 'lan'
@@ -18,4 +17,5 @@ config zone
 	option input 'ACCEPT'
 	option output 'ACCEPT'
 	option forward 'REJECT'
+        list network 'IPTV'
 
