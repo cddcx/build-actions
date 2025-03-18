@@ -49,7 +49,7 @@ echo "========================="
 #echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
 
 # 网络设置向导
-git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
+#git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
 # 酷猫主题
 git clone -b js https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat
