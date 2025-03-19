@@ -153,9 +153,9 @@ CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
 CONFIG_KERNEL_XDP_SOCKETS=y
 ' >>  ./.config
 
-export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
-export gitea=git.cooluc.com
-export github=github.com
+#export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
+#export gitea=git.cooluc.com
+#export github=github.com
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
