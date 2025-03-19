@@ -60,13 +60,8 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
-# ppp - 2.5.0
-rm -rf package/network/services/ppp
-git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
-
 # golang 1.22.0
 rm -rf feeds/packages/lang/golang
-#git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # 修复编译时提示 freeswitch 缺少 libpcre 依赖
@@ -156,54 +151,11 @@ CONFIG_KERNEL_DEBUG_INFO_BTF=y
 # CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
 CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
 CONFIG_KERNEL_XDP_SOCKETS=y
-
-### BPF Kernel Modules
-CONFIG_PACKAGE_kmod-sched-core=y
-CONFIG_PACKAGE_kmod-sched-bpf=y
-CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
-
-# DPDK
-CONFIG_PACKAGE_dpdk-tools=y
-CONFIG_PACKAGE_numactl=y
-
-# Kernel - CLANG LTO
-CONFIG_KERNEL_CC="clang-18"
-CONFIG_EXTRA_OPTIMIZATION=""
-# CONFIG_PACKAGE_kselftests-bpf is not set
 ' >>  ./.config
 
 export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
 export gitea=git.cooluc.com
 export github=github.com
-
-# 下载patch
-merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/generic-24.10
-merge_package master https://github.com/sbwml/r4s_build_script package-patch openwrt/patch/packages-patches/clang
-
-# kselftests-bpf
-#curl -s https://$mirror/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
-rm -rf package/devel/kselftests-bpf/Makefile
-merge_package master https://github.com/sbwml/r4s_build_script package/devel openwrt/patch/packages-patches/kselftests-bpf
-
-### clang
-# xtables-addons module
-rm -rf feeds/packages/net/xtables-addons
-git clone https://$github/sbwml/kmod_packages_net_xtables-addons feeds/packages/net/xtables-addons
-# netatop
-sed -i 's/$(MAKE)/$(KERNEL_MAKE)/g' feeds/packages/admin/netatop/Makefile
-#curl -s $mirror/openwrt/patch/packages-patches/clang/netatop/900-fix-build-with-clang.patch > feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-cp -rf package-patch/clang/netatop/900-fix-build-with-clang.patch feeds/packages/admin/netatop/patches/900-fix-build-with-clang.patch
-# dmx_usb_module
-rm -rf feeds/packages/libs/dmx_usb_module
-git clone https://$gitea/sbwml/feeds_packages_libs_dmx_usb_module feeds/packages/libs/dmx_usb_module
-# macremapper
-patch -p1 < package-patch/clang/macremapper/100-macremapper-fix-clang-build.patch
-# coova-chilli module
-rm -rf feeds/packages/net/coova-chilli
-git clone https://$github/sbwml/kmod_packages_net_coova-chilli feeds/packages/net/coova-chilli
-
-# 删除patch
-rm -rf package-patch
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
