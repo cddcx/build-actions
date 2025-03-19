@@ -50,6 +50,9 @@ echo "========================="
 # 新版 进价设置
 #git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 
+# luci-app-partexp 一键自动格式化分区、扩容、自动挂载插件
+git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+
 # luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy           ####### homeproxy的默认版本(二选一) 
 #git clone -b dev https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
