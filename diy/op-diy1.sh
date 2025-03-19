@@ -57,6 +57,9 @@ echo "========================="
 # 新版 进价设置
 #git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 
+# uci-app-partexp 一键自动格式化分区、扩容、自动挂载插件
+git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
+
 # DPDK & NUMACTL
 merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk
 merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/numactl
