@@ -121,27 +121,6 @@ jobs:
         rm -rf ~/{.cargo,.dotnet,.rustup}
         df -Th
         
-    - name: 创建 VG & LV
-      run: |
-        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
-        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
-        sudo truncate -s "$mnt_size"G /mnt/mnt.img
-        sudo truncate -s "$root_size"G /root.img
-        sudo losetup /dev/loop6 /mnt/mnt.img
-        sudo losetup /dev/loop7 /root.img
-        sudo pvcreate /dev/loop6
-        sudo pvcreate /dev/loop7
-        sudo vgcreate github /dev/loop6 /dev/loop7
-        sudo lvcreate -n runner -l 100%FREE github
-        sudo mkfs.xfs /dev/github/runner
-        
-    - name: 挂载 LV
-      run: |
-        sudo mkdir -p /builder
-        sudo mount /dev/github/runner /builder
-        sudo chown -R runner.runner /builder
-        # sudo chown $USER:$GROUPS /builder
-        
     - name: 构建系统依赖
       env:
         DEBIAN_FRONTEND: noninteractive
