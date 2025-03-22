@@ -204,6 +204,12 @@ jobs:
         cd openwrt
         make defconfig
         
+    - name: 高速缓冲存储器
+      uses: HiGarfield/cachewrtbuild@main
+      with:
+        mixkey: ${{ env.TARGET_DEVICE_ARCH }}
+        prefix: ${{ github.workspace }}/openwrt
+        
     - name: 下载软件包
       id: package
       run: |
