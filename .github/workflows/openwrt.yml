@@ -78,7 +78,7 @@ jobs:
         cat /proc/cpuinfo | grep 'model name'
         
     - name: 最大化构建空间
-      uses: easimon/maximize-builder-space@master
+      uses: easimon/maximize-build-space@master
       with:
         swap-size-mb: 1024
         temp-reserve-mb: 512
@@ -135,7 +135,8 @@ jobs:
         pip3 install --user -U pylibfdt --break-system-packages
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
+        sudo -E git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
+        sudo -E git config --global core.abbrev auto
         df -Th
         sudo timedatectl set-timezone "$TZ"
         sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
