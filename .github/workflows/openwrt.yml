@@ -78,7 +78,7 @@ jobs:
         cat /proc/cpuinfo | grep 'model name'
         
     - name: 最大化构建空间
-      uses: easimon/maximize-build-space@master
+      uses: easimon/maximize-builder-space@master
       with:
         swap-size-mb: 1024
         temp-reserve-mb: 512
