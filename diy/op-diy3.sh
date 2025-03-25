@@ -117,15 +117,15 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 ### 必要的 Patches ###
 # BBRv3
-merge_package main https://github.com/cddcx/build-actions target/linux/generic/backport-6.6 patch/kernel/bbr3
+merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/backport-6.6 PATCH/kernel/bbr3
 cp -rf target/linux/generic/backport-6.6/bbr3/* target/linux/generic/backport-6.6
 rm -rf target/linux/generic/backport-6.6/bbr3
 # btf
-merge_package main https://github.com/cddcx/build-actions target/linux/generic/hack-6.6 patch/kernel/btf
+merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/btf
 cp -rf target/linux/generic/hack-6.6/btf/* target/linux/generic/hack-6.6
 rm -rf target/linux/generic/hack-6.6/btf
 # LRNG
-merge_package main https://github.com/cddcx/build-actions target/linux/generic/hack-6.6 patch/kernel/lrng
+merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/lrng
 cp -rf target/linux/generic/hack-6.6/lrng/* target/linux/generic/hack-6.6
 rm -rf target/linux/generic/hack-6.6/lrng
 echo '
