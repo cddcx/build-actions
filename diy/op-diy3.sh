@@ -121,9 +121,9 @@ merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/backp
 cp -rf target/linux/generic/backport-6.6/bbr3/* target/linux/generic/backport-6.6
 rm -rf target/linux/generic/backport-6.6/bbr3
 # btf
-merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/btf
-cp -rf target/linux/generic/hack-6.6/btf/* target/linux/generic/hack-6.6
-rm -rf target/linux/generic/hack-6.6/btf
+#merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/btf
+#cp -rf target/linux/generic/hack-6.6/btf/* target/linux/generic/hack-6.6
+#rm -rf target/linux/generic/hack-6.6/btf
 # LRNG
 merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/lrng
 cp -rf target/linux/generic/hack-6.6/lrng/* target/linux/generic/hack-6.6
