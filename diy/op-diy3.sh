@@ -117,11 +117,11 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 ### 必要的 Patches ###
 # BBRv3
-cp -rf ${GITHUB_WORKSPACE}/patch/kernel/bbr3/* ./target/linux/generic/backport-6.6/
+cp -rf $GITHUB_WORKSPACE/patch/kernel/bbr3/* ./target/linux/generic/backport-6.6/
 # btf
-cp -rf ${GITHUB_WORKSPACE}/patch/kernel/btf/* ./target/linux/generic/hack-6.6/
+cp -rf $GITHUB_WORKSPACE/patch/kernel/btf/* ./target/linux/generic/hack-6.6/
 # LRNG
-cp -rf ${GITHUB_WORKSPACE}/patch/kernel/lrng/* ./target/linux/generic/hack-6.6/
+cp -rf $GITHUB_WORKSPACE/patch/kernel/lrng/* ./target/linux/generic/hack-6.6/
 echo '
 # CONFIG_RANDOM_DEFAULT_IMPL is not set
 CONFIG_LRNG=y
