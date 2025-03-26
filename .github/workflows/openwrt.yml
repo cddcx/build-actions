@@ -94,6 +94,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
         sudo mkdir -p /builder
+        sudo chown $USER:$GROUPS /builder
         
     - name: 克隆源码
       working-directory: /builder
