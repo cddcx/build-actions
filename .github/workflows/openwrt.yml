@@ -99,14 +99,14 @@ jobs:
       working-directory: /builder
       run: |
         # 设置编译源代码
-        if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
-            REPO_URL="https://github.com/openwrt/openwrt"
-        elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
-            REPO_URL="https://github.com/immortalwrt/immortalwrt"
-        else
-            echo "源代码仓库的地址无法被识别或无法访问."
-            exit 1
-        fi
+          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+          else
+              echo "源代码仓库的地址无法被识别或无法访问."
+              exit 1
+          fi
         # 克隆源代码
         git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
