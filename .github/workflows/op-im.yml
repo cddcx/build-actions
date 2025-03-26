@@ -23,7 +23,7 @@ on:
         default: 'diff.config'
         required: true
         type: choice
-        options: [ diff.config, op.config, im.config ]
+        options: [ daed.config, op.config, im.config ]
   
       diy1_s:
         description: '自定义diy1'
