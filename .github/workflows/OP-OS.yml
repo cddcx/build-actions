@@ -1,4 +1,4 @@
-name: openwrt
+name: opos
 
 on:
   repository_dispatch:
