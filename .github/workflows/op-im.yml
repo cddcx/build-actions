@@ -20,7 +20,7 @@ on:
         
       config_s:
         description: '选择config配置文件'
-        default: 'diff.config'
+        default: 'op.config'
         required: true
         type: choice
         options: [ daed.config, op.config, im.config ]
