@@ -1,4 +1,4 @@
-name: opos
+name: op os
 
 on:
   repository_dispatch:
