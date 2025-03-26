@@ -58,6 +58,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    if: github.event.repository.owner.id == github.event.sender.id
     
     name: 编译${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
