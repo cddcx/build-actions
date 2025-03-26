@@ -58,7 +58,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    if: github.event.repository.owner.id == github.event.sender.id
     
     name: 编译${{github.event.inputs.URL}}-${{github.event.inputs.target}}
     env:
@@ -71,24 +70,9 @@ jobs:
       DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
       DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
-    steps:   
-    - name: 最大化构建空间
-      uses: easimon/maximize-build-space@master
-      with:
-        swap-size-mb: 1024
-        temp-reserve-mb: 512
-        root-reserve-mb: 4608
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-        remove-codeql: 'true'
-        
+    steps:         
     - name: 准备结束
       uses: actions/checkout@main
-        
-    - name: 设置发布环境
-      run: |
-        echo WORKDIR="/builder" >> "$GITHUB_ENV"
         
     - name: 构建系统依赖
       env:
@@ -109,6 +93,7 @@ jobs:
         df -Th
         sudo timedatectl set-timezone "$TZ"
         sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
+        sudo mkdir -p /builder
         
     - name: 克隆源码
       working-directory: /builder
