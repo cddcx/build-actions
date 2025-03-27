@@ -171,6 +171,15 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
+    - name: 缓存
+      id: cache
+      uses: stupidloud/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        mixkey: ${{ env.CONFIG_S }}-${{env.TARGET_DEVICE}}-${{env.REPO_BRANCH}}
+        skip_saving: 'true'
+        prefix: /builder/openwrt
+        
     - name: 下载软件包
       id: package
       run: |
