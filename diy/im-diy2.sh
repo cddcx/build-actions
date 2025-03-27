@@ -97,7 +97,7 @@ rm -rf feeds/packages/net/adguardhome
 #rm -rf feeds/luci/themes/luci-theme-bootstrap
 rm -rf feeds/luci/applications/luci-app-alist
 rm -rf feeds/packages/net/alist
-rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
+rm -rf feeds/luci/applications/{luci-app-homeproxy luci-app-v2raya,luci-app-shadowsocks-libev}
 rm -rf feeds/packages/net/{v2raya,shadowsocks-libev}
 
 # 移除luci-app-passwall及核心
