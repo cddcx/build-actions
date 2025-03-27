@@ -173,11 +173,9 @@ jobs:
         
     - name: 缓存
       id: cache
-      uses: stupidloud/cachewrtbuild@main
+      uses: HiGarfield/cachewrtbuild@main
       with:
-        ccache: 'true'
-        mixkey: ${{ env.CONFIG_S }}-${{env.TARGET_DEVICE}}-${{env.REPO_BRANCH}}
-        skip_saving: 'true'
+        mixkey: ${{ env.TARGET_DEVICE_ARCH }}
         prefix: /builder/openwrt
         
     - name: 下载软件包
