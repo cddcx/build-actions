@@ -21,10 +21,10 @@ config interface 'lan'
 	option proto 'static'
 	option ipaddr '192.168.3.2'
 	option netmask '255.255.255.0'
-	option ip6assign '64'
-	option delegate '0'
+	option ip6assign '60'
 	option gateway '192.168.3.1'
-	option dns '192.168.3.1'
+	list dns '192.168.3.1'
+
 
 config interface 'IPTV'
 	option proto 'dhcp'
