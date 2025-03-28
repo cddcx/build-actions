@@ -24,7 +24,7 @@ config interface 'lan'
 	option ip6assign '60'
 	option gateway '192.168.3.1'
 	list dns '192.168.3.1'
-
+        option dns_metric '10'
 
 config interface 'IPTV'
 	option proto 'dhcp'
