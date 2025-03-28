@@ -171,12 +171,12 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 缓存
-      id: cache
-      uses: HiGarfield/cachewrtbuild@main
-      with:
-        mixkey: ${{ env.TARGET_DEVICE_ARCH }}
-        prefix: /builder/openwrt
+    #- name: 缓存
+      #id: cache
+      #uses: HiGarfield/cachewrtbuild@main
+      #with:
+        #mixkey: ${{ env.TARGET_DEVICE_ARCH }}
+        #prefix: /builder/openwrt
         
     - name: 下载软件包
       id: package
