@@ -189,7 +189,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 默认配置文件
+    - name: 生成默认配置文件
       run: |
         cd openwrt
         make defconfig
