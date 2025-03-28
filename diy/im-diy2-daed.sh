@@ -69,7 +69,9 @@ sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefi
 
 # 替换udpxy为修改版，解决组播源数据有重复数据包导致的花屏和马赛克问题
 rm -rf feeds/packages/net/udpxy/Makefile
-curl -sfL https://raw.githubusercontent.com/lwb1978/OpenWrt-Actions/main/patch/udpxy/Makefile -o feeds/packages/net/udpxy/Makefile
+merge_package main https://github.com/cddcx/build-actions package patch/udpxy
+cp -rf package/udpxy/Makefile feeds/packages/net/udpxy/
+rm -rf package/udpxy
 
 # 精简 UPnP 菜单名称
 sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/luci/applications/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json
@@ -97,7 +99,7 @@ rm -rf feeds/packages/net/adguardhome
 #rm -rf feeds/luci/themes/luci-theme-bootstrap
 rm -rf feeds/luci/applications/luci-app-alist
 rm -rf feeds/packages/net/alist
-rm -rf feeds/luci/applications/{luci-app-homeproxy,luci-app-v2raya,luci-app-shadowsocks-libev}
+rm -rf feeds/luci/applications/{luci-app-v2raya,luci-app-shadowsocks-libev}
 rm -rf feeds/packages/net/{v2raya,shadowsocks-libev}
 
 # 移除luci-app-passwall及核心
