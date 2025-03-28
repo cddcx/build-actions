@@ -165,7 +165,7 @@ jobs:
         
     - name: 加载自定义设置
       run: |
-        #[[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
+        [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
         [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
