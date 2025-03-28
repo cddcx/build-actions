@@ -202,7 +202,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: 编译包
+    - name: 编译软件包
       id: compileopenwrt
       run: |
          df -h
