@@ -24,7 +24,6 @@ config interface 'lan'
 	option ip6assign '60'
 	option gateway '192.168.3.1'
 	list dns '192.168.3.1'
-        option dns_metric '10'
 
 config interface 'IPTV'
 	option proto 'dhcp'
@@ -34,6 +33,7 @@ config interface 'IPTV'
 	option vendorid 'SCITV'
 	option dns_metric '20'
 	option delegate '0'
+        option defaultroute '0'
 
 config device
 	option name 'eth3'
