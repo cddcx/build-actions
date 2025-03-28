@@ -70,13 +70,11 @@ git clone https://github.com/cddcx/default-settings.git package/emortal/default-
 
 # luci-app-homeproxy luci-app-passwall luci-app-passwall2
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
-sed -i "s@ImmortalWrt@OpenWrt@g" package/helloworld/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/helloworld/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 rm -rf package/helloworld/daed
 rm -rf package/helloworld/luci-app-daed
 rm -rf package/helloworld/luci-app-ssr-plus
-rm -rf package/helloworld/luci-app-mihomo
-rm -rf package/helloworld/mihomo
+rm -rf package/helloworld/luci-app-nikki
+rm -rf package/helloworld/nikki
 
 # luci-app-daed
 git clone https://github.com/QiuSimons/luci-app-daed package/dae
