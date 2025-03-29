@@ -54,14 +54,14 @@ echo "========================="
 #git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
 
 # luci-app-homeproxy
-#git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy           ####### homeproxy的默认版本(二选一) 
+git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy           ####### homeproxy的默认版本(二选一) 
 #git clone -b dev https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
-#merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/luci-app-homeproxy chinadns-ng sing-box
-#sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-#sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/luci-app-homeproxy chinadns-ng sing-box
+sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 ## luci-app-passwall
-#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
 # luci-app-nikki
 merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
@@ -69,8 +69,6 @@ merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/hello
 
 # bpf - add host clang-15/18/20 support
 sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
-#sed -i "s@clang-11@clang-15 clang-18@g" include/bpf.mk
-#sed -i "s@clang-12@clang-19 clang-20@g" include/bpf.mk
 
 # luci-theme-kucat
 #git clone -b js https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
