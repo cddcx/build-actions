@@ -102,18 +102,18 @@ git clone https://$github/sbwml/package_kernel_r8101 package/kernel/r8101
 git clone https://$github/sbwml/package_kernel_r8125 package/kernel/r8125
 git clone https://$github/sbwml/package_kernel_r8126 package/kernel/r8126
 
-## luci-app-passwall
-#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
+# luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
-## luci-app-passwall2
-#merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
+# luci-app-passwall2
+merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
 
 # 核心包
-#git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-#rm -rf package/passwall-packages/{chinadns-ng，dns2socks，dns2tcp，hysteria，ipt2socks，microsocks，naiveproxy，shadowsocks-rust，shadowsocksr-libev，simple-obfs，sing-box}
-#rm -rf package/passwall-packages/{tcping，trojan-plus，trojan，tuic-client，v2ray-core，v2ray-geodata，v2ray-plugin，xray-core，xray-plugin}
-#merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
-#merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages tcping trojan-plus，trojan, tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
+rm -rf package/passwall-packages/{chinadns-ng，dns2socks，dns2tcp，hysteria，ipt2socks，microsocks，naiveproxy，shadowsocks-rust，shadowsocksr-libev，simple-obfs，sing-box}
+rm -rf package/passwall-packages/{tcping，trojan-plus，trojan，tuic-client，v2ray-core，v2ray-geodata，v2ray-plugin，xray-core，xray-plugin}
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/passwall-packages tcping trojan-plus，trojan, tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
 
 echo "========================="
 echo " DIY1 配置完成……"
