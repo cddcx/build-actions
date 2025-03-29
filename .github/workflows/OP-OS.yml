@@ -16,7 +16,7 @@ on:
         default: 'openwrt-24.10'
         required: true
         type: choice
-        options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
+        options: [ main, master, openwrt-23.05,  openwrt-24.10, v24.10.0 ]
         
       config_s:
         description: '选择config配置文件'
