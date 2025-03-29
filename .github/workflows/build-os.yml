@@ -96,11 +96,6 @@ jobs:
         echo "------------------------------- 磁盘详情 -------------------------------\n"
         df -Th
 
-    - name: 安装 Go 稳定版
-      uses: actions/setup-go@v5
-      with:
-        go-version: 'stable'
-
     - name: 设置发布环境
       run: |
         echo WORKDIR="/workdir" >> "$GITHUB_ENV"
