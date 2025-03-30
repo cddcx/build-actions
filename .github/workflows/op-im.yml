@@ -74,11 +74,6 @@ jobs:
     steps:
     - name: 准备结束
       uses: actions/checkout@main
-      
-    #- name: 安装 Go 稳定版
-      #uses: actions/setup-go@v5
-      #with:
-       # go-version: 'stable'
         
     - name: 设置时区
       run: sudo timedatectl set-timezone 'Asia/Shanghai'
