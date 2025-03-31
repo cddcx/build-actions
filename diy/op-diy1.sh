@@ -65,8 +65,8 @@ merge_package master https://github.com/sbwml/r4s_build_script package/new openw
 merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/numactl
 
 ## autocore automount default-settings
-#merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
-git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
+merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
+#git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 # luci-app-homeproxy luci-app-passwall luci-app-passwall2
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
