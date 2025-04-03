@@ -93,7 +93,8 @@ sed -i '#autocore \#d' include/target.mk
 sed -i '#luci-app-package-manager \#d' include/target.mk
 
 # 修改target/linux/x86/Makefile
-sed -i 's/automount/luci-app-homeproxy luci-app-filemanager luci-app-nikki luci-app-ttyd luci-app-udpxy/g' target/linux/x86/Makefile
+sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
+sed -i 's/automount/luci-app-homeproxy luci-app-filemanager luci-app-nikki luci-app-ttyd/g' target/linux/x86/Makefile
 
 ## 删除软件
 rm -rf feeds/luci/applications/luci-app-adguardhome
