@@ -67,6 +67,9 @@ merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-ap
 merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
 merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
+# 取消挂载点
+sed -i '#+block-mount \#d' package/emortal/automount/Makefile
+
 # bpf - add host clang-15/18/20 support
 sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
 
