@@ -77,7 +77,7 @@ rm -rf package/helloworld/luci-app-ssr-plus
 #rm -rf package/helloworld/nikki
 
 # luci-app-daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
+#git clone https://github.com/QiuSimons/luci-app-daed package/dae
 # 依赖
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
 
