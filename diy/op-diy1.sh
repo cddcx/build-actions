@@ -70,8 +70,8 @@ merge_package master https://github.com/immortalwrt/immortalwrt package/emortal 
 
 # luci-app-homeproxy luci-app-passwall luci-app-passwall2
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
-rm -rf package/helloworld/daed
-rm -rf package/helloworld/luci-app-daed
+#rm -rf package/helloworld/daed
+#rm -rf package/helloworld/luci-app-daed
 rm -rf package/helloworld/luci-app-ssr-plus
 #rm -rf package/helloworld/luci-app-nikki
 #rm -rf package/helloworld/nikki
