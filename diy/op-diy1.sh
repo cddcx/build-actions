@@ -70,20 +70,20 @@ merge_package master https://github.com/immortalwrt/immortalwrt package/emortal 
 
 # luci-app-homeproxy luci-app-passwall luci-app-passwall2
 git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
-#rm -rf package/helloworld/daed
-#rm -rf package/helloworld/luci-app-daed
+rm -rf package/helloworld/daed
+rm -rf package/helloworld/luci-app-daed
 rm -rf package/helloworld/luci-app-ssr-plus
-#rm -rf package/helloworld/luci-app-nikki
-#rm -rf package/helloworld/nikki
+rm -rf package/helloworld/luci-app-nikki
+rm -rf package/helloworld/nikki
 
 # luci-app-daed
-#git clone https://github.com/QiuSimons/luci-app-daed package/dae
+git clone https://github.com/QiuSimons/luci-app-daed package/dae
 # 依赖
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
 
 # luci-app-nikki
-#merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
-#merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
+merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
 # bpf - add host clang-15/18/20 support
 sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
