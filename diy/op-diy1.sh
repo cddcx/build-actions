@@ -86,7 +86,7 @@ merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/hello
 merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
 # bpf - add host clang-15/18/20 support
-sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
+sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
 
 # luci-app-passwall
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
