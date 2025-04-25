@@ -117,6 +117,9 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
+# ERROR: package/kernel/bpf-headers failed to build
+curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
+
 # 启用 eBPF 支持
 echo '# x86_64
 CONFIG_TARGET_x86=y
