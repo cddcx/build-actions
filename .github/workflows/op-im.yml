@@ -23,7 +23,7 @@ on:
         default: 'op.config'
         required: true
         type: choice
-        options: [ op-daed.config, op.config, im.config, im-daed.config ]
+        options: [ op-daed.config, op.config, im.config, im-daed.config, dae.config ]
   
       diy1_s:
         description: '自定义diy1'
