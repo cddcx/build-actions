@@ -72,7 +72,7 @@ sed -i '/block-mount\b/d' include/target.mk
 #sed -i '/block-mount\b/d' package/emortal/automount/Makefile
 
 # bpf - add host clang-15/18/20 support
-sed -i 's/command -v clang/command -v clang clang-18 clang-20/g' include/bpf.mk
+sed -i 's/command -v clang/command -v clang clang-15 clang-18 clang-20/g' include/bpf.mk
 
 # luci-theme-kucat
 #git clone -b js https://github.com/sirpdboy/luci-theme-kucat.git package/luci-theme-kucat
