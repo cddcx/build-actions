@@ -133,7 +133,7 @@ rm -rf feeds/luci/applications/luci-app-daed
 rm -rf feeds/packages/net/daed
 git clone https://github.com/QiuSimons/luci-app-daed package/dae
 # ERROR: package/kernel/bpf-headers failed to build
-curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
+#curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
 
 # 编译luci-app-daed所需内核模块
 # .config
