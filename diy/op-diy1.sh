@@ -61,8 +61,8 @@ echo "========================="
 #git clone https://github.com/sirpdboy/luci-app-partexp.git package/luci-app-partexp
 
 # DPDK & NUMACTL
-merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk
-merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/numactl
+#merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/dpdk
+#merge_package master https://github.com/sbwml/r4s_build_script package/new openwrt/patch/dpdk/numactl
 
 ## autocore automount default-settings
 merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
