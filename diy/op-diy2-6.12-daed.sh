@@ -48,7 +48,7 @@ echo "========================="
 sed -i 's/PATCHVER:=*.*/PATCHVER:=6.12/g' target/linux/x86/Makefile 
 
 # bpf-headers - 6.12
-sed -ri "s/(PKG_PATCHVER:=)[^\"]*/\16.12/" package/kernel/bpf-headers/Makefil
+sed -ri "s/(PKG_PATCHVER:=)[^\"]*/\16.12/" package/kernel/bpf-headers/Makefile
 
 # kselftests-bpf
 curl -s https://github.com/sbwml/r4s_build_script/blob/master/openwrt/patch/packages-patches/kselftests-bpf/Makefile > package/devel/kselftests-bpf/Makefile
