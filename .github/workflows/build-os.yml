@@ -81,20 +81,19 @@ jobs:
     - name: 准备完成
       uses: actions/checkout@main
 
-    - name: 检查服务器配置
-      run: |
-        echo "若分配的服务器性能不足，务必及时取消，重新运行！"
-        echo -e "------------------------------- CPU信息 -------------------------------\n"
-        echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
-        echo -e "CPU核心及版本信息: $(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
-        echo -e "------------------------------- 内存信息 -------------------------------\n"
-        echo "已安装内存详细信息: "
-        sudo lshw -short -C memory | grep GiB
-        echo -e "\n"
-        echo -e "------------------------------- 磁盘信息 -------------------------------\n"
-        echo -e "磁盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
-        echo "------------------------------- 磁盘详情 -------------------------------\n"
-        df -Th
+    - name: 释放磁盘空间
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: true
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
 
     - name: 设置发布环境
       run: |
@@ -104,16 +103,19 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        echo "------------------------------- 更新并安装依赖 -------------------------------"
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
-        sudo bash -c "curl -s https://us.cooluc.com/ubuntu-apt/sources-24.04.list > /etc/apt/sources.list"
-        sudo sh -c 'echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
-        sudo sh -c 'echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-18 main" >> /etc/apt/sources.list'
-        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-        sudo apt-get update
-        sudo apt-get install -y $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
-        sudo apt-get clean
-        echo "------------------------------- 设置工作目录及时区 -------------------------------"
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install asciidoc bash bcc bin86 binutils bison bzip2 clang-15 llvm-15 file flex g++ g++-multilib gawk gcc-multilib gettext git gzip help2man intltool libboost-dev libelf-dev libncurses-dev libssl-dev libthread-queue-any-perl libusb-dev libxml-parser-perl make patch perl-modules python3-dev python3-pip python3-pyelftools python3-setuptools rsync sharutils swig time unzip util-linux wget xsltproc zlib1g-dev zip zstd
+        sudo -E apt-get -qq install dos2unix dwarves quilt npm jq
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo add-apt-repository ppa:longsleep/golang-backports
+        sudo apt -y install golang-go
+        sudo apt install -y ca-certificates curl gnupg
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_21.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+        sudo apt -y install nodejs
+        sudo npm install -g pnpm
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
@@ -121,16 +123,15 @@ jobs:
     - name: 克隆源码
       working-directory: /workdir
       run: |
-        df -hT $PWD
         # 设置编译源代码
-        if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
-            REPO_URL="https://github.com/openwrt/openwrt"
-        elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
-            REPO_URL="https://github.com/immortalwrt/immortalwrt"
-        else
-            echo "源代码仓库的地址无法被识别或无法访问."
-            exit 1
-        fi
+          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+          else
+              echo "源代码仓库的地址无法被识别或无法访问."
+              exit 1
+          fi
         # 克隆源代码
         git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
@@ -156,12 +157,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: 启用WiFi
-      if: github.event.inputs.enable_wifi == 'true'
-      run: |
-        cd openwrt
-        sed -i 's/disabled=1/disabled=0/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-
     - name: 下载软件包
       id: package
       run: |
@@ -179,10 +174,6 @@ jobs:
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
         echo "::set-output name=status::success"
-
-    - name: 检查磁盘空间
-      if: (!cancelled())
-      run: df -hT
 
     - name: 整理固件文件
       id: organize
