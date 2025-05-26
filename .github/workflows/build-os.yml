@@ -20,10 +20,10 @@ on:
         
       config_s:
         description: '选择config配置文件'
-        default: 'diff.config'
+        default: 'op.config'
         required: true
         type: choice
-        options: [ diff.config, op.config, im.config ]
+        options: [ op-daed.config, op.config, im.config, im-daed.config, dae.config ]
   
       diy1_s:
         description: '自定义diy1'
@@ -37,20 +37,14 @@ on:
         default: 'op-diy2.sh'
         required: true
         type: choice
-        options: [ op-diy2.sh, im-diy2.sh ]
+        options: [ op-diy2.sh, op-diy2-6.12.sh, op-diy2-daed.sh, op-diy2-6.12-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
         
       target:
         description: '选择要生成的机型：'
         default: 'x86_64'
         required: true
         type: choice
-        options: [ x86_64, r5s, r5c ]
-        
-      enable_wifi:
-        description: '启用WiFi'
-        required: true
-        default: false
-        type: boolean
+        options: [ x86_64 ]
 
 env:
   FEEDS_CONF: feeds.conf.default
