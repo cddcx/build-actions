@@ -10,8 +10,8 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: configs/op-daed.config
-  DIY_P1_SH: op-diy1.sh
-  DIY_P2_SH: op-diy2-daed.sh
+  DIY_P1_SH: diy/op-diy1.sh
+  DIY_P2_SH: diy/op-diy2-daed.sh
   FEEDS_CONF: feeds.conf.default
   FILES: files
   UPLOAD_FIRMWARE: true
