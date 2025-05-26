@@ -14,164 +14,253 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
+      URL:
+        description: '选择源码：'
+        default: 'openwrt'
+        required: true
+        type: choice
+        options: [ openwrt,  immortalwrt ]
+        
+      branch:
+        description: '源码的分支(immortalwrt无main)'
+        default: 'openwrt-24.10'
+        required: true
+        type: choice
+        options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
+        
+      config_s:
+        description: '选择config配置文件'
+        default: 'op.config'
+        required: true
+        type: choice
+        options: [ op-daed.config, op.config, im.config, im-daed.config, dae.config ]
+  
+      diy1_s:
+        description: '自定义diy1'
+        default: 'op-diy1.sh'
+        required: true
+        type: choice
+        options: [ op-diy1.sh, im-diy1.sh ]
+          
+      diy2_s:
+        description: '自定义diy2'
+        default: 'op-diy2.sh'
+        required: true
+        type: choice
+        options: [ op-diy2.sh, op-diy2-6.12.sh, op-diy2-daed.sh, op-diy2-6.12-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
+        
+      target:
+        description: '选择要生成的机型：'
+        default: 'x86_64'
+        required: true
+        type: choice
+        options: [ x86_64 ]
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  FILES: files
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
+  UPLOAD_IPK_DIR: false
   UPLOAD_RELEASE: false
+  UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    permissions:
-      actions: write
-      contents: write
+    runs-on: ubuntu-24.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    
+    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
+    env:
+      REPO_URL: ${{github.event.inputs.URL}}
+      CONFIG_FILE: configs/${{github.event.inputs.config_s}}
+      CPU_S: ${{github.event.inputs.cpu_s}}
+      DATE_S: ${{github.event.inputs.date_s}}
+      TARGET_DEVICE: ${{github.event.inputs.target}}
+      REPO_BRANCH: ${{github.event.inputs.branch}}
+      DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
+      DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
     steps:
-    - name: Checkout
+    - name: 准备结束
       uses: actions/checkout@main
-
-    - name: Initialization environment
+        
+    - name: 设置时区
+      run: sudo timedatectl set-timezone 'Asia/Shanghai'
+      
+    - name: 显示系统
+      run: |
+        echo -e "Total CPU cores\t: $(nproc)"
+        cat /proc/cpuinfo | grep 'model name'
+        free -h
+        df -Th
+        cpu_name=$(cat /proc/cpuinfo | grep "model name" | head -n 1 | awk -F: '{print $2}' | sed 's/^[ \t]*//')
+        if [[ "$cpu_name" =~ "8370C" || "$cpu_name" =~ "7763" ]]; then
+          ulimit -a
+        fi
+        
+    - name: 设置发布环境
+      run: |
+        echo WORKDIR="/builder" >> "$GITHUB_ENV"
+        
+    - name: 可用磁盘空间
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d
+        sudo bash -c "curl -s https://us.cooluc.com/ubuntu-apt/sources-24.04.list > /etc/apt/sources.list"
+        sudo swapoff -a
+        sudo rm -f /swapfile /mnt/swapfile
+        sudo docker image prune -a -f
+        sudo systemctl stop docker
+        sudo snap set system refresh.retain=2
+        sudo apt-get -y purge firefox clang* ghc* google* llvm* mono* mongo* mysql* php*
+        sudo apt-get -y autoremove --purge
+        sudo apt-get clean
+        sudo rm -rf /etc/mysql /etc/php /usr/lib/jvm /usr/libexec/docker /usr/local /usr/src/* /var/lib/docker /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel \
+        /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm}
+        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+        rm -rf ~/{.cargo,.dotnet,.rustup}
+        df -Th
+        
+    - name: 创建 VG & LV
+      run: |
+        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+        sudo truncate -s "$mnt_size"G /mnt/mnt.img
+        sudo truncate -s "$root_size"G /root.img
+        sudo losetup /dev/loop6 /mnt/mnt.img
+        sudo losetup /dev/loop7 /root.img
+        sudo pvcreate /dev/loop6
+        sudo pvcreate /dev/loop7
+        sudo vgcreate github /dev/loop6 /dev/loop7
+        sudo lvcreate -n runner -l 100%FREE github
+        sudo mkfs.xfs /dev/github/runner
+        
+    - name: 挂载 LV
+      run: |
+        sudo mkdir -p /builder
+        sudo mount /dev/github/runner /builder
+        sudo chown -R runner.runner /builder
+        # sudo chown $USER:$GROUPS /builder
+        
+    - name: 构建系统依赖
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq update
-        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential   bzip2 ccache clang-15 cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib   g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev   libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5   libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lld llvm-15 lrzsz mkisofs msmtp   nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-ply   python3-docutils python3-pyelftools qemu-utils re2c rsync scons squashfs-tools subversion swig   texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
+        sudo sh -c 'echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main" >> /etc/apt/sources.list'
+        sudo sh -c 'echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main" >> /etc/apt/sources.list'
+        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo apt-get update
+        sudo apt-get install -y $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
+        sudo apt-get clean
+        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
+        df -Th
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /mnt/workdir
-        sudo chown $USER:$GROUPS /mnt/workdir
-
-    - name: Clone source code
-      working-directory: /mnt/workdir
+        sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
+        
+    - name: 克隆源码
+      working-directory: /builder
       run: |
-        df -hT $PWD
-        git clone -b $REPO_BRANCH --single-branch --filter=blob:none $REPO_URL openwrt
-        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
-    - name: Load custom feeds
+        # 设置编译源代码
+          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
+              REPO_URL="https://github.com/openwrt/openwrt"
+          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
+              REPO_URL="https://github.com/immortalwrt/immortalwrt"
+          else
+              echo "源代码仓库的地址无法被识别或无法访问."
+              exit 1
+          fi
+        # 克隆源代码
+        git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
+        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
+        
+    - name: DIY1(一般用于安装依赖和插件)
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [[ -f "${FEEDS_CONF}" ]] && cp -f ${FEEDS_CONF} openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
-    - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
-
-    - name: Load custom configuration
+        
+    - name: 安装并更新feeds
+      working-directory: ./openwrt
       run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        
+    - name: 加载自定义设置
+      run: |
+        [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
+        [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
-    - name: Update feeds2
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: Install feeds2
-      run: cd openwrt && ./scripts/feeds install -a
-
-
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
-    - name: Download package
-      id: package
+        
+    - name: 生成默认配置文件
       run: |
         cd openwrt
         make defconfig
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
-
-    - name: Compile the firmware
-      id: compile
+        
+    - name: 下载软件包
+      id: package
       run: |
         cd openwrt
-        echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j4 || make -j4 
-        echo "status=success" >> $GITHUB_OUTPUT
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-
-    - name: Check space usage
+        make download -j50
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+        
+    - name: 编译软件包
+      id: compileopenwrt
+      run: |
+         df -h
+         cd openwrt
+         echo -e "$(nproc) thread compile"
+         # make -j$(nproc)  || make -j1 V=s
+         make tools/compile -j$(nproc) || make tools/compile -j72
+         make toolchain/compile -j$(nproc) || make toolchain/compile -j72
+         make target/compile -j$(nproc) || make target/compile -j72 IGNORE_ERRORS=1
+         make diffconfig
+         make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j72 IGNORE_ERRORS=1
+         make package/index
+         echo "status=success" >> $GITHUB_OUTPUT
+         
+    - name: 生成固件
+      id: compile
+      if: steps.compileopenwrt.outputs.status  == 'success'
+      run: |
+         df -h
+         cd openwrt 
+         rm -rf ./dl
+          make package/install -j$(nproc) || make package/install -j1 V=s
+          make target/install -j$(nproc) || make target/install -j1 V=s
+          make json_overview_image_info
+          make checksum
+          [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+          echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+          echo "status=success" >> $GITHUB_OUTPUT
+        
+    - name: 检查空间使用情况
       if: (!cancelled())
       run: df -hT
-
-    - name: Upload bin directory
-      uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
-
-    - name: Organize files
+      
+    - name: 整理文件
       id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && steps.compile.outputs.status  == 'success'
       run: |
         cd openwrt/bin/targets/*/*
+        # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间
         rm -rf packages
+        rm -rf feeds.buildinfo
+        rm -rf version.buildinfo
+        rm -rf *kernel.bin
+        rm -rf profiles.json
+        rm -rf *rootfs.img
+        rm -rf *rootfs.tar.gz
+        rm -rf *.manifest
+        rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-
-    - name: Upload firmware directory
-      uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
-      with:
-        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}
-
-    - name: Generate release tag
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
-      with:
-        token: ${{ github.token }}
-        repository: ${{ github.repository }}
-        retain_days: 1
-        keep_minimum_runs: 3
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.3.4
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 7
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-    - name: Notify Telegram
-      run: |
-        curl -X POST \
-          https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d text="Immortalwrt基于今日最新代码已经编译完成了！下载地址：https://github.com/lonelysoul/immortalwrt/releases"
+    - name: 上传固件
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{github.event.inputs.URL}}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
