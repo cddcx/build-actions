@@ -1,80 +1,30 @@
 name: Build-op
 
 on:
-  repository_dispatch:
   workflow_dispatch:
     inputs:
-      URL:
-        description: '选择源码：'
-        default: 'openwrt'
-        required: true
-        type: choice
-        options: [ openwrt,  immortalwrt ]
-        
-      branch:
-        description: '源码的分支(immortalwrt无main)'
-        default: 'openwrt-24.10'
-        required: true
-        type: choice
-        options: [ main, master, openwrt-23.05,  openwrt-24.10 ]
-        
-      config_s:
-        description: '选择config配置文件'
-        default: 'op.config'
-        required: true
-        type: choice
-        options: [ op-daed.config, op.config, im.config, im-daed.config, dae.config ]
-  
-      diy1_s:
-        description: '自定义diy1'
-        default: 'op-diy1.sh'
-        required: true
-        type: choice
-        options: [ op-diy1.sh, im-diy1.sh ]
-          
-      diy2_s:
-        description: '自定义diy2'
-        default: 'op-diy2.sh'
-        required: true
-        type: choice
-        options: [ op-diy2.sh, op-diy2-6.12.sh, op-diy2-daed.sh, op-diy2-6.12-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
-        
-      target:
-        description: '选择要生成的机型：'
-        default: 'x86_64'
-        required: true
-        type: choice
-        options: [ x86_64 ]
+      manual:
+        description: '手动触发一次编译'
 
 env:
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: openwrt-24.10
+  CONFIG_FILE: configs/op-daed.config
+  DIY_P1_SH: op-diy1.sh
+  DIY_P2_SH: op-diy2-daed.sh
   FEEDS_CONF: feeds.conf.default
   FILES: files
-  UPLOAD_BIN_DIR: false
-  UPLOAD_IPK_DIR: false
-  UPLOAD_RELEASE: false
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-24.04
-    if: github.event.repository.owner.id == github.event.sender.id
-    
-    name: ${{github.event.inputs.URL}}-${{github.event.inputs.target}}
-    env:
-      REPO_URL: ${{github.event.inputs.URL}}
-      CONFIG_FILE: configs/${{github.event.inputs.config_s}}
-      CPU_S: ${{github.event.inputs.cpu_s}}
-      DATE_S: ${{github.event.inputs.date_s}}
-      TARGET_DEVICE: ${{github.event.inputs.target}}
-      REPO_BRANCH: ${{github.event.inputs.branch}}
-      DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
-      DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
 
     steps:
     - name: 准备结束
       uses: actions/checkout@main
-        
+
     - name: 释放磁盘空间
       uses: jlumbroso/free-disk-space@main
       with:
@@ -88,8 +38,8 @@ jobs:
         haskell: true
         large-packages: true
         swap-storage: true
-        
-    - name: 安装系统依赖
+    
+    - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -109,52 +59,53 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        
-    - name: 克隆源码
+
+    - name: 下载源码
       working-directory: /workdir
       run: |
-        # 设置编译源代码
-          if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
-              REPO_URL="https://github.com/openwrt/openwrt"
-          elif [[ "${{github.event.inputs.URL}}" == *"immortalwrt"* ]]; then
-              REPO_URL="https://github.com/immortalwrt/immortalwrt"
-          else
-              echo "源代码仓库的地址无法被识别或无法访问."
-              exit 1
-          fi
-        # 克隆源代码
-        git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        
-    - name: DIY1(一般用于安装依赖和插件)
+
+    - name: 加载diy.sh
       run: |
-        [[ -f "${FEEDS_CONF}" ]] && cp -f ${FEEDS_CONF} openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
-    - name: 安装并更新feeds
+    - name: 更新、安装"feeds"
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        
-    - name: 加载自定义设置
+
+    - name: 加载自定义配置
       run: |
-        [[ -d "${FILES}" ]] && mv -f ${FILES} openwrt/files
-        [[ -e "${CONFIG_FILE}" ]] && cp -f ${CONFIG_FILE} openwrt/.config
+        [ -e $FILES ] && mv $FILES openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        
-    - name: 下载软件包
-     working-directory: ./openwrt
+
+    - name: 加载scripts下的补丁
+      run: |
+        chmod +x $GITHUB_WORKSPACE/scripts/*.sh
+        cd openwrt
+        #$GITHUB_WORKSPACE/scripts/03-convert_translation.sh
+        #$GITHUB_WORKSPACE/scripts/preset-clash-core.sh
+        #$GITHUB_WORKSPACE/scripts/v2raya-dat.sh
+        #$GITHUB_WORKSPACE/scripts/passwall2.sh
+    
+    - name: 下载依赖
+      working-directory: ./openwrt
       run: |
         make defconfig
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        
+        sed -i 's/# CONFIG_PACKAGE_daed is not se/CONFIG_PACKAGE_daed=y/g' .config
+
     - name: 编译固件
       working-directory: ./openwrt
       run: |
@@ -163,10 +114,9 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-      
+
     - name: 整理文件
       id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && steps.compile.outputs.status  == 'success'
       run: |
         cd openwrt/bin/targets/*/*
         # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间
@@ -180,10 +130,9 @@ jobs:
         rm -rf *.manifest
         rm -rf sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
-        
+
     - name: 上传固件
       uses: actions/upload-artifact@main
       with:
-        name: ${{github.event.inputs.URL}}${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: openwrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
