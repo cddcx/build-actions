@@ -80,7 +80,6 @@ jobs:
       REPO_BRANCH: ${{github.event.inputs.branch}}
       DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
       DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
-       TZ: Asia/Shanghai
 
     steps:
     - name: 准备结束
