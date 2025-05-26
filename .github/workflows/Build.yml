@@ -80,85 +80,49 @@ jobs:
       REPO_BRANCH: ${{github.event.inputs.branch}}
       DIY_P1_SH: diy/${{github.event.inputs.diy1_s}}
       DIY_P2_SH: diy/${{github.event.inputs.diy2_s}}
+       TZ: Asia/Shanghai
 
     steps:
     - name: 准备结束
       uses: actions/checkout@main
         
-    - name: 设置时区
-      run: sudo timedatectl set-timezone 'Asia/Shanghai'
-      
-    - name: 显示系统
-      run: |
-        echo -e "Total CPU cores\t: $(nproc)"
-        cat /proc/cpuinfo | grep 'model name'
-        free -h
-        df -Th
-        cpu_name=$(cat /proc/cpuinfo | grep "model name" | head -n 1 | awk -F: '{print $2}' | sed 's/^[ \t]*//')
-        if [[ "$cpu_name" =~ "8370C" || "$cpu_name" =~ "7763" ]]; then
-          ulimit -a
-        fi
+    - name: 释放磁盘空间
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: true
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
         
-    - name: 设置发布环境
-      run: |
-        echo WORKDIR="/builder" >> "$GITHUB_ENV"
-        
-    - name: 可用磁盘空间
-      run: |
-        sudo rm -rf /etc/apt/sources.list.d
-        sudo bash -c "curl -s https://us.cooluc.com/ubuntu-apt/sources-24.04.list > /etc/apt/sources.list"
-        sudo swapoff -a
-        sudo rm -f /swapfile /mnt/swapfile
-        sudo docker image prune -a -f
-        sudo systemctl stop docker
-        sudo snap set system refresh.retain=2
-        sudo apt-get -y purge firefox clang* ghc* google* llvm* mono* mongo* mysql* php*
-        sudo apt-get -y autoremove --purge
-        sudo apt-get clean
-        sudo rm -rf /etc/mysql /etc/php /usr/lib/jvm /usr/libexec/docker /usr/local /usr/src/* /var/lib/docker /var/lib/gems /var/lib/mysql /var/lib/snapd /etc/skel \
-        /opt/{microsoft,az,hostedtoolcache,cni,mssql-tools,pipx} /usr/share/{az*,dotnet,swift,miniconda,gradle*,java,kotlinc,ri,sbt} /root/{.sbt,.local,.npm}
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        rm -rf ~/{.cargo,.dotnet,.rustup}
-        df -Th
-        
-    - name: 创建 VG & LV
-      run: |
-        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
-        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
-        sudo truncate -s "$mnt_size"G /mnt/mnt.img
-        sudo truncate -s "$root_size"G /root.img
-        sudo losetup /dev/loop6 /mnt/mnt.img
-        sudo losetup /dev/loop7 /root.img
-        sudo pvcreate /dev/loop6
-        sudo pvcreate /dev/loop7
-        sudo vgcreate github /dev/loop6 /dev/loop7
-        sudo lvcreate -n runner -l 100%FREE github
-        sudo mkfs.xfs /dev/github/runner
-        
-    - name: 挂载 LV
-      run: |
-        sudo mkdir -p /builder
-        sudo mount /dev/github/runner /builder
-        sudo chown -R runner.runner /builder
-        # sudo chown $USER:$GROUPS /builder
-        
-    - name: 构建系统依赖
+    - name: 安装系统依赖
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo sh -c 'echo "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main" >> /etc/apt/sources.list'
-        sudo sh -c 'echo "deb-src http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main" >> /etc/apt/sources.list'
-        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-        sudo apt-get update
-        sudo apt-get install -y $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
-        sudo apt-get clean
-        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
-        df -Th
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install asciidoc bash bcc bin86 binutils bison bzip2 clang-15 llvm-15 file flex g++ g++-multilib gawk gcc-multilib gettext git gzip help2man intltool libboost-dev libelf-dev libncurses-dev libssl-dev libthread-queue-any-perl libusb-dev libxml-parser-perl make patch perl-modules python3-dev python3-pip python3-pyelftools python3-setuptools rsync sharutils swig time unzip util-linux wget xsltproc zlib1g-dev zip zstd
+        sudo -E apt-get -qq install dos2unix dwarves quilt npm jq
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo add-apt-repository ppa:longsleep/golang-backports
+        sudo apt -y install golang-go
+        sudo apt install -y ca-certificates curl gnupg
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_21.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+        sudo apt -y install nodejs
+        sudo npm install -g pnpm
         sudo timedatectl set-timezone "$TZ"
-        sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimer
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
         
     - name: 克隆源码
-      working-directory: /builder
+      working-directory: /workdir
       run: |
         # 设置编译源代码
           if [[ "${{github.event.inputs.URL}}" == *"openwrt"* ]]; then
@@ -171,7 +135,7 @@ jobs:
           fi
         # 克隆源代码
         git clone $REPO_URL -b ${{env.REPO_BRANCH}} openwrt
-        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
     - name: DIY1(一般用于安装依赖和插件)
       run: |
@@ -194,52 +158,22 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: 生成默认配置文件
-      run: |
-        cd openwrt
-        make defconfig
-        
     - name: 下载软件包
-      id: package
+     working-directory: ./openwrt
       run: |
-        cd openwrt
-        make download -j50
+        make defconfig
+        make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: 编译软件包
-      id: compileopenwrt
+    - name: 编译固件
+      working-directory: ./openwrt
       run: |
-         df -h
-         cd openwrt
-         echo -e "$(nproc) thread compile"
-         # make -j$(nproc)  || make -j1 V=s
-         make tools/compile -j$(nproc) || make tools/compile -j72
-         make toolchain/compile -j$(nproc) || make toolchain/compile -j72
-         make target/compile -j$(nproc) || make target/compile -j72 IGNORE_ERRORS=1
-         make diffconfig
-         make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j72 IGNORE_ERRORS=1
-         make package/index
-         echo "status=success" >> $GITHUB_OUTPUT
-         
-    - name: 生成固件
-      id: compile
-      if: steps.compileopenwrt.outputs.status  == 'success'
-      run: |
-         df -h
-         cd openwrt 
-         rm -rf ./dl
-          make package/install -j$(nproc) || make package/install -j1 V=s
-          make target/install -j$(nproc) || make target/install -j1 V=s
-          make json_overview_image_info
-          make checksum
-          [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-          echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-          echo "status=success" >> $GITHUB_OUTPUT
-        
-    - name: 检查空间使用情况
-      if: (!cancelled())
-      run: df -hT
+        echo -e "$(nproc) thread build"
+        make -j$(nproc) || make -j1 || make -j1 V=s
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
       
     - name: 整理文件
       id: organize
