@@ -5,7 +5,6 @@ config udpxy
 	option status '1'
 	option port '4100'
 	option bind 'br-lan'
-	option source_network 'IPTV'
 	option source 'eth3'
 	option max_clients '99'
 
