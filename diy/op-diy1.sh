@@ -45,8 +45,9 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # Add a feed source
-#echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-#echo "src-git dpdk_repo https://github.com/k13132/openwrt-dpdk" >> feeds.conf.default
+echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
+echo "src-git nikki https://github.com/immortalwrt/homeproxy.git;master" >> "feeds.conf.default"
+echo "src-git nikki https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
 
 # 网络设置向导
 #git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
@@ -67,23 +68,6 @@ echo "========================="
 ## autocore automount default-settings
 merge_package master https://github.com/immortalwrt/immortalwrt package/emortal package/emortal/default-settings
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
-
-# luci-app-homeproxy luci-app-passwall luci-app-passwall2
-git clone https://github.com/sbwml/openwrt_helloworld package/helloworld
-rm -rf package/helloworld/daed
-rm -rf package/helloworld/luci-app-daed
-rm -rf package/helloworld/luci-app-ssr-plus
-rm -rf package/helloworld/luci-app-nikki
-rm -rf package/helloworld/nikki
-
-# luci-app-daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
-# 依赖
-merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
-
-# luci-app-nikki
-merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
-merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
 
 # bpf - add host clang-15/18/20 support
 sed -i 's/find-llvm-tool,clang/find-llvm-tool,clang clang-18 clang-15/g' include/bpf.mk
