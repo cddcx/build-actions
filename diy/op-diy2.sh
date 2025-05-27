@@ -60,14 +60,6 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
 
-# golang 1.22
-#rm -rf feeds/packages/lang/golang
-#git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
-
-# ppp - 2.5.0
-#rm -rf package/network/services/ppp
-#git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
-
 # 修复编译时提示 freeswitch 缺少 libpcre 依赖
 sed -i 's/+libpcre \\$/+libpcre2 \\/g' package/feeds/telephony/freeswitch/Makefile
 
@@ -117,20 +109,6 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
-### 必要的 Patches ###
-# BBRv3
-#merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/backport-6.6 PATCH/kernel/bbr3
-#cp -rf target/linux/generic/backport-6.6/bbr3/* target/linux/generic/backport-6.6
-#rm -rf target/linux/generic/backport-6.6/bbr3
-# btf
-#merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/btf
-#cp -rf target/linux/generic/hack-6.6/btf/* target/linux/generic/hack-6.6
-#rm -rf target/linux/generic/hack-6.6/btf
-# LRNG
-#merge_package 24.10 https://github.com/QiuSimons/YAOF target/linux/generic/hack-6.6 PATCH/kernel/lrng
-#cp -rf target/linux/generic/hack-6.6/lrng/* target/linux/generic/hack-6.6
-#rm -rf target/linux/generic/hack-6.6/lrng
-
 # 启用 eBPF 支持
 echo '# x86_64
 CONFIG_TARGET_x86=y
@@ -142,7 +120,8 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=600
 # CONFIG_TARGET_ROOTFS_TARGZ is not set
 ' >>  ./.config
 
-make defconfig
+./scripts/feeds update -a
+./scripts/feeds install -a
 
 echo "========================="
 echo " DIY2 配置完成……"
