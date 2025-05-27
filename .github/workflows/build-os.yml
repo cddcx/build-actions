@@ -37,7 +37,7 @@ on:
         default: 'op-diy2.sh'
         required: true
         type: choice
-        options: [ op-diy2.sh, op-diy2-6.12.sh, op-diy2-daed.sh, op-diy2-6.12-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
+        options: [ op-diy2.sh, op-diy2-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
         
       target:
         description: '选择要生成的机型：'
