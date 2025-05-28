@@ -20,7 +20,7 @@ on:
         
       config_s:
         description: '选择config配置文件'
-        default: 'op.config'
+        default: 'op-daed.config'
         required: true
         type: choice
         options: [ op-daed.config, op.config, im.config, im-daed.config, dae.config ]
@@ -34,7 +34,7 @@ on:
           
       diy2_s:
         description: '自定义diy2'
-        default: 'op-diy2.sh'
+        default: 'op-diy2-daed.sh'
         required: true
         type: choice
         options: [ op-diy2.sh, op-diy2-daed.sh, im-diy2.sh, im-diy2-daed.sh ]
