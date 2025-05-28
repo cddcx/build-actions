@@ -49,6 +49,9 @@ echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >>
 echo "src-git nikki https://github.com/immortalwrt/homeproxy.git;master" >> "feeds.conf.default"
 echo "src-git nikki https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
 
+# luci-app-daed依赖
+merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
+
 # 网络设置向导
 #git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
