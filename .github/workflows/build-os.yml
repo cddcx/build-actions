@@ -98,7 +98,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install asciidoc bash bcc bin86 binutils bison bzip2 clang-18 llvm-18 file flex g++ g++-multilib gawk gcc-multilib gettext git gzip help2man \
+        sudo -E apt-get -qq install asciidoc bash bcc bin86 binutils bison bzip2 clang-18 llvm-18 llvm file flex g++ g++-multilib gawk gcc-multilib gettext git gzip help2man \
         intltool libboost-dev libelf-dev libncurses-dev libssl-dev libthread-queue-any-perl libusb-dev libxml-parser-perl make patch perl-modules \
         python3-dev python3-pip python3-pyelftools python3-setuptools rsync sharutils swig time unzip util-linux wget xsltproc zlib1g-dev zip zstd
         sudo -E apt-get -qq install dos2unix dwarves quilt npm jq
@@ -109,7 +109,7 @@ jobs:
         sudo apt install -y ca-certificates curl gnupg
         sudo mkdir -p /etc/apt/keyrings
         curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_21.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+        echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
         sudo apt -y install nodejs
         sudo npm install -g pnpm
         sudo timedatectl set-timezone "$TZ"
