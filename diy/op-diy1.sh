@@ -47,9 +47,10 @@ echo "========================="
 # Add a feed source
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
 #echo "src-git homeproxy https://github.com/immortalwrt/homeproxy.git;master" >> "feeds.conf.default"
-echo "src-git daed https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
+#echo "src-git daed https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
 
-# luci-app-daed依赖
+# luci-app-daed及依赖
+merge_package v5https://github.com/sbwml/openwrt_helloworld package/helloworld daed luci-app-daed
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
 
 # luci-app-homeproxy
