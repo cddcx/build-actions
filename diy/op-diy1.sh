@@ -54,6 +54,9 @@ git clone https://github.com/QiuSimons/luci-app-daed package/dae
 #merge_package v5 https://github.com/sbwml/openwrt_helloworld package/helloworld daed luci-app-daed
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
 
+# luci-app-openclash
+merge_package master https://github.com/vernesong/OpenClash package/luci-app-openclash luci-app-openclash
+
 # luci-app-homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
 sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
