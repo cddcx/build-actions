@@ -63,9 +63,9 @@ http://192.168.3.2:4100/udp/239.93.0.181:5140
 http://192.168.3.2:4100/udp/239.93.0.167:5140
 #EXTINF:-1 tvg-id="38" tvg-name="山东卫视" tvg-logo="http://epg.51zmt.top:8000/tb1/ws/shandong.png" group-title="卫视",山东卫视高清	
 http://192.168.3.2:4100/udp/239.93.0.168:5140
-#EXTINF:-1 tvg-id="75" tvg-name="四川文化旅游" tvg-logo="http://epg.51zmt.top:8000/tb1/sheng/sctv2.png" group-title="地方",SCTV-2四川文化旅游	
+#EXTINF:-1 tvg-id="75" tvg-name="四川经济" tvg-logo="http://epg.51zmt.top:8000/tb1/sheng/sctv2.png" group-title="地方",SCTV-2四川经济	
 http://192.168.3.2:4100/udp/239.93.1.101:5140
-#EXTINF:-1 tvg-id="75" tvg-name="四川经济" tvg-logo="http://epg.51zmt.top:8000/tb1/sheng/sctv3.png" group-title="地方",CTV-3四川经济	
+#EXTINF:-1 tvg-id="75" tvg-name="四川文化旅游" tvg-logo="http://epg.51zmt.top:8000/tb1/sheng/sctv3.png" group-title="地方",SCTV-3四川文化旅游
 http://192.168.3.2:4100/udp/239.93.1.102:5140
 #EXTINF:-1 tvg-id="75" tvg-name="四川新闻" tvg-logo="http://epg.51zmt.top:8000/tb1/sheng/sctv4.png" group-title="地方",SCTV-4四川新闻	
 http://192.168.3.2:4100/udp/239.93.0.47:5140
