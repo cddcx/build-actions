@@ -45,7 +45,10 @@ echo "========================="
 #source ${GITHUB_WORKSPACE}/subscript.sh
 
 # Add a feed source
+# luci-app-nikki
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
+# luci-app-momo
+echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "feeds.conf.default"
 #echo "src-git homeproxy https://github.com/immortalwrt/homeproxy.git;master" >> "feeds.conf.default"
 #echo "src-git daed https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
 
@@ -58,9 +61,9 @@ merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/lib
 merge_package master https://github.com/vernesong/OpenClash package luci-app-openclash
 
 # luci-app-homeproxy
-git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
-sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+#git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
+#sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+#sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # 网络设置向导
 #git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
