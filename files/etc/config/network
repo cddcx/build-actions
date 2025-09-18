@@ -33,7 +33,7 @@ config interface 'IPTV'
 	option vendorid 'SCITV'
 	option dns_metric '20'
 	option delegate '0'
-        option defaultroute '0'
+    option defaultroute '0'
 
 config device
 	option name 'eth3'
