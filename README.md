@@ -4,6 +4,6 @@
 - [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [xiangfeidexiaohuo](https://github.com/xiangfeidexiaohuo/OpenWrt_Build)
 - [P3TERX](https://github.com/P3TERX/Actions-OpenWrt)
-- [sbwml](https://github.com/sbwml/r4s_build_script)
+- [sbwml](https://github.com/sbwml/builder)
 - [lwb1978](https://github.com/lwb1978/OpenWrt-Actions)
 - [sirpdboy](https://github.com/sirpdboy/openwrt)
