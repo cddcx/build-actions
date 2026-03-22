@@ -53,9 +53,9 @@ echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "
 #echo "src-git daed https://github.com/QiuSimons/luci-app-daed.git;master" >> "feeds.conf.default"
 
 # luci-app-daed及依赖
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
-#merge_package v5 https://github.com/sbwml/openwrt_helloworld package/helloworld daed luci-app-daed
 merge_package openwrt-24.10 https://github.com/immortalwrt//packages package/libs libs/libcron
+git clone https://github.com/sbwml/package_kernel_vmlinux-btf package/kernel/vmlinux-btf
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/dae daed luci-app-daed
 
 # luci-app-openclash
 merge_package master https://github.com/vernesong/OpenClash package luci-app-openclash
