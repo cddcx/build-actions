@@ -128,10 +128,9 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
-# luci-app-daed
+# 移除luci-app-daed
 rm -rf feeds/luci/applications/luci-app-daed
 rm -rf feeds/packages/net/daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
 # ERROR: package/kernel/bpf-headers failed to build
 #curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
 
