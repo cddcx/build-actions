@@ -86,7 +86,7 @@ merge_package master https://github.com/immortalwrt/immortalwrt package/emortal 
 #git clone https://github.com/cddcx/default-settings.git package/emortal/default-settings
 
 # bpf - add host clang-15/18/20 support
-sed -i 's/find-llvm-tool,clang/find-llvm-tool,clang clang-18 clang-15/g' include/bpf.mk
+#sed -i 's/find-llvm-tool,clang/find-llvm-tool,clang clang-18 clang-15/g' include/bpf.mk
 
 # luci-app-passwall
 #merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
