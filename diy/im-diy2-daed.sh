@@ -87,14 +87,14 @@ sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/ut
 sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 
 # 修改include/target.mk
-sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg /" include/target.mk
+sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn vmlinux-btf /" include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 #sed -i '#autocore \#d' include/target.mk
 sed -i '#luci-app-package-manager \#d' include/target.mk
 
 # 修改target/linux/x86/Makefile
-sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
-sed -i 's/automount/luci-app-momo luci-app-filemanager luci-app-nikki luci-app-openclash/g' target/linux/x86/Makefile
+#sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
+sed -i 's/automount/luci-app-nikki/g' target/linux/x86/Makefile
 
 ## 删除软件
 rm -rf feeds/luci/applications/luci-app-adguardhome
@@ -143,20 +143,20 @@ CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_TARGET_IMAGES_GZIP is not set
 CONFIG_TARGET_KERNEL_PARTSIZE=80
-CONFIG_TARGET_ROOTFS_PARTSIZE=600
+CONFIG_TARGET_ROOTFS_PARTSIZE=900
 # CONFIG_TARGET_ROOTFS_TARGZ is not set
 
 ### BPF
 CONFIG_DEVEL=y
-CONFIG_BPF_TOOLCHAIN_HOST=y
-# CONFIG_BPF_TOOLCHAIN_NONE is not set
-CONFIG_KERNEL_BPF_EVENTS=y
-CONFIG_KERNEL_CGROUP_BPF=y
 CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_REDUCED=n
 CONFIG_KERNEL_DEBUG_INFO_BTF=y
-# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
-CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y
+CONFIG_KERNEL_CGROUPS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
 CONFIG_KERNEL_XDP_SOCKETS=y
+CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >>  ./.config
 
 #export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
