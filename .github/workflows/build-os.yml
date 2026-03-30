@@ -177,7 +177,6 @@ jobs:
         rm -rf *rootfs.tar.gz
         rm -rf *.manifest
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件
       uses: actions/upload-artifact@main
