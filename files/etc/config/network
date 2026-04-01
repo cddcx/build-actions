@@ -1,0 +1,52 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	list ipaddr '127.0.0.1/8'
+
+config globals 'globals'
+	option dhcp_default_duid '000438357e6f26d643d0962235a1d65d940b'
+	option ula_prefix 'fd0b:3799:7d1c::/48'
+	option packet_steering '1'
+	option steering_flows '128'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+	list ports 'eth2'
+	list ports 'eth3'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	option ip6assign '60'
+	list ipaddr '192.168.3.8/24'
+	option gateway '192.168.3.1'
+	list dns '192.168.3.1'
+	option multipath 'off'
+
+config device
+	option name 'eth1'
+	option macaddr '90:D8:F3:C8:C0:24'
+
+config interface 'iptv'
+	option proto 'dhcp'
+	option device 'eth1'
+	option hostname '5510919900703210000090D8F3C8C024'
+	option multipath 'off'
+	option vendorid 'SCITV'
+	option ip4table '68'
+
+config rule
+	option dest '182.139.235.0/20'
+	option lookup '68'
+
+config rule
+	option dest '182.139.234.0/20'
+	option lookup '68'
+
+config rule
+	option dest '182.138.0.0/20'
+	option lookup '68'
+
