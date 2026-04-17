@@ -134,7 +134,7 @@ rm -rf feeds/packages/net/daed
 # ERROR: package/kernel/bpf-headers failed to build
 #curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
 
-# golang
+# 更新 golang 版本
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
