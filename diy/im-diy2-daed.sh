@@ -90,7 +90,7 @@ sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/ut
 sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn vmlinux-btf /" include/target.mk
 sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 #sed -i '#autocore \#d' include/target.mk
-sed -i '#luci-app-package-manager \#d' include/target.mk
+sed -i '#luci-app-cpufreq \#d' include/target.mk
 
 # 修改target/linux/x86/Makefile
 #sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
