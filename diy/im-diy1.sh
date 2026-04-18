@@ -65,14 +65,14 @@ git clone https://github.com/sbwml/package_kernel_vmlinux-btf package/kernel/vml
 git clone https://github.com/QiuSimons/luci-app-daed package/dae
 
 # luci-app-momo
-echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "feeds.conf.default"
+#echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "feeds.conf.default"
 
 ## luci-app-passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
+#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
 
 # luci-app-nikki
-merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld luci-app-nikki
-merge_package main https://github.com/nikkinikki-org/OpenWrt-nikki package/helloworld nikki
+# luci-app-nikki和luci-app-momo
+#git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
 
 # 取消挂载点
 sed -i '/block-mount\b/d' include/target.mk
