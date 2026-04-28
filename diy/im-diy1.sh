@@ -61,8 +61,9 @@ echo "========================="
 #sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # luci-app-daed
-git clone https://github.com/sbwml/package_kernel_vmlinux-btf package/kernel/vmlinux-btf
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
+#git clone https://github.com/sbwml/package_kernel_vmlinux-btf package/kernel/vmlinux-btf
+#git clone https://github.com/QiuSimons/luci-app-daed package/dae
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/dae daed vmlinux-btf luci-app-daed
 
 # luci-app-momo
 #echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "feeds.conf.default"
