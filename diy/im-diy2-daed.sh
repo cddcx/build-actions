@@ -93,7 +93,7 @@ sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
 
 # 修改target/linux/x86/Makefile
 #sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
-sed -i 's/automount/luci-app-nikki/g' target/linux/x86/Makefile
+sed -i 's/automount/luci-app-daed/g' target/linux/x86/Makefile
 
 # 删除luci-app-cpufreq
 sed -i '#luci-app-cpufreq \#d' include/target.mk
@@ -138,8 +138,8 @@ rm -rf feeds/packages/net/daed
 #curl -s https://github.com/openwrt/openwrt/commit/0e05cd6a153921c16bd79128d06125d87ca3d968.patch | patch -p1
 
 # 更新 golang 版本
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+#rm -rf feeds/packages/lang/golang
+#git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
 # 编译luci-app-daed所需内核模块
 # .config
