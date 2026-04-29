@@ -130,5 +130,7 @@ CONFIG_KERNEL_XDP_SOCKETS=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >>  ./.config
 
+./scripts/feeds install -a
+
 echo "========================="
 echo " DIY2 配置完成……"
