@@ -65,15 +65,14 @@ echo "========================="
 #git clone https://github.com/QiuSimons/luci-app-daed package/dae
 merge_package v5 https://github.com/sbwml/openwrt_helloworld package/dae daed vmlinux-btf luci-app-daed
 
-# luci-app-momo
-#echo "src-git momo https://github.com/nikkinikki-org/OpenWrt-momo.git;main" >> "feeds.conf.default"
-
-## luci-app-passwall
-#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
-
-# luci-app-nikki
-# luci-app-nikki和luci-app-momo
-#git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+# Realtek Ethernet driver - R8168 & R8125 & R8126 & R8152 & R8101 & r8127
+rm -rf package/kernel/{r8168,r8101,r8125,r8126,r8127}
+git clone https://github.com/sbwml/package_kernel_r8168 package/kernel/r8168
+git clone https://github.com/sbwml/package_kernel_r8152 package/kernel/r8152
+git clone https://github.com/sbwml/package_kernel_r8101 package/kernel/r8101
+git clone https://github.com/sbwml/package_kernel_r8125 package/kernel/r8125
+git clone https://github.com/sbwml/package_kernel_r8126 package/kernel/r8126
+git clone https://github.com/sbwml/package_kernel_r8127 package/kernel/r8127
 
 # 取消挂载点
 sed -i '/block-mount\b/d' include/target.mk
