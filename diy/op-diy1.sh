@@ -66,6 +66,15 @@ git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
 sed -i "s@ImmortalWrt@OpenWrt@g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s@ImmortalWrt proxy@OpenWrt proxy@g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
+# Realtek Ethernet driver - R8168 & R8125 & R8126 & R8152 & R8101 & r8127
+rm -rf package/kernel/{r8168,r8101,r8125,r8126,r8127}
+git clone https://github.com/sbwml/package_kernel_r8168 package/kernel/r8168
+git clone https://github.com/sbwml/package_kernel_r8152 package/kernel/r8152
+git clone https://github.com/sbwml/package_kernel_r8101 package/kernel/r8101
+git clone https://github.com/sbwml/package_kernel_r8125 package/kernel/r8125
+git clone https://github.com/sbwml/package_kernel_r8126 package/kernel/r8126
+git clone https://github.com/sbwml/package_kernel_r8127 package/kernel/r8127
+
 # 网络设置向导
 #git clone https://github.com/sirpdboy/luci-app-netwizard package/luci-app-netwizard
 
