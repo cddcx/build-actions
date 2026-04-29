@@ -132,7 +132,6 @@ CONFIG_KERNEL_XDP_SOCKETS=y
 CONFIG_PACKAGE_kmod-xdp-sockets-diag=y
 ' >>  ./.config
 
-./scripts/feeds update -a
 ./scripts/feeds install -a
 
 echo "========================="
