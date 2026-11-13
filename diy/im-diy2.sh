@@ -87,21 +87,15 @@ sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/ut
 sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 
 # 修改include/target.mk
-sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=default-settings-chn luci-app-opkg /" include/target.mk
-sed -i "s/kmod-nft-offload/kmod-nft-offload kmod-nft-tproxy/" include/target.mk
+sed -i "s/DEFAULT_PACKAGES.router:=/DEFAULT_PACKAGES.router:=ash curl default-settings-chn /" include/target.mk
+sed -i "s/kmod-nft-offload/mod-nft-offload kmod-nft-tproxy kmod-nft-queue kmod-nfnetlink-queu/" include/target.mk
 
 # 修改target/linux/x86/Makefile
-sed -i 's/fdisk/luci-app-udpxy/g' target/linux/x86/Makefile
-sed -i 's/automount/luci-app-homeproxy luci-app-momo luci-app-filemanager luci-app-nikki luci-app-openclash/g' target/linux/x86/Makefile
+sed -i 's/fdisk/luci-app-firewall/g' target/linux/x86/Makefile
 
 ## 删除软件
-rm -rf feeds/luci/applications/luci-app-adguardhome
-rm -rf feeds/packages/net/adguardhome
-#rm -rf feeds/luci/themes/luci-theme-bootstrap
-rm -rf feeds/luci/applications/luci-app-alist
-rm -rf feeds/packages/net/alist
-rm -rf feeds/luci/applications/{luci-app-homeproxy,luci-app-v2raya,luci-app-shadowsocks-libev}
-rm -rf feeds/packages/net/{v2raya,shadowsocks-libev}
+rm -rf feeds/luci/applications/{luci-app-adguardhome,luci-app-alist,luci-app-homeproxy,luci-app-v2raya,luci-app-shadowsocks-libev}
+rm -rf feeds/packages/net/{adguardhome,alist,v2raya,shadowsocks-libev}
 
 # 移除luci-app-passwall及核心
 rm -rf feeds/luci/applications/luci-app-passwall
@@ -109,27 +103,11 @@ rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/packages/net/{brook,chinadns-ng,dns2socks,dns2tcp,gn,hysteria,ipt2socks,microsocks,naiveproxy,pdnsd-alt,shadowsocks-rust,shadowsocksr-libev,simple-obfs}
 rm -rf feeds/packages/net/{sing-box,tcping,trojan-go,trojan-plus,trojan,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
 
-## luci-app-passwall2
-#merge_package main https://github.com/xiaorouji/openwrt-passwall package luci-app-passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall2 package luci-app-passwall2
-
-# 核心
-git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
-rm -rf package/passwall-packages/{chinadns-ng,dns2socks,dns2tcp,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-rust,shadowsocksr-libev,simple-obfs,sing-box}
-rm -rf package/passwall-packages/{tcping,trojan,trojan-plus,tuic-client,v2ray-core,v2ray-geodata,v2ray-plugin,xray-core,xray-plugin}
-merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall-packages chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy shadowsocks-rust shadowsocksr-libev simple-obfs sing-box
-merge_package v5 https://github.com/sbwml/openwrt_helloworld  package/passwall-packages tcping trojan-plus trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin xray-core xray-plugin
-
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/lang\/golang\/golang-package.mk/$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang-package.mk/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHREPO/PKG_SOURCE_URL:=https:\/\/github.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
-
-# luci-app-daed
-rm -rf feeds/luci/applications/luci-app-daed
-rm -rf feeds/packages/net/daed
-git clone https://github.com/QiuSimons/luci-app-daed package/dae
 
 # 编译luci-app-daed所需内核模块
 # .config
@@ -142,6 +120,21 @@ CONFIG_TARGET_x86_64_DEVICE_generic=y
 CONFIG_TARGET_KERNEL_PARTSIZE=80
 CONFIG_TARGET_ROOTFS_PARTSIZE=600
 # CONFIG_TARGET_ROOTFS_TARGZ is not set
+
+# 启用 eBPF 支持
+CONFIG_DEVEL=y
+CONFIG_BPF_TOOLCHAIN_HOST=y
+# CONFIG_BPF_TOOLCHAIN_NONE is not set
+CONFIG_KERNEL_BPF_EVENTS=y
+CONFIG_KERNEL_CGROUP_BPF=y
+CONFIG_KERNEL_DEBUG_INFO=y
+CONFIG_KERNEL_DEBUG_INFO_BTF=y
+# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+CONFIG_KERNEL_XDP_SOCKETS=y
+# 原生 UDP 接收追踪
+CONFIG_KERNEL_FTRACE=y
+CONFIG_KERNEL_FUNCTION_TRACER=y
+CONFIG_KERNEL_DYNAMIC_FTRACE=y
 ' >>  ./.config
 
 #export mirror=raw.githubusercontent.com/sbwml/r4s_build_script/master
