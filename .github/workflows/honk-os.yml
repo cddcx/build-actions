@@ -130,7 +130,7 @@ jobs:
 
     - name: 编译 honk-core
       run: |
-        cd openwr/package/honk
+        cd $GITHUB_WORKSPACE/openwr/package/honk
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --no-modify-path
         . "$HOME/.cargo/env"
 
