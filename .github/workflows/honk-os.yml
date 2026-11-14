@@ -130,12 +130,12 @@ jobs:
 
     - name: 编译 honk-core
       run: |
-        cd $GITHUB_WORKSPACE/openwr/package/honk
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --no-modify-path
         . "$HOME/.cargo/env"
 
         # 从 honk/Makefile 的 pin 解析版本
-        chmod +x honk/honk_toolchain.sh
+        chmod +x $GITHUB_WORKSPACE/openwrt/package/honkhonk/honk_toolchain.sh
+        cd openwrt/package/honk
         eval "$(./honk/honk_toolchain.sh)"
 
         curl -fsSL -o /tmp/bpf-linker.tar.zst \
