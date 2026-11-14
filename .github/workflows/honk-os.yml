@@ -134,7 +134,7 @@ jobs:
         . "$HOME/.cargo/env"
 
         # 从 honk/Makefile 的 pin 解析版本
-        chmod +x $GITHUB_WORKSPACE/openwrt/package/honkhonk/honk_toolchain.sh
+        chmod +x openwrt/package/honkhonk/honk_toolchain.sh
         cd openwrt/package/honk
         eval "$(./honk/honk_toolchain.sh)"
 
