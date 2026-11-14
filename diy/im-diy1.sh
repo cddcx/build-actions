@@ -46,6 +46,21 @@ git clone https://github.com/QiuSimons/luci-app-honk package/honk
 #merge_package main https://github.com/daeuniverse/openwrt-packages package/honk luci-app-honk luci-lib-daeuniverse honk
 merge_package v5 https://github.com/sbwml/openwrt_helloworld package/honk v2ray-geodata vmlinux-btf
 
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --no-modify-path
+. "$HOME/.cargo/env"
+
+# 从 honk/Makefile 的 pin 解析版本
+eval "$(./honk/honk_toolchain.sh)"
+
+curl -fsSL -o /tmp/bpf-linker.tar.zst \
+  "https://github.com/aya-rs/bpf-linker/releases/download/v${BPF_LINKER_VERSION}/bpf-linker-x86_64-unknown-linux-musl.tar.zst"
+echo "${BPF_LINKER_SHA256}  /tmp/bpf-linker.tar.zst" | sha256sum -c -
+sudo tar --zstd -xf /tmp/bpf-linker.tar.zst -C /usr/local/bin
+
+curl -fsSL -o /tmp/zig.tar.xz \
+  "https://ziglang.org/download/${ZIG_VERSION}/zig-x86_64-linux-${ZIG_VERSION}.tar.xz"
+sudo tar -xJf /tmp/zig.tar.xz -C /usr/local
+sudo ln -sf "/usr/local/zig-x86_64-linux-${ZIG_VERSION}/zig" /usr/local/bin/zig
 # luci-app-nikki
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
 
