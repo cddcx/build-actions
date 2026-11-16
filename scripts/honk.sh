@@ -1,19 +1,8 @@
 #!/bin/bash
+git clone https://github.com/QiuSimons/luci-app-honk package/honk
 
-readonly SCRIPT_START=$(date +%s)
-readonly PKG_DIR="$(pwd)/package/tom"          # 绝对路径，中途 cd 不失效
-readonly PKGINFO="tmp/.packageinfo"
-
-# ================================================================
-# 主流程
-# ================================================================
-
-# luci-app-honk
-mkdir -p "$PKG_DIR"
-git clone https://github.com/QiuSimons/luci-app-honk  "$PKG_DIR/honk"
-
-HONK_DIR="$PKG_DIR/honk/honk"
-HONK_OUT="$HONK_DIR/files/honk-core.bin"
+HONK_DIR="package/honk/honk"
+HONK_OUT="package/honk/honk/files/honk-core.bin"
 if [ -s "$HONK_OUT" ]; then
     log " ↷ honk-core.bin 已存在，跳过预放"
 else
@@ -25,7 +14,6 @@ else
     tar -xzf /tmp/honk-core.tar.gz -C /tmp/honkpkg
     core="$(find /tmp/honkpkg -type f -name honk-core -print -quit)"
     [ -n "$core" ] || die "tarball 内未找到 honk-core，release 结构可能已变"
-    mkdir -p "$HONK_DIR/files"
     cp "$core" "$HONK_OUT"
     log " ✅ 已预放 honk-core.bin ($(du -h "$HONK_OUT" | cut -f1))"
     endgroup
