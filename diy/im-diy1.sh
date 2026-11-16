@@ -44,7 +44,7 @@ echo "========================="
 # luci-app-honk
 git clone https://github.com/QiuSimons/luci-app-honk package/honk
 #merge_package main https://github.com/daeuniverse/openwrt-packages package/honk luci-app-honk luci-lib-daeuniverse honk
-merge_package v5 https://github.com/sbwml/openwrt_helloworld package/honk v2ray-geodata vmlinux-btf
+merge_package v5 https://github.com/sbwml/openwrt_helloworld package/openwrt_helloworld v2ray-geodata vmlinux-btf
 
 # luci-app-nikki
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
