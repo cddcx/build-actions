@@ -8,7 +8,9 @@ readonly PKGINFO="tmp/.packageinfo"
 # 主流程
 # ================================================================
 
+# luci-app-honk
 mkdir -p "$PKG_DIR"
+git clone https://github.com/QiuSimons/luci-app-honk  "$PKG_DIR/honk"
 
 HONK_DIR="$PKG_DIR/honk/honk"
 HONK_OUT="$HONK_DIR/files/honk-core.bin"
