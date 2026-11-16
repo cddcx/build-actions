@@ -130,7 +130,7 @@ jobs:
 
     - name: honk-core
       run: |
-        chmod +x $GITHUB_WORKSPACE/scripts/honk.sh
+        chmod +x scripts/honk.sh
         cd openwrt
         $GITHUB_WORKSPACE/scripts/honk.sh
         
