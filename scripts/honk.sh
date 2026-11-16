@@ -28,4 +28,6 @@ else
     mkdir -p "$HONK_DIR/files"
     cp "$core" "$HONK_OUT"
     log " ✅ 已预放 honk-core.bin ($(du -h "$HONK_OUT" | cut -f1))"
-    endgroup*
+    endgroup
+fi
+
