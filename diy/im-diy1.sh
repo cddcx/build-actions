@@ -49,15 +49,6 @@ merge_package v5 https://github.com/sbwml/openwrt_helloworld package/honk v2ray-
 # luci-app-nikki
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
 
-# Realtek Ethernet driver - R8168 & R8125 & R8126 & R8152 & R8101 & r8127
-rm -rf package/kernel/{r8168,r8101,r8125,r8126,r8127}
-git clone https://github.com/sbwml/package_kernel_r8168 package/kernel/r8168
-git clone https://github.com/sbwml/package_kernel_r8152 package/kernel/r8152
-git clone https://github.com/sbwml/package_kernel_r8101 package/kernel/r8101
-git clone https://github.com/sbwml/package_kernel_r8125 package/kernel/r8125
-git clone https://github.com/sbwml/package_kernel_r8126 package/kernel/r8126
-git clone https://github.com/sbwml/package_kernel_r8127 package/kernel/r8127
-
 # 取消挂载点
 sed -i '/block-mount\b/d' include/target.mk
 #sed -i '/block-mount\b/d' package/emortal/automount/Makefile
