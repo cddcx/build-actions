@@ -41,9 +41,7 @@ function merge_feed(){
 echo "开始 DIY1 配置……"
 echo "========================="
 
-# luci-app-honk
-git clone https://github.com/QiuSimons/luci-app-honk package/honk
-#merge_package main https://github.com/daeuniverse/openwrt-packages package/honk luci-app-honk luci-lib-daeuniverse honk
+# dae/honk依赖
 merge_package v5 https://github.com/sbwml/openwrt_helloworld package/openwrt_helloworld v2ray-geodata vmlinux-btf
 
 # luci-app-nikki
