@@ -35,10 +35,10 @@ else
 
     # 下载核心文件
     curl -fsSL --retry 3 -o /tmp/honk-core.tar.gz \
-      "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-aarch64-unknown-linux-musl-stock-native-api.tar.gz"
+      "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-stock-native-api.tar.gz"
     
     # 校验完整性
-    echo "be9152ee2034be834200af2abb1bbc9616210d94b948eafa8680f77d87be88a7  /tmp/honk-core.tar.gz" | sha256sum -c - || die "SHA256 校验失败"
+    echo "sha256:d0e8b42ea1e5238f1bcb9707c22d178d417e519f5921db913d3c35aa359409f4 /tmp/honk-core.tar.gz" | sha256sum -c - || die "SHA256 校验失败"
 
     # 解压并提取
     rm -rf /tmp/honkpkg && mkdir -p /tmp/honkpkg
