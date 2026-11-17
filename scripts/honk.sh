@@ -38,7 +38,7 @@ else
       "https://github.com/daeuniverse/honk/releases/download/v0.1.0-beta.6/honk-core-v0.1.0-beta.6-x86_64-unknown-linux-musl-stock-native-api.tar.gz"
     
     # 校验完整性
-    echo "sha256:d0e8b42ea1e5238f1bcb9707c22d178d417e519f5921db913d3c35aa359409f4  /tmp/honk-core.tar.gz" | sha256sum -c - 
+    echo "d0e8b42ea1e5238f1bcb9707c22d178d417e519f5921db913d3c35aa359409f4  /tmp/honk-core.tar.gz" | sha256sum -c - 
 
     # 解压并提取
     rm -rf /tmp/honkpkg && mkdir -p /tmp/honkpkg
